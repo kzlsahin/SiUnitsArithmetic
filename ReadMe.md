@@ -10,7 +10,11 @@ Metric m1 = 2.m();
 
 // output: 2 \<m\>
 
-Metric m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
+Metric m2 = 3.m(2);
+
+// output: 3 \<m2\>
+
+Metric m3 = (2.mm() * 10.cm() + 4.m(2)).dm();
 
 // output: 40,002 \<dm2\>
 
