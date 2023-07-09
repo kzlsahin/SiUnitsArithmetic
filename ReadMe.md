@@ -7,10 +7,12 @@ The project is open for contributions.
 ### Example
 
 Metric m1 = 2.m();
-// output: 2 <m>
+
+// output: 2 \<m\>
 
 Metric m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
-// output: 40,002 <dm2>
+
+// output: 40,002 \<dm2\>
 
 ## Supported Units
 
