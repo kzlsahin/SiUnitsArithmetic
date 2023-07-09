@@ -36,9 +36,9 @@ SqCentimeter[cm2]
 
 SqMilimeter[mm2]
 
-## NuGet Package
+## Project Repository
 
-https://www.nuget.org/packages/SIUnitsArithmetic
+https://github.com/kzlsahin/SiUnitsArithmetic
 
 ## Lisance
 
