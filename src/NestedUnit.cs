@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits.Length
+namespace SIUnits
 {
-    public interface ISiLength
+    internal class NestedUnit
     {
+        
     }
 }
