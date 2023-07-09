@@ -14,54 +14,54 @@ namespace SIUnits.Length
     {
         internal static string _symbol = "m";
         public override string symbol => Centimeter._symbol;
-        protected override int _exponent => -2;
+        protected override int Exponent => -2;
 
         public Centimeter() { }
         public Centimeter(double value) : base(value) { }
 
         public static implicit operator Centimeter(Meter m)
         {
-            return new Centimeter(m.m_value * 100);
+            return new Centimeter(m.Value * 100);
         }
         public static implicit operator Meter(Centimeter cm)
         {
-            return new Meter(cm.m_value / 100);
+            return new Meter(cm.Value / 100);
         }
-        public static SqCentimeter operator *(Centimeter a, Centimeter b) => new SqCentimeter(a.m_value * b.m_value);
+        public static SqCentimeter operator *(Centimeter a, Centimeter b) => new SqCentimeter(a.Value * b.Value);
         public static Double operator /(Centimeter a, Centimeter b)
         {
-            if (b.m_value == 0) throw new DivideByZeroException();
-            return a.m_value / b.m_value;
+            if (b.Value == 0) throw new DivideByZeroException();
+            return a.Value / b.Value;
         }
-        public static Centimeter operator +(Centimeter a, Centimeter b) => new Centimeter(a.m_value + b.m_value);
+        public static Centimeter operator +(Centimeter a, Centimeter b) => new Centimeter(a.Value + b.Value);
 
-        public static Centimeter operator -(Centimeter a, Centimeter b) => new Centimeter(a.m_value - b.m_value);
+        public static Centimeter operator -(Centimeter a, Centimeter b) => new Centimeter(a.Value - b.Value);
 
 
         // **** when struct is defined as record these equality checks comes by default.
-        public static bool operator ==(Centimeter a, Centimeter b) => a.m_value == b.m_value;
-        public static bool operator !=(Centimeter a, Centimeter b) => a.m_value != b.m_value;
+        public static bool operator ==(Centimeter a, Centimeter b) => a.Value == b.Value;
+        public static bool operator !=(Centimeter a, Centimeter b) => a.Value != b.Value;
         // ****
-        public static bool operator <(Centimeter a, Centimeter b) => a.m_value < b.m_value;
-        public static bool operator >(Centimeter a, Centimeter b) => a.m_value > b.m_value;
-        public static bool operator <=(Centimeter a, Centimeter b) => a.m_value <= b.m_value;
-        public static bool operator >=(Centimeter a, Centimeter b) => a.m_value >= b.m_value;
+        public static bool operator <(Centimeter a, Centimeter b) => a.Value < b.Value;
+        public static bool operator >(Centimeter a, Centimeter b) => a.Value > b.Value;
+        public static bool operator <=(Centimeter a, Centimeter b) => a.Value <= b.Value;
+        public static bool operator >=(Centimeter a, Centimeter b) => a.Value >= b.Value;
 
         public bool Equals(Centimeter m)
         {
-            return this.m_value == m.m_value;
+            return this.Value == m.Value;
         }
         public override string ToString()
         {
-            return $"{this.m_value} {_symbol}";
+            return $"{this.Value} {_symbol}";
         }
         public override int GetHashCode()
         {
-            return m_value.GetHashCode();
+            return Value.GetHashCode();
         }
         public int CompareTo(Centimeter other)
         {
-            return this.m_value.CompareTo(other.m_value);
+            return this.Value.CompareTo(other.Value);
         }
     }
 }

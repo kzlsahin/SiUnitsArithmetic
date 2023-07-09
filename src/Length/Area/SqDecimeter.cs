@@ -14,11 +14,11 @@ namespace SIUnits
         }
         public static implicit operator SqDecimeter(SqMeter m)
         {
-            return new SqDecimeter(m.a_value * Math.Pow(10, _exponent));
+            return new SqDecimeter(m.Value * Math.Pow(10, _exponent));
         }
         public static implicit operator SqMeter(SqDecimeter mm)
         {
-            return new SqMeter(mm.a_value / Math.Pow(10, _exponent));
+            return new SqMeter(mm.Value / Math.Pow(10, _exponent));
         }
     }
 }

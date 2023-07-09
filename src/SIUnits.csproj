@@ -12,10 +12,4 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-
 </Project>

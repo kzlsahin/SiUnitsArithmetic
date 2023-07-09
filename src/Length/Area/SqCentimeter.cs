@@ -14,11 +14,11 @@ namespace SIUnits.Length
         }
         public static implicit operator SqCentimeter(SqMeter m)
         {
-            return new SqCentimeter(m.a_value * Math.Pow(10, _exponent));
+            return new SqCentimeter(m.Value * Math.Pow(10, _exponent));
         }
         public static implicit operator SqMeter(SqCentimeter mm)
         {
-            return new SqMeter(mm.a_value / Math.Pow(10, _exponent));
+            return new SqMeter(mm.Value / Math.Pow(10, _exponent));
         }
     }
 }

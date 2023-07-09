@@ -12,54 +12,54 @@ namespace SIUnits.Length
     {
         internal static string _symbol = "m";
         public override string symbol => Decimeter._symbol;
-        protected override int _exponent => -1;
+        protected override int Exponent => -1;
 
         public Decimeter() { }
         public Decimeter(double value) : base(value) { }
 
         public static implicit operator Decimeter(Meter m)
         {
-            return new Decimeter(m.m_value * 10);
+            return new Decimeter(m.Value * 10);
         }
         public static implicit operator Meter(Decimeter dm)
         {
-            return new Meter(dm.m_value / 10);
+            return new Meter(dm.Value / 10);
         }
-        public static SqDecimeter operator *(Decimeter a, Decimeter b) => new SqDecimeter(a.m_value * b.m_value);
+        public static SqDecimeter operator *(Decimeter a, Decimeter b) => new SqDecimeter(a.Value * b.Value);
         public static Double operator /(Decimeter a, Decimeter b)
         {
-            if (b.m_value == 0) throw new DivideByZeroException();
-            return a.m_value / b.m_value;
+            if (b.Value == 0) throw new DivideByZeroException();
+            return a.Value / b.Value;
         }
-        public static Decimeter operator +(Decimeter a, Decimeter b) => new Decimeter(a.m_value + b.m_value);
+        public static Decimeter operator +(Decimeter a, Decimeter b) => new Decimeter(a.Value + b.Value);
 
-        public static Decimeter operator -(Decimeter a, Decimeter b) => new Decimeter(a.m_value - b.m_value);
+        public static Decimeter operator -(Decimeter a, Decimeter b) => new Decimeter(a.Value - b.Value);
 
 
         // **** when struct is defined as record these equality checks comes by default.
-        public static bool operator ==(Decimeter a, Decimeter b) => a.m_value == b.m_value;
-        public static bool operator !=(Decimeter a, Decimeter b) => a.m_value != b.m_value;
+        public static bool operator ==(Decimeter a, Decimeter b) => a.Value == b.Value;
+        public static bool operator !=(Decimeter a, Decimeter b) => a.Value != b.Value;
         // ****
-        public static bool operator <(Decimeter a, Decimeter b) => a.m_value < b.m_value;
-        public static bool operator >(Decimeter a, Decimeter b) => a.m_value > b.m_value;
-        public static bool operator <=(Decimeter a, Decimeter b) => a.m_value <= b.m_value;
-        public static bool operator >=(Decimeter a, Decimeter b) => a.m_value >= b.m_value;
+        public static bool operator <(Decimeter a, Decimeter b) => a.Value < b.Value;
+        public static bool operator >(Decimeter a, Decimeter b) => a.Value > b.Value;
+        public static bool operator <=(Decimeter a, Decimeter b) => a.Value <= b.Value;
+        public static bool operator >=(Decimeter a, Decimeter b) => a.Value >= b.Value;
 
         public bool Equals(Decimeter m)
         {
-            return this.m_value == m.m_value;
+            return this.Value == m.Value;
         }
         public override string ToString()
         {
-            return $"{this.m_value} {_symbol}";
+            return $"{this.Value} {_symbol}";
         }
         public override int GetHashCode()
         {
-            return m_value.GetHashCode();
+            return Value.GetHashCode();
         }
         public int CompareTo(Decimeter other)
         {
-            return this.m_value.CompareTo(other.m_value);
+            return this.Value.CompareTo(other.Value);
         }
     }
 }

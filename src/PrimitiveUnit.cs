@@ -5,40 +5,39 @@ using System.Text;
 
 namespace SIUnits
 {
-    public abstract class PrimitiveUnit<T>
+    public abstract class PrimitiveUnit<T> : SiUnit
         where T : PrimitiveUnit<T>
     {
-        public abstract string symbol { get; }
-        protected abstract int _exponent { get; }
-
-        public double m_value { get; internal set; }
+        private static int _dimension = 1;        
+        internal override int Dimension { get { return _dimension; } }
+        public double Value { get; internal set; }
         public const double MinValue = Double.MinValue;
         public const double MaxValue = Double.MaxValue;
         public PrimitiveUnit()
         {
-            m_value = 0;
+            Value = 0;
         }
         public PrimitiveUnit(double value)
         {
-            m_value = value;
+            Value = value;
         }
 
         public static implicit operator PrimitiveUnit<T>(double value)
         {
             T newT =  (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = value;
+            newT.Value = value;
             return newT;
         }
         public static implicit operator PrimitiveUnit<T>(float value)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = value;
+            newT.Value = value;
             return newT;
         }
         public static implicit operator PrimitiveUnit<T>(int value)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = value;
+            newT.Value = value;
             return newT;
         }
 
@@ -48,51 +47,51 @@ namespace SIUnits
         public static PrimitiveUnit<T> operator +(double d, PrimitiveUnit<T> a)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = d + a.m_value;
+            newT.Value = d + a.Value;
             return newT;
         }
         public static PrimitiveUnit<T> operator +(PrimitiveUnit<T> a, double d)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = d + a.m_value;
+            newT.Value = d + a.Value;
             return newT;
         }
 
         public static PrimitiveUnit<T> operator -(double d, PrimitiveUnit<T> a)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = d - a.m_value;
+            newT.Value = d - a.Value;
             return newT;
         }
         public static PrimitiveUnit<T> operator -(PrimitiveUnit<T> a, double d)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = d - a.m_value;
+            newT.Value = d - a.Value;
             return newT;
         }
         public static T operator *(PrimitiveUnit<T> a, double b)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = a.m_value * b;
+            newT.Value = a.Value * b;
             return newT;
         }
         public static T operator *(double a, PrimitiveUnit<T> b)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = a * b.m_value;
+            newT.Value = a * b.Value;
             return newT;
         }
 
         public static PrimitiveUnit<T> operator /(double d, PrimitiveUnit<T> a)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = d / a.m_value;
+            newT.Value = d / a.Value;
             return newT;
         }
         public static PrimitiveUnit<T> operator /(PrimitiveUnit<T> a, double d)
         {
             T newT = (T)Activator.CreateInstance(typeof(T));
-            newT.m_value = a.m_value / d;
+            newT.Value = a.Value / d;
             return newT;
         }
     }

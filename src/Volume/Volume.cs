@@ -1,18 +1,15 @@
-﻿using SIUnits.Length;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime;
-using System.Reflection;
 
 namespace SIUnits.Length
 {
-    public class Area<T>
+    public class Volume<T>
         where T : PrimitiveUnit<T>, new()
     {
         public double Value { get; internal set; }
         internal Type _unit;
-        protected int _dimension = 2;
+        protected int _dimension = 3;
         internal int Dimension { get { return _dimension; } }
         public string symbol
         {
@@ -25,16 +22,16 @@ namespace SIUnits.Length
                 {
                     if (attr is SiSymbolAttribute a)
                     {
-                        return $"{a.Symbol}\xB2";
+                        return $"{a.Symbol}\xB3";
                     }
                 }
                 return string.Empty;
             }
         }
-        public Area() : this(0)
+        public Volume() : this(0)
         {
         }
-        public Area(double a_value)
+        public Volume(double a_value)
         {
             this.Value = a_value;
             _unit = typeof(T);
@@ -44,28 +41,11 @@ namespace SIUnits.Length
             return $"{this.Value} {symbol}";
         }
 
-        public static T operator /(Area<T> a, T b)
+        public static Area<T> operator /(Volume<T> a, T b)
         {
             if (b.Value == 0) throw new DivideByZeroException();
             double value = a.Value / b.Value;
-            var res = (T)Activator.CreateInstance(a._unit);
-            res.Value = value;
-            return res;
-        }
-
-        public static Volume<T> operator *(Area<T> a, T b)
-        {
-            if (b.Value == 0) throw new DivideByZeroException();
-            double value = a.Value * b.Value;
-            var res = (Volume<T>)Activator.CreateInstance(typeof(Volume<T>));
-            res.Value = value;
-            return res;
-        }
-        public static Volume<T> operator *(T b, Area<T> a)
-        {
-            if (b.Value == 0) throw new DivideByZeroException();
-            double value = a.Value * b.Value;
-            var res = (Volume<T>)Activator.CreateInstance(typeof(Volume<T>));
+            var res = (Area<T>)Activator.CreateInstance(typeof(Area<T>));
             res.Value = value;
             return res;
         }
