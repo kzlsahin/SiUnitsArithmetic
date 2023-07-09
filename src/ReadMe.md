@@ -6,15 +6,11 @@ The project is open for contributions.
 
 ### Example
 
-var m = (Meter)2;
+Metric m1 = 2.m();
+// output: 2 <m>
 
-var n = (Meter)3;
-
-var result = m * n
-
-Console.WriteLine(result)
-
-// output: 6 m²
+Metric m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
+// output: 40,002 <dm2>
 
 ## Supported Units
 

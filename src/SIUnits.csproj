@@ -12,4 +12,9 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Length\Area\" />
+    <Folder Include="Volume\" />
+  </ItemGroup>
+
 </Project>
