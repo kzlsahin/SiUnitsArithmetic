@@ -8,7 +8,7 @@ using System.Reflection;
 namespace SIUnits.Length
 {
     public class Area<T>
-        where T : ISiLength
+        where T : PrimitiveUnit<T>, new()
     {
         public double a_value { get; internal set; }
         internal Type _unit;
