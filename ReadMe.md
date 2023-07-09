@@ -6,33 +6,33 @@ The project is open for contributions.
 
 ### Example
 
-Meter m = 2;
+Metric m1 = 2.m();
+// output: 2 <m>
 
-Meter n = 3;
-
-var result = m * n
-
-Console.WriteLine(result)
-
-// output: 6 m²
+Metric m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
+// output: 40,002 <dm2>
 
 ## Supported Units
 
 Meter [m]
 
-Milimeter [mm] 
+Decimeter [dm] 
 
 Centimeter [cm]
 
+Milimeter [mm] 
+
 SqMeter [m2] 
+
+SqDecimeter[cm2] 
 
 SqCentimeter[cm2] 
 
 SqMilimeter[mm2]
 
-## NuGet package
+## Project Repository
 
-https://www.nuget.org/packages/SIUnitsArithmetic/
+https://github.com/kzlsahin/SiUnitsArithmetic
 
 ## Lisance
 

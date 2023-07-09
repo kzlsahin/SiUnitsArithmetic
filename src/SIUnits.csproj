@@ -9,7 +9,7 @@
     <Product>$(AssemblyName)Arithmetic</Product>
     <Description>SI units with arithmetic. for example: 1[m] * 2[m] = 2[m2]; nd 4[m2] / 4[m] = 1[m].  Only length and are types are included for now.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.0.1</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
