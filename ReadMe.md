@@ -20,21 +20,47 @@ Metric m3 = (2.mm() * 10.cm() + 4.m(2)).dm();
 
 ## Supported Units
 
-Meter [m]
+yoktometre, [ym]
 
-Decimeter [dm] 
+zeptometre, [zm]
 
-Centimeter [cm]
+attometre, [am]
 
-Milimeter [mm] 
+femtometre, [fm]
 
-SqMeter [m2] 
+picometre, [pm]
 
-SqDecimeter[cm2] 
+nanometre, [nm]
 
-SqCentimeter[cm2] 
+micrometre, [µm]
 
-SqMilimeter[mm2]
+milimetre, [mm]
+
+centimetre, [cm]
+
+decimetre, [dm]
+
+metre, [m]
+
+decametre, [dam]
+
+hectometre, [hm]
+
+kilometre, [km]
+
+megametre, [Mm]
+
+gigametre, [Gm]
+
+terametre, [Tm]
+
+petametre, [Pm]
+
+exametre, [Em]
+
+zettametre, [Zm]
+
+yottametre, [Ym]
 
 ## NuGet Package
 
