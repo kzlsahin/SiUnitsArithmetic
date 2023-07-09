@@ -62,13 +62,15 @@ namespace SIUnits.Length
             };
         internal static double GetMetre(this Metric metric)
         {
+            if(metric.Unit == SiMetricUnits.metre) return metric.Value;
             int scaler = _scalers[metric.Unit];
-            return metric.Value * Math.Pow(10, scaler);
+            return metric.Value * Math.Pow(10, scaler * metric.Degree);
         }
-        internal static double GetUnitValue(this double value, SiMetricUnits unit)
+        internal static double GetUnitValue(this double value, SiMetricUnits unit, int degree)
         {
+            if (unit == SiMetricUnits.metre) return value;
             int scaler = -1 * _scalers[unit];
-            return value * Math.Pow(10, scaler);
+            return value * Math.Pow(10, scaler*degree);
         }
     }
 }
