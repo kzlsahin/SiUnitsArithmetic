@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>$(AssemblyName)Arithmetic</PackageId>
+    <Title>SI Units Arithmetic</Title>
+    <Authors>kzlsahin</Authors>
+    <Product>$(AssemblyName)Arithmetic</Product>
+    <Description>SI units with arithmetic. for example: 1[m] * 2[m] = 2[m2]; nd 4[m2] / 4[m] = 1[m].  Only length and are types are included for now.</Description>
+    <Copyright>MIT License</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
+</Project>
