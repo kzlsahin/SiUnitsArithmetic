@@ -4,6 +4,14 @@ There are basic types like milimeter or meter and combined types like square met
 
 The project is open for contributions.
 
+### Example
+
+Meter m = 2;
+Meter n = 3;
+var result = m * n
+Console.WriteLine(result)
+// output: 6 m²
+
 ## Supported Units
 
 Meter [m]
