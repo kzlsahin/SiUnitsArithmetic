@@ -1,4 +1,10 @@
-﻿# **SI Units library with arithmetic capabilities**
+﻿<style>
+.cell_unit_list {
+	vertical-align: top;
+}
+</style>
+
+# **SI Units library with arithmetic capabilities**
 
 This package defines metric system units and provides related arithmetic operations.
 
@@ -109,7 +115,7 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 <tr>
 
-<td>
+<td class="cell_unit_list">
 
 - yoktometre, [ym]
 
@@ -155,7 +161,7 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 </td>
 
-<td>
+<td class="cell_unit_list">
 
 - picosecond
 
