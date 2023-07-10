@@ -31,6 +31,30 @@ namespace SIUnits.Length
         {
             return new Metric(a, degree, unit);
         }
+        public static Metric m(this double a, int degree = 1)
+        {
+            return new Metric(a, degree, SiMetricUnits.metre);
+        }
+        public static Metric mm(this double a, int degree = 1)
+        {
+            return new Metric(a, degree, SiMetricUnits.milimetre);
+        }
+        public static Metric cm(this double a, int degree = 1)
+        {
+            return new Metric(a, degree, SiMetricUnits.centimetre);
+        }
+        public static Metric dm(this double a, int degree = 1)
+        {
+            return new Metric(a, degree, SiMetricUnits.decimetre);
+        }
+        public static Metric km(this double a, int degree = 1)
+        {
+            return new Metric(a, degree, SiMetricUnits.kilometre);
+        }
+        public static Metric metric(this double a, SiMetricUnits unit, int degree)
+        {
+            return new Metric(a, degree, unit);
+        }
         public static Metric m(this Metric a)
         {
             double value = a.GetMetre().GetUnitValue(SiMetricUnits.metre, a.Degree);

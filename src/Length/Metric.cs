@@ -7,7 +7,7 @@ namespace SIUnits.Length
 {
     public struct Metric
     {
-        internal Metric(double value, int degree, SiMetricUnits unit)
+        public Metric(double value, int degree, SiMetricUnits unit)
         {
             Value = value;
             Degree = degree;
