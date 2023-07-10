@@ -7,9 +7,10 @@
     <Title>SI Units Arithmetic</Title>
     <Authors>kzlsahin</Authors>
     <Product>$(AssemblyName)Arithmetic</Product>
-    <Description>SI units with arithmetic. for example: 1[m] * 2[m] = 2[m2]; nd 4[m2] / 4[m] = 1[m].  Only length and are types are included for now.</Description>
+    <Description>This package defines metric system units and provides related arithmetic operations.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
+    <PackageProjectUrl>https://github.com/kzlsahin/SiUnitsArithmetic</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
