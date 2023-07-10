@@ -16,6 +16,10 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 ### **Decleration via extension methods**
 
+<table>
+  <tr>
+    <td>
+      
 - [double].km(degree)
 
 - [double].m(degree)
@@ -25,7 +29,21 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 - [double].cm(degree)
 
 - [double].mm(degree)
+</td>
+<td>
+  
+- [int].km(degree)
 
+- [int].m(degree)
+
+- [int].dm(degree)
+
+- [int].cm(degree)
+
+- [int].mm(degree)
+</td>
+</tr>
+</table>
 ### Operations
 
 - '+' ( Metric(n) + Metric(n) ) => Metric(n); where n is degree
