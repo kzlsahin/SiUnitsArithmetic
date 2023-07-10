@@ -4,9 +4,68 @@ There are basic types like milimeter or meter and combined types like square met
 
 The project is open for contributions.
 
+### Definitions
+
+Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
+
+**double** *value*: value of the metric.
+
+**int** *degree*: degree is the dimension of the metric (m2, m3, m4)
+
+**SiMetricUnits** *unit*: unit of the metric (micrometre, milimetre, metre)
+
+### **Decleration via extension methods**
+
+- [double].km(degree)
+
+- [double].m(degree)
+
+- [double].dm(degree)
+
+- [double].cm(degree)
+
+- [double].mm(degree)
+
+### Operations
+
+- '+' ( Metric(n) + Metric(n) ) => Metric(n); where n is degree
+
+- '-' ( Metric(n) - Metric(n) ) => Metric(n); where n is degree
+
+- '*'  ( Metric(n) * Metric(m) ) => Metric(n); where n and m are degrees
+
+- '/'  ( Metric(n) / Metric(m) ) => Metric(n-m); where n and m are degrees
+
+- '*'  ( n *  Metric(m) ) => Metric(m);  where n is double 
+
+- '/'  ( n / Metric(m) ) => Metric(-m); where n is double**
+
+- '*'  ( Metric(m) * n) => Metric(m);  where n is double
+
+- '/'  ( Metric(m)  / n) => Metric(m); where n is double
+
+**Note: zero degree metrics [Metric(0)] are equal to scalers.
+
+### Conversions
+
+- [Metric].km(degree)
+
+- [Metric].m(degree)
+
+- [Metric].dm(degree)
+
+- [Metric].cm(degree)
+
+- [Metric].mm(degree)
+
+- [Metric].Metric(SiMetricUnits unit)
+
+  
 ### Examples
 
-Metric m1 = 2.m();
+![image](https://github.com/kzlsahin/SiUnitsArithmetic/assets/46689277/d407e2b5-b732-4f5c-b835-8f70b8fe418e)
+
+- Metric m1 = 2.m();
 
 2 \<m>
 
@@ -18,7 +77,7 @@ Metric m1 = 2.m();
 
 0,002 \<km>
 
-Metric m2 = 3.m(2);
+- Metric m2 = 3.m(2);
 3 \<m2>
 
 300 \<dm2>
@@ -29,62 +88,62 @@ Metric m2 = 3.m(2);
 
 3E-06 \<km2>
 
-Metric m3 = (2.mm() * 10.cm() + 4.m(2)).dm();
+- Metric m3 = (2.mm() * 10.cm() + 4.m(2)).dm();
 
 // output: 40,002 \<dm2\>
 
-Metric m13 = 2 * m12;
+- Metric m13 = 2 * m12;
 // output: 80,004 \<dm2\>
 
-Metric m14 = (m12 / 2).m();
+- Metric m14 = (m12 / 2).m();
 // output: 2000,1000000000001 \<m2\>
 
-Metric m15 = (2 / m12).m();
+- Metric m15 = (2 / m12).m();
 // output: ,999750012499375 \<1/m2\>
 
 ## Supported Units
 
-yoktometre, [ym]
+- yoktometre, [ym]
 
-zeptometre, [zm]
+- zeptometre, [zm]
 
-attometre, [am]
+- attometre, [am]
 
-femtometre, [fm]
+- femtometre, [fm]
 
-picometre, [pm]
+- picometre, [pm]
 
-nanometre, [nm]
+- nanometre, [nm]
 
-micrometre, [µm]
+- micrometre, [Âµm]
 
-milimetre, [mm]
+- milimetre, [mm]
 
-centimetre, [cm]
+- centimetre, [cm]
 
-decimetre, [dm]
+- decimetre, [dm]
 
-metre, [m]
+- metre, [m]
 
-decametre, [dam]
+- decametre, [dam]
 
-hectometre, [hm]
+- hectometre, [hm]
 
-kilometre, [km]
+- kilometre, [km]
 
-megametre, [Mm]
+- megametre, [Mm]
 
-gigametre, [Gm]
+- gigametre, [Gm]
 
-terametre, [Tm]
+- terametre, [Tm]
 
-petametre, [Pm]
+- petametre, [Pm]
 
-exametre, [Em]
+- exametre, [Em]
 
-zettametre, [Zm]
+- zettametre, [Zm]
 
-yottametre, [Ym]
+- yottametre, [Ym]
 
 ## NuGet Package
 
