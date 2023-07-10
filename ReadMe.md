@@ -1,8 +1,7 @@
 # SI Units library with arithmetic capabilities.
 
-There are basic types like milimeter or meter and combined types like square meter or square milimeter.
+This package defines metric system units and provides related arithmetic operations.
 
-The project is open for contributions.
 
 ### Definitions
 
