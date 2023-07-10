@@ -20,8 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Volume\**" />
+    <EmbeddedResource Remove="Volume\**" />
+    <None Remove="Volume\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Length\Area\" />
-    <Folder Include="Volume\" />
   </ItemGroup>
 
   <ItemGroup>
