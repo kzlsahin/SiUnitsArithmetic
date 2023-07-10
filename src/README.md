@@ -98,6 +98,19 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 ## **Supported Units**
 
+<table>
+<tr>
+
+<th>Units of Length</th>
+
+<th>Units of Time</th>
+
+</tr>
+
+<tr>
+
+<td>
+
 - yoktometre, [ym]
 
 - zeptometre, [zm]
@@ -140,6 +153,29 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 - yottametre, [Ym]
 
+</td>
+
+<td>
+
+- picosecond
+
+- nanosecond
+
+- microsecond
+
+- milisecond
+
+- second
+
+- minute
+
+- hour
+
+- day
+
+</td>
+
+</tr>
 
 ## **Project Repository**
 
