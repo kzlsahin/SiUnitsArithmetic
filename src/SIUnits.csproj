@@ -9,7 +9,7 @@
     <Product>$(AssemblyName)Arithmetic</Product>
     <Description>This package defines metric system units and provides related arithmetic operations.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.2.0.0</Version>
+    <Version>1.2.0.1</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/kzlsahin/SiUnitsArithmetic</RepositoryUrl>
@@ -27,8 +27,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Length\Area\**" />
     <Compile Remove="Volume\**" />
+    <EmbeddedResource Remove="Length\Area\**" />
     <EmbeddedResource Remove="Volume\**" />
+    <None Remove="Length\Area\**" />
     <None Remove="Volume\**" />
   </ItemGroup>
 
