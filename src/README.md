@@ -1,6 +1,37 @@
 ﻿# **SI Units library with arithmetic capabilities**
 
-This package defines metric system units and provides related arithmetic operations.
+This package defines metric system units and provides related arithmetic operations including unit to unit multiplication, resulting in higher or lower order units (m² or 1/m)..
+
+The need for such a library arises from the development of engineering programs that have methods requiring specific numbers with specified units.
+ By using this library, the unit of the input will no longer be important. 
+ The method will only require metric types, and will do whatever is necessary to handle the mathematics behind them, 
+ including unit to unit multiplication, resulting in higher or lower order units (m² or 1/m).
+
+Consider the Square class below:
+
+```
+Square sq = new Square(2.5.km(), 4.3.km(), 10.005.m());
+Console.WriteLine(sq.Volume());
+
+class Square
+{
+    Metric _length;
+    Metric _width;
+    Metric -height;
+
+    public Square(Metric l, Metric w, Metric h)
+    {
+        _length = l; _width = w; _height = h;
+    }
+    public Metric Volume()
+    {
+        return _length * _width * _height;
+    }
+}
+```
+
+The units of the inputs of the constructor won't be a problem anymore.
+The same class can handle the values with various units (mm, m, cm) and return the same result with correct unit.
 
 ### **Definitions**
 
