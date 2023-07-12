@@ -132,20 +132,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 ## **Supported Units**
 
-<table>
-<tr>
-
-<th>Units of Length</th>
-
-<th>Units of Time</th>
-
-<th>Units of Mass</th>
-
-</tr>
-
-<tr>
-
-<td class="cell_unit_list">
+### Units of Length
 
 - yoktometre, [ym]
 
@@ -189,9 +176,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 - yottametre, [Ym]
 
-</td>
-
-<td class="cell_unit_list">
+### Units of Time
 
 - picosecond
 
@@ -209,9 +194,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 - day
 
-</td>
-
-<td class="cell_unit_list">
+### Units of Mass
 
 - picogram, [pg]
 
@@ -239,11 +222,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 - megatonne, [Mt]
 
-</td>
 
-</tr>
-
-</table>
 
 ## **Project Repository**
 
