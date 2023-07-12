@@ -10,7 +10,7 @@ namespace SIUnits.Length
         {
             return _scalers[unit];
         }
-        internal static string GetSymbol(this Metric metric)
+        internal static string GetSymbol(this MetricLength metric)
         {
             return _symbols[metric.Unit];
         }
@@ -60,7 +60,7 @@ namespace SIUnits.Length
             {SiMetricUnits.zettametre,"Zm"},
             {SiMetricUnits.yottametre,"Ym"}
             };
-        internal static double GetMetre(this Metric metric)
+        internal static double GetMetre(this MetricLength metric)
         {
             if(metric.Unit == SiMetricUnits.metre) return metric.Value;
             int scaler = _scalers[metric.Unit];
@@ -72,5 +72,18 @@ namespace SIUnits.Length
             int scaler = -1 * _scalers[unit];
             return value * Math.Pow(10, scaler*degree);
         }
+
+#if BENCHMARK
+        internal static double GetMetre(this MetricLengthClass metric)
+        {
+            if (metric.Unit == SiMetricUnits.metre) return metric.Value;
+            int scaler = _scalers[metric.Unit];
+            return metric.Value * Math.Pow(10, scaler * metric.Degree);
+        }
+        internal static string GetSymbol(this MetricLengthClass metric)
+        {
+            return _symbols[metric.Unit];
+        }
+#endif
     }
 }

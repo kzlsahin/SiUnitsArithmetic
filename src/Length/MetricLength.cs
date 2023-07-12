@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SIUnits.Length
 {
-    public struct Metric
+    public struct MetricLength
     {
-        public Metric(double value, int degree, SiMetricUnits unit)
+        public MetricLength(double value, int degree, SiMetricUnits unit)
         {
             Value = value;
             Degree = degree;
@@ -15,48 +15,49 @@ namespace SIUnits.Length
         }
         public double Value { get;}
         public int Degree{ get; }
+        public string Symbol { get { return this.GetSymbol(); } }
         public SiMetricUnits Unit { get;}
 
-        public static Metric operator *(Metric a, Metric b)
+        public static MetricLength operator *(MetricLength a, MetricLength b)
         {
             SiMetricUnits unit = a.Unit;
             int deg = a.Degree + b.Degree;
             double value = (a.GetMetre() * b.GetMetre()).GetUnitValue(unit, deg);            
-            return new Metric(value, deg, unit);
+            return new MetricLength(value, deg, unit);
         }
-        public static Metric operator *(Metric a, double b)
+        public static MetricLength operator *(MetricLength a, double b)
         {
             SiMetricUnits unit = a.Unit;
             double value = a.Value * b;
-            return new Metric(value, a.Degree, unit);
+            return new MetricLength(value, a.Degree, unit);
         }
-        public static Metric operator *(double b, Metric a)
+        public static MetricLength operator *(double b, MetricLength a)
         {
             SiMetricUnits unit = a.Unit;
             double value = a.Value * b;
-            return new Metric(value, a.Degree, unit);
+            return new MetricLength(value, a.Degree, unit);
         }
-        public static Metric operator /(Metric a, Metric b)
+        public static MetricLength operator /(MetricLength a, MetricLength b)
         {
             SiMetricUnits unit = a.Unit;
             int deg = a.Degree - b.Degree;
             double value = (a.GetMetre() / b.GetMetre()).GetUnitValue(unit, deg);
-            return new Metric(value, deg, unit);
+            return new MetricLength(value, deg, unit);
         }
-        public static Metric operator /(Metric a, double b)
+        public static MetricLength operator /(MetricLength a, double b)
         {
             SiMetricUnits unit = a.Unit;
             double value = a.Value / b;
-            return new Metric(value, a.Degree, unit);
+            return new MetricLength(value, a.Degree, unit);
         }
-        public static Metric operator /(double b, Metric a)
+        public static MetricLength operator /(double b, MetricLength a)
         {
             SiMetricUnits unit = a.Unit;
             double value = b / a.Value;
             int degree = -1 * a.Degree;
-            return new Metric(value, degree, unit);
+            return new MetricLength(value, degree, unit);
         }
-        public static Metric operator +(Metric a, Metric b)
+        public static MetricLength operator +(MetricLength a, MetricLength b)
         {
             if(a.Degree != b.Degree) 
             {
@@ -64,9 +65,9 @@ namespace SIUnits.Length
             }
             SiMetricUnits unit = a.Unit;
             double value = (a.GetMetre() + b.GetMetre()).GetUnitValue(unit, a.Degree);
-            return new Metric(value, a.Degree, unit);
+            return new MetricLength(value, a.Degree, unit);
         }
-        public static Metric operator -(Metric a, Metric b)
+        public static MetricLength operator -(MetricLength a, MetricLength b)
         {
             if (a.Degree != b.Degree)
             {
@@ -74,7 +75,7 @@ namespace SIUnits.Length
             }
             SiMetricUnits unit = a.Unit;
             double value = (a.GetMetre() - b.GetMetre()).GetUnitValue(unit, a.Degree);
-            return new Metric(value, a.Degree, unit);
+            return new MetricLength(value, a.Degree, unit);
         }
 
         public override string ToString()
@@ -85,15 +86,15 @@ namespace SIUnits.Length
             }
             else if(Degree == 1)
             {
-                return $"{Value} <{this.GetSymbol()}>";
+                return $"{Value} <{Symbol}>";
             }
             else if (Degree >= 1)
             {
-                return $"{Value} <{this.GetSymbol()}{Degree}>";
+                return $"{Value} <{Symbol}{Degree}>";
             }
             else
             {
-                return $"{Value} <1/{this.GetSymbol()}{-1*Degree}>";
+                return $"{Value} <1/{Symbol}{-1*Degree}>";
             }
         }
     }
