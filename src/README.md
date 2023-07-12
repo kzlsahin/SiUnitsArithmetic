@@ -1,10 +1,4 @@
-﻿<style>
-.cell_unit_list {
-	vertical-align: top;
-}
-</style>
-
-# **SI Units library with arithmetic capabilities**
+﻿# **SI Units library with arithmetic capabilities**
 
 This package defines metric system units and provides related arithmetic operations.
 
@@ -42,13 +36,13 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 - '*'  ( n *  Metric(m) ) => Metric(m);  where n is double 
 
-- '/'  ( n / Metric(m) ) => Metric(-m); where n is double**
+- '/'  ( n / Metric(m) ) => Metric(-m); where n is double
 
 - '*'  ( Metric(m) * n) => Metric(m);  where n is double
 
 - '/'  ( Metric(m)  / n) => Metric(m); where n is double
 
-**Note: zero degree metrics [Metric(0)] are equal to scalers.
+Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 ### **Conversions**
 
@@ -66,6 +60,7 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 
 ### **Examples**
 
+```
 - Metric m1 = 2.m();
 
 // 2 \<m>
@@ -101,6 +96,8 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 - Metric m14 = (m12 / 2).m();
 
 // 2,0001 <m2>
+
+```
 
 ## **Supported Units**
 
@@ -216,6 +213,7 @@ Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
 </tr>
 
 </table>
+
 ## **Project Repository**
 
 https://github.com/kzlsahin/SiUnitsArithmetic
