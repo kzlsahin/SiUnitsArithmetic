@@ -19,7 +19,7 @@
     <PackageTags>SI Units</PackageTags>
     <PackageReleaseNotes>- Time units are added,
 - Mass units are added</PackageReleaseNotes>
-  <Configurations>Debug;Release;Benchmark</Configurations>
+  <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Benchmark|AnyCPU'">

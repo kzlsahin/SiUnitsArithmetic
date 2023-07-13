@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-#if BENCHMARK
+
 namespace SIUnits.Length
 {
     public static class MetricExtensionsClass
@@ -87,4 +87,3 @@ namespace SIUnits.Length
         }
     }
 }
-#endif

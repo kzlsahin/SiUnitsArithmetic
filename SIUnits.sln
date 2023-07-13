@@ -9,19 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BencmarkConsole", "Bencmark
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Benchmark|Any CPU = Benchmark|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Benchmark|Any CPU.ActiveCfg = Benchmark|Any CPU
-		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Benchmark|Any CPU.Build.0 = Benchmark|Any CPU
 		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69AC9C3F-3AA3-489F-BFE7-A1811454F3CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Benchmark|Any CPU.ActiveCfg = Benchmark|Any CPU
-		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Benchmark|Any CPU.Build.0 = Benchmark|Any CPU
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU

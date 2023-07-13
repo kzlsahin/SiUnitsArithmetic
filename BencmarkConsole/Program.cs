@@ -5,7 +5,7 @@ using BenchmarkDotNet.Running;
 using SIUnits;
 using SIUnits.Length;
 
-Console.WriteLine("Hello, World!");
+
 var summary = BenchmarkRunner.Run<SIUnitsBenchmark>();
 Console.WriteLine(summary);
 Console.Read();
@@ -19,18 +19,28 @@ public class SIUnitsBenchmark
     [Benchmark(Baseline = true)]
     public void DoubleType()
     {
-        double res = d * 2;
+        for(int i = 0;i < 10000000; i++)
+        {
+            d = d + 1;
+        } 
     }
 
     [Benchmark]
     public void MetricLength()
     {
-        MetricLength res = m * 2;
+        for (int i = 0; i < 10000000; i++)
+        {
+            m = m + 1.m();
+
+        }
     }
     [Benchmark]
     public void MetricLengthClass()
     {
-        MetricLengthClass res = mc * 2;
+        for (int i = 0; i < 10000000; i++)
+        {
+           mc = mc + 1.mc();
+        }
     }
 
 }

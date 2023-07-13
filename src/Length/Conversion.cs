@@ -73,7 +73,7 @@ namespace SIUnits.Length
             return value * Math.Pow(10, scaler*degree);
         }
 
-#if BENCHMARK
+
         internal static double GetMetre(this MetricLengthClass metric)
         {
             if (metric.Unit == SiMetricUnits.metre) return metric.Value;
@@ -84,6 +84,5 @@ namespace SIUnits.Length
         {
             return _symbols[metric.Unit];
         }
-#endif
     }
 }
