@@ -72,17 +72,5 @@ namespace SIUnits.Length
             int scaler = -1 * _scalers[unit];
             return value * Math.Pow(10, scaler*degree);
         }
-
-
-        internal static double GetMetre(this MetricLengthClass metric)
-        {
-            if (metric.Unit == SiMetricUnits.metre) return metric.Value;
-            int scaler = _scalers[metric.Unit];
-            return metric.Value * Math.Pow(10, scaler * metric.Degree);
-        }
-        internal static string GetSymbol(this MetricLengthClass metric)
-        {
-            return _symbols[metric.Unit];
-        }
     }
 }
