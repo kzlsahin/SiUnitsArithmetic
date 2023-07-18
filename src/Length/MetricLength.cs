@@ -18,48 +18,28 @@ namespace SIUnits.Length
         public string Symbol { get { return this.GetSymbol(); } }
         public SiMetricUnits Unit { get;}
 
-        public static MetricLength operator *(MetricLength a, MetricLength b)
+
+        #region operators
+        public static MetricLength operator *(MetricLength a, MetricLength b) => MetricLength.Multiply(a, b);
+        public static MetricLength operator *(MetricLength a, double b) => MetricLength.Multiply(b, a);
+        public static MetricLength operator *(double a, MetricLength b)=> MetricLength.Multiply(a, b);
+        public static MetricLength operator /(MetricLength a, MetricLength b) => MetricLength.Divide(a, b);
+        public static MetricLength operator /(MetricLength a, double b) => MetricLength.Divide(a, b);
+        public static MetricLength operator /(double a, MetricLength b) => MetricLength.Divide(a, b);
+        public static MetricLength operator +(MetricLength a, MetricLength b) => MetricLength.Sum(a, b);
+        public static MetricLength operator -(MetricLength a, MetricLength b) => MetricLength.Subtract(a, b);
+        #endregion
+
+        /// <summary>
+        /// Addition of two MetricLength units.Caution! error-prone method. Summation of two units with different degrees throws exception
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>a new MetricLength unit.</returns>
+        /// <exception cref="ArgumentException"> Summation of two units with different degrees throws exception</exception>
+        public static MetricLength Sum(MetricLength a, MetricLength b)
         {
-            SiMetricUnits unit = a.Unit;
-            int deg = a.Degree + b.Degree;
-            double value = (a.GetMetre() * b.GetMetre()).GetUnitValue(unit, deg);            
-            return new MetricLength(value, deg, unit);
-        }
-        public static MetricLength operator *(MetricLength a, double b)
-        {
-            SiMetricUnits unit = a.Unit;
-            double value = a.Value * b;
-            return new MetricLength(value, a.Degree, unit);
-        }
-        public static MetricLength operator *(double b, MetricLength a)
-        {
-            SiMetricUnits unit = a.Unit;
-            double value = a.Value * b;
-            return new MetricLength(value, a.Degree, unit);
-        }
-        public static MetricLength operator /(MetricLength a, MetricLength b)
-        {
-            SiMetricUnits unit = a.Unit;
-            int deg = a.Degree - b.Degree;
-            double value = (a.GetMetre() / b.GetMetre()).GetUnitValue(unit, deg);
-            return new MetricLength(value, deg, unit);
-        }
-        public static MetricLength operator /(MetricLength a, double b)
-        {
-            SiMetricUnits unit = a.Unit;
-            double value = a.Value / b;
-            return new MetricLength(value, a.Degree, unit);
-        }
-        public static MetricLength operator /(double b, MetricLength a)
-        {
-            SiMetricUnits unit = a.Unit;
-            double value = b / a.Value;
-            int degree = -1 * a.Degree;
-            return new MetricLength(value, degree, unit);
-        }
-        public static MetricLength operator +(MetricLength a, MetricLength b)
-        {
-            if(a.Degree != b.Degree) 
+            if (a.Degree != b.Degree)
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
@@ -67,7 +47,14 @@ namespace SIUnits.Length
             double value = (a.GetMetre() + b.GetMetre()).GetUnitValue(unit, a.Degree);
             return new MetricLength(value, a.Degree, unit);
         }
-        public static MetricLength operator -(MetricLength a, MetricLength b)
+        /// <summary>
+        /// Subtraction of two MetricLength units.Caution! error-prone method. Subtraction of two units with different degrees throws exception
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns> new MetricLength unit.</returns>
+        /// <exception cref="ArgumentException">Subtraction of two units with different degrees throws exception</exception>
+        public static MetricLength Subtract(MetricLength a, MetricLength b)
         {
             if (a.Degree != b.Degree)
             {
@@ -77,7 +64,39 @@ namespace SIUnits.Length
             double value = (a.GetMetre() - b.GetMetre()).GetUnitValue(unit, a.Degree);
             return new MetricLength(value, a.Degree, unit);
         }
-
+        public static MetricLength Multiply(MetricLength a, MetricLength b)
+        {
+            SiMetricUnits unit = a.Unit;
+            int deg = a.Degree + b.Degree;
+            double value = (a.GetMetre() * b.GetMetre()).GetUnitValue(unit, deg);
+            return new MetricLength(value, deg, unit);
+        }
+        public static MetricLength Multiply(double a, MetricLength b)
+        {
+            SiMetricUnits unit = b.Unit;
+            double value = b.Value * a;
+            return new MetricLength(value, b.Degree, unit);
+        }
+        public static MetricLength Divide(MetricLength a, MetricLength b)
+        {
+            SiMetricUnits unit = a.Unit;
+            int deg = a.Degree - b.Degree;
+            double value = (a.GetMetre() / b.GetMetre()).GetUnitValue(unit, deg);
+            return new MetricLength(value, deg, unit);
+        }
+        public static MetricLength Divide(MetricLength a, double b)
+        {
+            SiMetricUnits unit = a.Unit;
+            double value = a.Value / b;
+            return new MetricLength(value, a.Degree, unit);
+        }
+        public static MetricLength Divide(double a, MetricLength b)
+        {
+            SiMetricUnits unit = b.Unit;
+            double value = a / b.Value;
+            int degree = -1 * b.Degree;
+            return new MetricLength(value, degree, unit);
+        }
         public override string ToString()
         {
             if(Degree == 0)
