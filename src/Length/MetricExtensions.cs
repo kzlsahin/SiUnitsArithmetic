@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SIUnits.Length
+namespace SIUnits
 {
     public static class MetricExtensions
     {
+        public static DerivedUnit ToCompositeUnit(this MetricLength l)
+        {
+            return new DerivedUnit(l);
+        }
         public static MetricLength m(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.metre);

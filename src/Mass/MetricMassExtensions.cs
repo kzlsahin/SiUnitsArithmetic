@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SIUnits.Mass
+namespace SIUnits
 {
     public static class MetricMassExtensions
     {
+        public static DerivedUnit ToCompositeUnit(this MetricMass m)
+        {
+            return new DerivedUnit(m);
+        }
         public static MetricMass mg(this double a, int degree = 1)
         {
             return new MetricMass(a, degree, SiMassUnits.miligram);

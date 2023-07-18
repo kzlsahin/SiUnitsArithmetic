@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SIUnits.Mass
+namespace SIUnits
 {
     public struct MetricMass
     {
@@ -16,6 +16,7 @@ namespace SIUnits.Mass
         public double Value { get;}
         public int Degree{ get; }
         public SiMassUnits Unit { get;}
+        public string Symbol { get { return this.GetSymbol(); } }
 
         public static MetricMass operator *(MetricMass a, MetricMass b)
         {

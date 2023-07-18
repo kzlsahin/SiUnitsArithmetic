@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits.Time
+namespace SIUnits
 {
     internal static class TimeConversion
     {

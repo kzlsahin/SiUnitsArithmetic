@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SIUnits.Length
+namespace SIUnits
 {
     public struct MetricLength
     {

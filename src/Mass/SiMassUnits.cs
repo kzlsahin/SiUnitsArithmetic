@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits.Mass
+namespace SIUnits
 {
     public enum SiMassUnits
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SIUnits.Time
+namespace SIUnits
 {
     public struct MetricTime
     {
@@ -16,7 +16,7 @@ namespace SIUnits.Time
         public double Value { get;}
         public int Degree{ get; }
         public SiTimeUnits Unit { get;}
-
+        public string Symbol { get { return this.GetSymbol(); } }
         public static MetricTime operator *(MetricTime a, MetricTime b)
         {
             SiTimeUnits unit = a.Unit;
@@ -85,15 +85,15 @@ namespace SIUnits.Time
             }
             else if(Degree == 1)
             {
-                return $"{Value} <{this.GetSymbol()}>";
+                return $"{Value} <{Symbol}>";
             }
             else if (Degree >= 1)
             {
-                return $"{Value} <{this.GetSymbol()}{Degree}>";
+                return $"{Value} <{Symbol}{Degree}>";
             }
             else
             {
-                return $"{Value} <1/{this.GetSymbol()}{-1*Degree}>";
+                return $"{Value} <1/{Symbol}{-1*Degree}>";
             }
         }
     }
