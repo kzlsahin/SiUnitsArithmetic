@@ -16,6 +16,7 @@ namespace SIUnits.Mass
         public double Value { get;}
         public int Degree{ get; }
         public SiMassUnits Unit { get;}
+        public string Symbol { get { return this.GetSymbol(); } }
 
         public static MetricMass operator *(MetricMass a, MetricMass b)
         {

@@ -7,6 +7,10 @@ namespace SIUnits.Length
 {
     public static class MetricExtensions
     {
+        public static CompositeUnit ToCompositeUnit(this MetricLength l)
+        {
+            return new CompositeUnit(l);
+        }
         public static MetricLength m(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.metre);

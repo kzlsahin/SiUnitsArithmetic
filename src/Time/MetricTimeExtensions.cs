@@ -8,10 +8,26 @@ namespace SIUnits.Time
 {
     public static class MetricTimeExtensions
     {
+        public static CompositeUnit ToCompositeUnit(this MetricTime t)
+        {
+            return new CompositeUnit(t);
+        }
+        /// <summary>
+        /// milisecond
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree"></param>
+        /// <returns></returns>
         public static MetricTime msec(this double a, int degree = 1)
         {
             return new MetricTime(a, degree, SiTimeUnits.milisecond);
         }
+        /// <summary>
+        /// milisecond
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree"></param>
+        /// <returns></returns>
         public static MetricTime msec(this int a, int degree = 1)
         {
             return new MetricTime(a, degree, SiTimeUnits.milisecond);
@@ -24,14 +40,6 @@ namespace SIUnits.Time
         {
             return new MetricTime(a, degree, SiTimeUnits.milisecond);
         }
-        public static MetricTime sec(this double a, int degree = 1)
-        {
-            return new MetricTime(a, degree, SiTimeUnits.second);
-        }
-        public static MetricTime sec(this int a, int degree = 1)
-        {
-            return new MetricTime(a, degree, SiTimeUnits.second);
-        }
         public static MetricTime second(this double a, int degree = 1)
         {
             return new MetricTime(a, degree, SiTimeUnits.second);
@@ -40,15 +48,6 @@ namespace SIUnits.Time
         {
             return new MetricTime(a, degree, SiTimeUnits.second);
         }
-
-        public static MetricTime h(this double a, int degree = 1)
-        {
-            return new MetricTime(a, degree, SiTimeUnits.hour);
-        }
-        public static MetricTime h(this int a, int degree = 1)
-        {
-            return new MetricTime(a, degree, SiTimeUnits.hour);
-        }
         public static MetricTime hour(this double a, int degree = 1)
         {
             return new MetricTime(a, degree, SiTimeUnits.hour);
@@ -56,15 +55,6 @@ namespace SIUnits.Time
         public static MetricTime hour(this int a, int degree = 1)
         {
             return new MetricTime(a, degree, SiTimeUnits.hour);
-        }
-
-        public static MetricTime m(this double a, int degree = 1)
-        {
-            return new MetricTime(a, degree, SiTimeUnits.minute);
-        }
-        public static MetricTime m(this int a, int degree = 1)
-        {   
-            return new MetricTime(a, degree, SiTimeUnits.minute);
         }
         public static MetricTime minute(this double a, int degree = 1)
         {
@@ -78,6 +68,11 @@ namespace SIUnits.Time
         {
             return new MetricTime(a, degree, unit);
         }
+        /// <summary>
+        /// milisecond
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         public static MetricTime msec(this MetricTime a)
         {
             double value = a.GetSecond().GetUnitValue(SiTimeUnits.milisecond, a.Degree);
@@ -98,21 +93,10 @@ namespace SIUnits.Time
             double value = a.GetSecond().GetUnitValue(SiTimeUnits.second, a.Degree);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
         }
-
-        public static MetricTime h(this MetricTime a)
-        {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.hour, a.Degree);
-            return new MetricTime(value, a.Degree, SiTimeUnits.hour);
-        }
         public static MetricTime hour(this MetricTime a)
         {
             double value = a.GetSecond().GetUnitValue(SiTimeUnits.hour, a.Degree);
             return new MetricTime(value, a.Degree, SiTimeUnits.hour);
-        }
-        public static MetricTime m(this MetricTime a)
-        {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.minute, a.Degree);
-            return new MetricTime(value, a.Degree, SiTimeUnits.minute);
         }
         public static MetricTime minute(this MetricTime a)
         {

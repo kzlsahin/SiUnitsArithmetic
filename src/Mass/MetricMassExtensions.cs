@@ -8,6 +8,10 @@ namespace SIUnits.Mass
 {
     public static class MetricMassExtensions
     {
+        public static CompositeUnit ToCompositeUnit(this MetricMass m)
+        {
+            return new CompositeUnit(m);
+        }
         public static MetricMass mg(this double a, int degree = 1)
         {
             return new MetricMass(a, degree, SiMassUnits.miligram);
