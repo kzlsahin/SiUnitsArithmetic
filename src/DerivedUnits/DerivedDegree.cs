@@ -32,6 +32,17 @@ namespace SIUnits
                 return false;
             }
         }
+
+        public override int GetHashCode()
+        {
+            return (new Tuple<int,int,int>(l_degree, t_degree, m_degree)).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public static bool operator ==(DerivedDegree a, DerivedDegree b) => a.Equals(b);
         public static bool operator !=(DerivedDegree a, DerivedDegree b) => !a.Equals(b);
     }

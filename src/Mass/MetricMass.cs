@@ -90,11 +90,11 @@ namespace SIUnits
             }
             else if (Degree >= 1)
             {
-                return $"{Value} <{this.GetSymbol()}{Degree}>";
+                return $"{Value} <{this.GetSymbol()}{Degree.ToSupStr()}>";
             }
             else
             {
-                return $"{Value} <1/{this.GetSymbol()}{-1*Degree}>";
+                return $"{Value} <1/{this.GetSymbol()}{(-1*Degree).ToSupStr()}>";
             }
         }
     }
