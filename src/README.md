@@ -1,6 +1,6 @@
 ﻿# **SI Units library with arithmetic capabilities**
 
-This package defines metric system units and provides related arithmetic operations including unit to unit multiplication, resulting in higher or lower order units (m² or 1/m)..
+This package defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s)..
 
 The need for such a library arises from the development of engineering programs that have methods requiring specific numbers with specified units.
  By using this library, the unit of the input will no longer be important. 
@@ -15,11 +15,11 @@ Console.WriteLine(sq.Volume());
 
 class Square
 {
-    Metric _length;
-    Metric _width;
-    Metric -height;
+    MetricLength _length;
+    MetricLength _width;
+    MetricLength -height;
 
-    public Square(Metric l, Metric w, Metric h)
+    public Square(MetricLength l, MetricLength w, MetricLength h)
     {
         _length = l; _width = w; _height = h;
     }
@@ -33,27 +33,39 @@ class Square
 The units of the inputs of the constructor won't be a problem anymore.
 The same class can handle the values with various units (mm, m, cm) and return the same result with correct unit.
 
-### **Definitions**
 
-Metric(**double** *value*, **int** *degree*, **SiMetricUnits** *unit*)
+### **Examples**
 
-**double** *value*: value of the metric.
+```
+// now supports derived unit arithmetics
+var speed = 1.m() / 1.second()
+// 1 m¹/s¹
 
-**int** *degree*: degree is the dimension of the metric (m2, m3, m4)
+var m1 = 2.m();
+// 2 <m>
 
-**SiMetricUnits** *unit*: unit of the metric (micrometre, milimetre, metre)
+m1.dcm()
+// 200 <cm>
 
-### **Decleration via extension methods**
+var s1 = 3.hour();
+// 3 <s>
 
-- [double].km(degree)
+s1.minute()
+// 180 <m>
 
-- [double].m(degree)
+s1.second()
+// 10800 <s>
 
-- [double].dm(degree)
+var m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
+// 400,02000000000004 <dm2>
 
-- [double].cm(degree)
+var m13 = 2 * m12;
+// 800,0400000000001 <dm2>
 
-- [double].mm(degree)
+var m14 = (m12 / 2).m();
+// 2,0001 <m2>
+
+```
 
 ### **Operations**
 
@@ -77,58 +89,18 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 ### **Conversions**
 
-- [Metric].km(degree)
+- [MetricLength].km(degree)
 
-- [Metric].m(degree)
+- [MetricLength].m(degree)
 
-- [Metric].dm(degree)
+- [MetricLength].dm(degree)
 
-- [Metric].cm(degree)
+- [MetricLength].cm(degree)
 
-- [Metric].mm(degree)
+- [MetricLength].mm(degree)
 
-- [Metric].Metric(SiMetricUnits unit)
+- [MetricLength].Metric(SiMetricUnits unit)
 
-### **Examples**
-
-```
-- Metric m1 = 2.m();
-
-// 2 \<m>
-
-// 20 \<dm>
-
-// 200 \<cm>
-
-// 2000 \<mm>
-
-// 0,002 \<km>
-
-- Metric m2 = 3.m(2);
-
-// 3 \<m2>
-
-// 300 \<dm2>
-
-// 30000 \<cm2>
-
-// 3000000 \<mm2>
-
-// 3E-06 \<km2>
-
-- Metric m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
-
-// 400,02000000000004 <dm2>
-
-- Metric m13 = 2 * m12;
-
-// 800,0400000000001 <dm2>
-
-- Metric m14 = (m12 / 2).m();
-
-// 2,0001 <m2>
-
-```
 
 ## **Supported Units**
 
