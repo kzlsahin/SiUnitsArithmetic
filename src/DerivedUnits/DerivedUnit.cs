@@ -135,41 +135,41 @@ namespace SIUnits
             bool preceded = false;
             if(l_unit.Degree > 0)
             {
-                sb.Append($"{l_unit.Symbol}{l_unit.Degree.ToSupStr()}");
+                sb.Append($"{l_unit.Symbol}{l_unit}");
                 preceded = true;
             }
             if(t_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
-                sb.Append($"{t_unit.Symbol}{t_unit.Degree.ToSupStr()}");
+                sb.Append($"{t_unit.Symbol}{t_unit}");
                 preceded = true;
             }
             if(m_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
-                sb.Append($"{m_unit.Symbol}{m_unit.Degree.ToSupStr()}");
+                sb.Append($"{m_unit.Symbol}{m_unit}");
             }
             bool subproceded = false;
             if (l_unit.Degree < 0)
             {
-                if (preceded) sb.Append("/");
-                sb.Append($"{l_unit.Symbol}{(-1 * l_unit.Degree).ToSupStr()}");
+                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                sb.Append($"{l_unit.Symbol}{(l_unit.Degree == -1 ? "" : (-1 * l_unit.Degree).ToSupStr())}");
                 subproceded = true;
                 preceded=false;
             }
             if (t_unit.Degree < 0)
             {
-                if (preceded) sb.Append("/");
+                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
                 if (subproceded) sb.Append(".");
-                sb.Append($"{t_unit.Symbol}{(-1 * t_unit.Degree).ToSupStr()}");
+                sb.Append($"{t_unit.Symbol}{(t_unit.Degree == -1 ? "" : (-1 * t_unit.Degree).ToSupStr())}");
                 subproceded = true;
                 preceded = false;
             }
             if (m_unit.Degree < 0)
             {
-                if (preceded) sb.Append("/");
+                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
                 if (subproceded) sb.Append(".");
-                sb.Append($"{m_unit.Symbol}{(-1 * m_unit.Degree).ToSupStr()}");
+                sb.Append($"{m_unit.Symbol}{(m_unit.Degree == -1 ? "" : (-1 * m_unit.Degree).ToSupStr())}");
             }
             return sb.ToString();
         }

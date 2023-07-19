@@ -99,17 +99,13 @@ namespace SIUnits
             {
                 return $"{Value}";
             }
-            else if(Degree == 1)
+            if (Degree > 0)
             {
-                return $"{Value} <{this.GetSymbol()}>";
-            }
-            else if (Degree >= 1)
-            {
-                return $"{Value} <{this.GetSymbol()}{Degree.ToSupStr()}>";
+                return $"{Value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
             }
             else
             {
-                return $"{Value} <1/{this.GetSymbol()}{(-1*Degree).ToSupStr()}>";
+                return $"{Value} 1/{this.GetSymbol()}{(-1*Degree).ToSupStr()}";
             }
         }
     }
