@@ -13,10 +13,10 @@ namespace SIUnits
             Degree = degree;
             Unit = unit;
         }
-        public double Value { get;}
-        public int Degree{ get; }
+        public double Value { get; }
+        public int Degree { get; }
         public string Symbol { get { return this.GetSymbol(); } }
-        public SiMetricUnits Unit { get;}
+        public SiMetricUnits Unit { get; }
 
 
         #region operators
@@ -24,7 +24,7 @@ namespace SIUnits
         public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
         public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
         public static MetricLength operator *(MetricLength a, double b) => MetricLength.Multiply(b, a);
-        public static MetricLength operator *(double a, MetricLength b)=> MetricLength.Multiply(a, b);
+        public static MetricLength operator *(double a, MetricLength b) => MetricLength.Multiply(a, b);
         public static MetricLength operator /(MetricLength a, MetricLength b) => MetricLength.Divide(a, b);
         public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
@@ -101,19 +101,35 @@ namespace SIUnits
             int degree = -1 * b.Degree;
             return new MetricLength(value, degree, unit);
         }
+        public string UnitStr(bool asPositiveExponent = false)
+        {
+            if (Degree > 0)
+            {
+                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
+            }
+            if (asPositiveExponent)
+            {
+                return $"{Symbol}{(-1 * Degree).ToSupStr()}";
+            }
+            else
+            {
+                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
+
+            }
+        }
         public override string ToString()
         {
-            if(Degree == 0)
+            if (Degree == 0)
             {
                 return $"{Value}";
             }
-            if(Degree > 0)
-            { 
+            if (Degree > 0)
+            {
                 return $"{Value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
             }
             else
             {
-                return $"{Value} 1/{Symbol}{(-1*Degree).ToSupStr()}";
+                return $"{Value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
             }
         }
     }

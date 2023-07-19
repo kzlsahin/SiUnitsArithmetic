@@ -92,7 +92,22 @@ namespace SIUnits
             double value = (a.GetSecond() - b.GetSecond()).GetUnitValue(unit, a.Degree);
             return new MetricTime(value, a.Degree, unit);
         }
+        public string UnitStr(bool asPositiveExponent = false)
+        {
+            if (Degree > 0)
+            {
+                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
+            }
+            if (asPositiveExponent)
+            {
+                return $"{Symbol}{(-1 * Degree).ToSupStr()}";
+            }
+            else
+            {
+                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
 
+            }
+        }
         public override string ToString()
         {
             if(Degree == 0)

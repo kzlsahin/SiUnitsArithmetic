@@ -135,25 +135,25 @@ namespace SIUnits
             bool preceded = false;
             if(l_unit.Degree > 0)
             {
-                sb.Append($"{l_unit.Symbol}{l_unit}");
+                sb.Append($"{l_unit.UnitStr(true)}");
                 preceded = true;
             }
             if(t_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
-                sb.Append($"{t_unit.Symbol}{t_unit}");
+                sb.Append($"{t_unit.UnitStr(true)}");
                 preceded = true;
             }
             if(m_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
-                sb.Append($"{m_unit.Symbol}{m_unit}");
+                sb.Append($"{m_unit.UnitStr(true)}");
             }
             bool subproceded = false;
             if (l_unit.Degree < 0)
             {
                 if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
-                sb.Append($"{l_unit.Symbol}{(l_unit.Degree == -1 ? "" : (-1 * l_unit.Degree).ToSupStr())}");
+                sb.Append($"{(l_unit.UnitStr(true))}");
                 subproceded = true;
                 preceded=false;
             }
@@ -161,7 +161,7 @@ namespace SIUnits
             {
                 if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
                 if (subproceded) sb.Append(".");
-                sb.Append($"{t_unit.Symbol}{(t_unit.Degree == -1 ? "" : (-1 * t_unit.Degree).ToSupStr())}");
+                sb.Append($"{(t_unit.UnitStr(true))}");
                 subproceded = true;
                 preceded = false;
             }
@@ -169,7 +169,7 @@ namespace SIUnits
             {
                 if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
                 if (subproceded) sb.Append(".");
-                sb.Append($"{m_unit.Symbol}{(m_unit.Degree == -1 ? "" : (-1 * m_unit.Degree).ToSupStr())}");
+                sb.Append($"{(m_unit.UnitStr(true))}");
             }
             return sb.ToString();
         }
