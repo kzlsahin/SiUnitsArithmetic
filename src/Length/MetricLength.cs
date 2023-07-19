@@ -21,9 +21,13 @@ namespace SIUnits
 
         #region operators
         public static MetricLength operator *(MetricLength a, MetricLength b) => MetricLength.Multiply(a, b);
+        public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
         public static MetricLength operator *(MetricLength a, double b) => MetricLength.Multiply(b, a);
         public static MetricLength operator *(double a, MetricLength b)=> MetricLength.Multiply(a, b);
         public static MetricLength operator /(MetricLength a, MetricLength b) => MetricLength.Divide(a, b);
+        public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
         public static MetricLength operator /(MetricLength a, double b) => MetricLength.Divide(a, b);
         public static MetricLength operator /(double a, MetricLength b) => MetricLength.Divide(a, b);
         public static MetricLength operator +(MetricLength a, MetricLength b) => MetricLength.Sum(a, b);
