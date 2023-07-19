@@ -7,6 +7,11 @@ namespace SIUnits
 {
     public static class MetricExtensions
     {
+        /// <summary>
+        /// Converts into a derived unit type
+        /// </summary>
+        /// <param name="l"></param>
+        /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricLength l)
         {
             return new DerivedUnit(l);

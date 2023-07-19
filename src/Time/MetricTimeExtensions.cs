@@ -7,6 +7,11 @@ namespace SIUnits
 {
     public static class MetricTimeExtensions
     {
+        /// <summary>
+        /// Converts into a derived unit type
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricTime t)
         {
             return new DerivedUnit(t);
