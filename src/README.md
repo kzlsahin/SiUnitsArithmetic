@@ -39,31 +39,31 @@ The same class can handle the values with various units (mm, m, cm) and return t
 ```
 // now supports derived unit arithmetics
 var speed = 1.m() / 1.second()
-// 1 m¹/s¹
+// 1 m/s
 
 var m1 = 2.m();
 // 2 <m>
 
 m1.dcm()
-// 200 <cm>
+// 200 cm
 
 var s1 = 3.hour();
-// 3 <s>
+// 3 s
 
 s1.minute()
-// 180 <m>
+// 180 m
 
 s1.second()
-// 10800 <s>
+// 10800 s
 
 var m12 = (2.mm() * 10.cm() + 4.m(2)).dm();
-// 400,02000000000004 <dm2>
+// 400,02000000000004 dm2
 
 var m13 = 2 * m12;
-// 800,0400000000001 <dm2>
+// 800,0400000000001 dm2
 
 var m14 = (m12 / 2).m();
-// 2,0001 <m2>
+// 2,0001 m²
 
 ```
 
