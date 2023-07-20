@@ -148,28 +148,40 @@ namespace SIUnits
             {
                 if (preceded) sb.Append(".");
                 sb.Append($"{m_unit.UnitStr(true)}");
+                preceded = true;
             }
             bool subproceded = false;
             if (l_unit.Degree < 0)
             {
-                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                if (!subproceded)
+                {
+                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                }                
                 sb.Append($"{(l_unit.UnitStr(true))}");
                 subproceded = true;
-                preceded=false;
+                preceded=true;
             }
             if (t_unit.Degree < 0)
             {
-                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                if (!subproceded)
+                {
+                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                }
                 if (subproceded) sb.Append(".");
                 sb.Append($"{(t_unit.UnitStr(true))}");
                 subproceded = true;
-                preceded = false;
+                preceded = true;
             }
             if (m_unit.Degree < 0)
             {
-                if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                if (!subproceded)
+                {
+                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                }
                 if (subproceded) sb.Append(".");
                 sb.Append($"{(m_unit.UnitStr(true))}");
+                subproceded = true;
+                preceded = true;
             }
             return sb.ToString();
         }

@@ -100,7 +100,7 @@ namespace SIUnits
             }
             if (asPositiveExponent)
             {
-                return $"{Symbol}{(-1 * Degree).ToSupStr()}";
+                return $"{Symbol}{(Degree == -1 ? "" : (-1 * Degree).ToSupStr())}";
             }
             else
             {

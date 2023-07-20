@@ -7,8 +7,18 @@ using Microsoft.Diagnostics.Tracing.Parsers.IIS_Trace;
 using SIUnits;
 using static BenchmarkDotNet.Attributes.MarkdownExporterAttribute;
 
-var summary = BenchmarkRunner.Run<Bench>();
-Console.WriteLine(summary);
+Console.WriteLine((1 / 1.m()).UnitStr(true));
+Console.WriteLine((1 / 1.m()).UnitStr());
+var res = 3.kg() / (2.m() * 2.second(2));
+Console.WriteLine(res);
+res = 3.kg(2) / (2.m() * 2.second());
+Console.WriteLine(res);
+res = 3.kg(2) / (5.m(2) * 2.second(3));
+Console.WriteLine(res);
+res = 5.m(2) * 2.second(3) / 3.kg(2);
+Console.WriteLine(res);
+//var summary = BenchmarkRunner.Run<Bench>();
+//Console.WriteLine(summary);
 Console.Read();
 
 // Results to keep in github commit history
