@@ -15,7 +15,7 @@ res = 3.kg(2) / (2.m() * 2.second());
 Console.WriteLine(res);
 res = 3.kg(2) / (5.m(2) * 2.second(3));
 Console.WriteLine(res);
-res = 5.m(2) * 2.second(3) / 3.kg(2);
+res = 5.m(2) * 6.second(3) / 3.kg(2);
 Console.WriteLine(res);
 //var summary = BenchmarkRunner.Run<Bench>();
 //Console.WriteLine(summary);

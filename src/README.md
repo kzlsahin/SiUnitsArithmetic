@@ -41,6 +41,12 @@ The same class can handle the values with various units (mm, m, cm) and return t
 var speed = 1.m() / 1.second()
 // 1 m/s
 
+3.kg() / (2.m() * 2.second(2));
+// 0,75 kg/m.s²
+
+5.m(2) * 2.second(3) / 3.kg(2);
+//10,000000000000002 m².s³/kg²
+
 var m1 = 2.m();
 // 2 <m>
 

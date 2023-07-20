@@ -9,19 +9,20 @@
     <Product>$(AssemblyName)Arithmetic</Product>
     <Description>This package defines metric system units and provides related arithmetic operations.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.2.1.1</Version>
+    <Version>1.2.1.2</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/kzlsahin/SiUnitsArithmetic</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.2.1.1</AssemblyVersion>
+    <AssemblyVersion>1.2.1.2</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>SI Units</PackageTags>
+    <PackageTags>si units metric measurement quantity unit quantity convert conversion immutable </PackageTags>
     <PackageReleaseNotes>- Derived unit coverage is added.
 - Derived unit arithmetic is included
 - Basic units may produce deerived units via arithmetic operations.
 - cross unit operators are added without need to use explicit type conversion.
-- Unit representation in strings is improved.</PackageReleaseNotes>
+- Unit representation in strings is improved.
+- complex unit strings like kg²/m².s³ are fixed</PackageReleaseNotes>
   <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
