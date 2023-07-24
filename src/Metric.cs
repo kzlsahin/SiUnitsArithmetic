@@ -10,5 +10,6 @@ namespace SIUnits
         int Degree { get; }
         T Unit { get; }
         Metric<T> NewInstance(double value, int degree, T unit);
+        double GetValueBy(T unit);
     }
 }

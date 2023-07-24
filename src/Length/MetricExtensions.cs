@@ -66,32 +66,32 @@ namespace SIUnits
         }
         public static MetricLength m(this MetricLength a)
         {
-            double value = a.GetMetre().GetUnitValue(SiMetricUnits.metre, a.Degree);
+            double value = a.GetValueBy(SiMetricUnits.metre);
             return new MetricLength(value, a.Degree, SiMetricUnits.metre);
         }
         public static MetricLength mm(this MetricLength a)
         {
-            double value = a.GetMetre().GetUnitValue(SiMetricUnits.milimetre, a.Degree);
+            double value = a.GetValueBy(SiMetricUnits.milimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.milimetre);
         }
         public static MetricLength cm(this MetricLength a)
         {
-            double value = a.GetMetre().GetUnitValue(SiMetricUnits.centimetre, a.Degree);
+            double value = a.GetValueBy(SiMetricUnits.centimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.centimetre);
         }
         public static MetricLength dm(this MetricLength a)
         {
-            double value = a.GetMetre().GetUnitValue(SiMetricUnits.decimetre, a.Degree);
+            double value = a.GetValueBy(SiMetricUnits.decimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.decimetre);
         }
         public static MetricLength km(this MetricLength a)
         {
-            double value = a.GetMetre().GetUnitValue(SiMetricUnits.kilometre, a.Degree);
+            double value = a.GetValueBy(SiMetricUnits.kilometre);
             return new MetricLength(value, a.Degree, SiMetricUnits.kilometre);
         }
         public static MetricLength metric(this MetricLength a, SiMetricUnits unit, int degree)
         {
-            double value = a.GetMetre().GetUnitValue(unit, a.Degree);
+            double value = a.GetValueBy(unit);
             return new MetricLength(value, a.Degree, unit);
         }
     }

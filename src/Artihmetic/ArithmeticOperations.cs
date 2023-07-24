@@ -24,15 +24,15 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns>a new T unit.</returns>
         /// <exception cref="ArgumentException"> Summation of two units with different degrees throws exception</exception>
-        internal static T Sum(T a, T b)
+        internal T Sum(T a, T b)
         {
             if (a.Degree != b.Degree)
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
             U unit = a.Unit;
-            double value = (a.GetMetre() + b.GetMetre()).GetUnitValue(unit, a.Degree);
-            return new T(value, a.Degree, unit);
+            double value = (a.GetValueBy(unit) + b.GetValueBy(unit));
+            return (T)a.NewInstance(value, a.Degree, unit);
         }
         /// <summary>
         /// Subtraction of two T units.Caution! error-prone method. Subtraction of two units with different degrees throws exception
@@ -41,48 +41,48 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns> new T unit.</returns>
         /// <exception cref="ArgumentException">Subtraction of two units with different degrees throws exception</exception>
-        internal static T Subtract(T a, T b)
+        internal T Subtract(T a, T b)
         {
             if (a.Degree != b.Degree)
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be subtracted");
             }
             U unit = a.Unit;
-            double value = (a.GetMetre() - b.GetMetre()).GetUnitValue(unit, a.Degree);
-            return new T(value, a.Degree, unit);
+            double value = (a.GetValueBy(unit) - b.GetValueBy(unit));
+            return (T)a.NewInstance(value, a.Degree, unit);
         }
-        internal static T Multiply(T a, T b)
+        internal T Multiply(T a, T b)
         {
             U unit = a.Unit;
             int deg = a.Degree + b.Degree;
-            double value = (a.GetMetre() * b.GetMetre()).GetUnitValue(unit, deg);
-            return new T(value, deg, unit);
+            double value = (a.GetValueBy(unit) * b.GetValueBy(unit));
+            return (T)a.NewInstance(value, deg, unit);
         }
-        internal static T Multiply(double a, T b)
+        internal T Multiply(double a, T b)
         {
             U unit = b.Unit;
             double value = b.Value * a;
-            return new T(value, b.Degree, unit);
+            return (T)b.NewInstance(value, b.Degree, unit);
         }
-        internal static T Divide(T a, T b)
+        internal T Divide(T a, T b)
         {
             U unit = a.Unit;
             int deg = a.Degree - b.Degree;
-            double value = (a.GetMetre() / b.GetMetre()).GetUnitValue(unit, deg);
-            return new T(value, deg, unit);
+            double value = (a.GetValueBy(unit) / b.GetValueBy(unit));
+            return (T)a.NewInstance(value, deg, unit);
         }
-        internal static T Divide(T a, double b)
+        internal T Divide(T a, double b)
         {
             U unit = a.Unit;
             double value = a.Value / b;
-            return new T(value, a.Degree, unit);
+            return (T)a.NewInstance(value, a.Degree, unit);
         }
-        internal static T Divide(double a, T b)
+        internal T Divide(double a, T b)
         {
             U unit = b.Unit;
             double value = a / b.Value;
             int degree = -1 * b.Degree;
-            return new T(value, degree, unit);
+            return (T)b.NewInstance(value, degree, unit);
         }
     }
 }

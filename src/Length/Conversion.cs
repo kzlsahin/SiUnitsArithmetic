@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits
+namespace SIUnits.Length
 {
     internal static class Conversion
     {

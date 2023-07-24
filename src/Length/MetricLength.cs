@@ -1,4 +1,5 @@
 ﻿using SIUnits.Artihmetic;
+using SIUnits.Length;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -29,14 +30,14 @@ namespace SIUnits
         public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
         public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
         public static MetricLength operator *(MetricLength a, double b) => _artihmetics.Multiply(b, a);
-        public static MetricLength operator *(double a, MetricLength b) => MetricLength.Multiply(a, b);
-        public static MetricLength operator /(MetricLength a, MetricLength b) => MetricLength.Divide(a, b);
+        public static MetricLength operator *(double a, MetricLength b) => _artihmetics.Multiply(a, b);
+        public static MetricLength operator /(MetricLength a, MetricLength b) => _artihmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricLength operator /(MetricLength a, double b) => MetricLength.Divide(a, b);
-        public static MetricLength operator /(double a, MetricLength b) => MetricLength.Divide(a, b);
-        public static MetricLength operator +(MetricLength a, MetricLength b) => MetricLength.Sum(a, b);
-        public static MetricLength operator -(MetricLength a, MetricLength b) => MetricLength.Subtract(a, b);
+        public static MetricLength operator /(MetricLength a, double b) => _artihmetics.Divide(a, b);
+        public static MetricLength operator /(double a, MetricLength b) => _artihmetics.Divide(a, b);
+        public static MetricLength operator +(MetricLength a, MetricLength b) => _artihmetics.Sum(a, b);
+        public static MetricLength operator -(MetricLength a, MetricLength b) => _artihmetics.Subtract(a, b);
         #endregion
 
         public string UnitStr(bool asPositiveExponent = false)
@@ -74,6 +75,11 @@ namespace SIUnits
         public Metric<SiMetricUnits> NewInstance(double value, int degree, SiMetricUnits unit)
         {
             return new MetricLength(value, degree, unit);
+        }
+
+        public double GetValueBy(SiMetricUnits unit)
+        {
+            return this.Value.GetUnitValue(unit, this.Degree);
         }
     }
 }
