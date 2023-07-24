@@ -12,18 +12,26 @@ var summary = BenchmarkRunner.Run<OperationsByTypeBench>();
 Console.WriteLine(summary);
 Console.Read();
 
-//| Method                          | Mean      | Error         | StdDev    | Ratio | RatioSD |
-//| ------------------------------- | ---------:| ----------:   | ---------:| -----:| --------:|
-//| multiplyDoubleWithBasicUnit     | 1.908 ms  | 0.0184 ms     | 0.0163 ms | 1.00  | 0.00 |
-//| multiplyBasicWithBasicUnit      | 12.618 ms | 0.2366 ms     | 0.2213 ms | 6.61  | 0.11 |
-//| multiplyBasicWithDerivedUnit    | 22.374 ms | 0.4057 ms     | 0.3596 ms | 11.73 | 0.22 |
-//| multiplyDerivedWithDerivedUnit  | 20.424 ms | 0.3167 ms     | 0.2645 ms | 10.70 | 0.16 |
+//| Method                          | Mean      | Error     | StdDev    | Ratio | RatioSD |
+//| ------------------------------- | ---------:| ---------:| ---------:| -----:| -------:|
+//| multiplyDoubleWithBasicUnit     | 1.941 ms  | 0.0047 ms | 0.0042 ms | 1.00  | 0.00  |
+//| multiplyBasicWithBasicUnit      | 2.552 ms  | 0.0371 ms | 0.0347 ms | 1.32  | 0.02  |
+//| multiplyBasicWithDerivedUnit    | 11.202 ms | 0.1071 ms | 0.0949 ms | 5.77  | 0.06  |
+//| multiplyDerivedWithDerivedUnit  | 9.447 ms  | 0.1872 ms | 0.2624 ms | 4.81  | 0.15  |
 
 //// * Hints *
 //Outliers
-//  OperationsByTypeBench.multiplyDoubleWithBasicUnit: Default-> 1 outlier was  removed (2.00 ms)
-//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed (23.75 ms)
-//  OperationsByTypeBench.multiplyDerivedWithDerivedUnit: Default-> 2 outliers were removed (21.34 ms, 21.86 ms)
+//  OperationsByTypeBench.multiplyDoubleWithBasicUnit: Default-> 1 outlier was  removed (1.96 ms)
+//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed (11.76 ms)
+
+//// * Legends *
+//  Mean: Arithmetic mean of all measurements
+//  Error   : Half of 99.9% confidence interval
+//  StdDev  : Standard deviation of all measurements
+//  Ratio   : Mean of the ratio distribution ([Current]/[Baseline])
+//  RatioSD: Standard deviation of the ratio distribution ([Current]/[Baseline])
+//  1 ms: 1 Millisecond(0.001 sec)
+
 public class OperationsByTypeBench
 {
     double a = 1.5;
