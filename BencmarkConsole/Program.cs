@@ -7,29 +7,24 @@ using Microsoft.Diagnostics.Tracing.Parsers.IIS_Trace;
 using SIUnits;
 using static BenchmarkDotNet.Attributes.MarkdownExporterAttribute;
 
-Console.WriteLine((1 / 1.m()).UnitStr(true));
-Console.WriteLine((1 / 1.m()).UnitStr());
-var res = 3.kg() / (2.m() * 2.second(2));
-Console.WriteLine(res);
-res = 3.kg(2) / (2.m() * 2.second());
-Console.WriteLine(res);
-res = 3.kg(2) / (5.m(2) * 2.second(3));
-Console.WriteLine(res);
-res = 5.m(2) * 6.second(3) / 3.kg(2);
-Console.WriteLine(res);
-//var summary = BenchmarkRunner.Run<Bench>();
-//Console.WriteLine(summary);
+
+var summary = BenchmarkRunner.Run<Bench>();
+Console.WriteLine(summary);
 Console.Read();
 
-// Results to keep in github commit history
-//** | Method | Mean | Error | StdDev | Ratio | RatioSD |
-//** | ------------------ | ---------:| ---------:| ---------:| ------:| --------:|
-//** | multiplyBasicUnit | 25.04 ms | 0.306 ms | 0.271 ms | 1.00 | 0.00 |
-//** | multiplyCompUnit | 24.75 ms | 0.484 ms | 0.518 ms | 0.99 | 0.03 |
-//** // * Hints *
-//** Outliers
-//**   Bench.multiplyBasicUnit: Default-> 1 outlier was  removed (27.53 ms)
-//**   Bench.multiplyCompUnit: Default-> 2 outliers were removed (26.50 ms, 26.50 ms)
+//| Method                          | Mean      | Error     | StdDev    | Ratio     | RatioSD   |
+//| ------------------------------- | ---------:| ---------:| ---------:| ------:   | --------: |
+//| multiplyBasicWithBasicUnit               | 15.11 ms  | 0.274 ms   | 0.257 ms  | 1.00      | 0.00      |
+//| multiplyBasicWithDerivedUnit    | 24.71 ms  | 0.471 ms   | 0.463 ms  | 1.63      | 0.03      |
+//| multiplyDerivedWithDerivedUnit  | 23.92 ms  | 0.473 ms   | 0.464 ms  | 1.59      | 0.04      |
+
+//// * Legends *
+//  Mean    : Arithmetic mean of all measurements
+//  Error   : Half of 99.9% confidence interval
+//  StdDev  : Standard deviation of all measurements
+//  Ratio   : Mean of the ratio distribution ([Current]/[Baseline])
+//  RatioSD: Standard deviation of the ratio distribution ([Current]/[Baseline])
+//  1 ms: 1 Millisecond(0.001 sec)
 
 public class Bench
 {
@@ -41,23 +36,31 @@ public class Bench
     {        
         l1 = 5.km();
         d1 = l1.ToCompositeUnit();
-        d1 = new DerivedUnit(5.km());
+        d2 = new DerivedUnit(5.km());
     }
     
     [Benchmark(Baseline = true)]
-    public void multiplyBasicUnit()
+    public void multiplyBasicWithBasicUnit()
     {
         for(int i = 0; i < repeat; i++)
+        {
+            var res = l1 * l1;
+        }
+    }
+    [Benchmark]
+    public void multiplyBasicWithDerivedUnit()
+    {
+        for (int i = 0; i < repeat; i++)
         {
             var res = l1 * d1;
         }
     }
     [Benchmark]
-    public void multiplyCompUnit()
+    public void multiplyDerivedWithDerivedUnit()
     {
         for (int i = 0; i < repeat; i++)
         {
-            var res = l1 * d1;
+            var res = d1 * d2;
         }
     }
 }
