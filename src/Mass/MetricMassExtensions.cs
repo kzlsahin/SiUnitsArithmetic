@@ -88,42 +88,42 @@ namespace SIUnits
         }
         public static MetricMass mg(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.miligram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.miligram);
             return new MetricMass(value, a.Degree, SiMassUnits.miligram);
         }
         public static MetricMass miligram(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.miligram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.miligram);
             return new MetricMass(value, a.Degree, SiMassUnits.miligram);
         }
         public static MetricMass g(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.gram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.gram);
             return new MetricMass(value, a.Degree, SiMassUnits.gram);
         }
         public static MetricMass gram(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.gram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.gram);
             return new MetricMass(value, a.Degree, SiMassUnits.gram);
         }
         public static MetricMass kg(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.kilogram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.kilogram);
             return new MetricMass(value, a.Degree, SiMassUnits.kilogram);
         }
         public static MetricMass kilogram(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.kilogram, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.kilogram);
             return new MetricMass(value, a.Degree, SiMassUnits.kilogram);
         }
         public static MetricMass t(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.tonne, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.tonne);
             return new MetricMass(value, a.Degree, SiMassUnits.tonne);
         }
         public static MetricMass tonne(this MetricMass a)
         {
-            double value = a.GetSecond().GetUnitValue(SiMassUnits.tonne, a.Degree);
+            double value = a.GetValueBy(SiMassUnits.tonne);
             return new MetricMass(value, a.Degree, SiMassUnits.tonne);
         }
     }

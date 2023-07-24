@@ -1,9 +1,11 @@
 ﻿using SIUnits.Artihmetic;
 using SIUnits.Length;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 
 namespace SIUnits
 {
@@ -24,7 +26,7 @@ namespace SIUnits
         public string Symbol { get { return this.GetSymbol(); } }
         public SiMetricUnits Unit { get; }
 
-        private static ArithmeticOperations<MetricLength, SiMetricUnits> _artihmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
+        readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _artihmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
         #region operators
         public static MetricLength operator *(MetricLength a, MetricLength b) => _artihmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
@@ -38,7 +40,22 @@ namespace SIUnits
         public static MetricLength operator /(double a, MetricLength b) => _artihmetics.Divide(a, b);
         public static MetricLength operator +(MetricLength a, MetricLength b) => _artihmetics.Sum(a, b);
         public static MetricLength operator -(MetricLength a, MetricLength b) => _artihmetics.Subtract(a, b);
+        public static bool operator ==(MetricLength a, MetricLength b) => _artihmetics.Equal(a, b);
+        public static bool operator !=(MetricLength a, MetricLength b) => !_artihmetics.Equal(a, b);
         #endregion
+        public override bool Equals(object obj)
+        {
+            if(typeof(object) == this.GetType())
+            {
+                return _artihmetics.Equal(this, (MetricLength)obj);
+            }
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            
+            return HashCode.Combine(this.Unit, this.Degree, this.Value);
+        }
 
         public string UnitStr(bool asPositiveExponent = false)
         {
@@ -79,7 +96,7 @@ namespace SIUnits
 
         public double GetValueBy(SiMetricUnits unit)
         {
-            return this.Value.GetUnitValue(unit, this.Degree);
+            return this.GetUnitValue(unit, this.Degree);
         }
     }
 }

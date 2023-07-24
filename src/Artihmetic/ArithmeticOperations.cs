@@ -84,5 +84,15 @@ namespace SIUnits.Artihmetic
             int degree = -1 * b.Degree;
             return (T)b.NewInstance(value, degree, unit);
         }
+        internal bool Equal(T a, T b)
+        {
+            bool isEqual = a.Degree == b.Degree;
+            if (isEqual)
+            {
+                U unit = a.Unit;
+                isEqual &= a.GetValueBy(unit) == b.GetValueBy(unit);
+            }
+            return isEqual;
+        }
     }
 }
