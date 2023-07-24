@@ -45,7 +45,7 @@ namespace SIUnits.Tests
             var l5 = 3.m(2) / 1.m();
             var l6 = 2.m() / 1.m(2);
             var l7 = 4.m() / 2;
-            var l8 = 4.m() / 200.cm();
+            var l8 = 4.m() / 200.mm();
             var l9 = 4.m() * 2.km();
             Assert.AreEqual(7.m() == l1, true);
             Assert.AreEqual(10.m(2) == l2, true);
