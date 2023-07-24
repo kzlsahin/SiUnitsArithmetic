@@ -12,34 +12,42 @@ var summary = BenchmarkRunner.Run<Bench>();
 Console.WriteLine(summary);
 Console.Read();
 
-//| Method                          | Mean      | Error     | StdDev    | Ratio     | RatioSD   |
-//| ------------------------------- | ---------:| ---------:| ---------:| ------:   | --------: |
-//| multiplyBasicWithBasicUnit               | 15.11 ms  | 0.274 ms   | 0.257 ms  | 1.00      | 0.00      |
-//| multiplyBasicWithDerivedUnit    | 24.71 ms  | 0.471 ms   | 0.463 ms  | 1.63      | 0.03      |
-//| multiplyDerivedWithDerivedUnit  | 23.92 ms  | 0.473 ms   | 0.464 ms  | 1.59      | 0.04      |
+//| Method                          | Mean          | Error         | StdDev        | Ratio     | RatioSD   |
+//| ------------------------------- | -------------:| -----------:  | -----------:  | -------:  | --------: |
+//| multiplyDoubleWithBasicUnit     | 28.60 us      | 0.308 us      | 0.288 us      | 1.00      | 0.00      |
+//| multiplyBasicWithBasicUnit      | 14,929.94 us  | 121.174 us    | 107.418 us    | 521.98    | 8.46      |
+//| multiplyBasicWithDerivedUnit    | 25,000.78 us  | 497.840 us    | 532.683 us    | 871.14    | 17.09     |
+//| multiplyDerivedWithDerivedUnit  | 23,547.13 us  | 389.963 us    | 364.772 us    | 823.44    | 17.30     |
 
-//// * Legends *
-//  Mean    : Arithmetic mean of all measurements
-//  Error   : Half of 99.9% confidence interval
-//  StdDev  : Standard deviation of all measurements
-//  Ratio   : Mean of the ratio distribution ([Current]/[Baseline])
-//  RatioSD: Standard deviation of the ratio distribution ([Current]/[Baseline])
-//  1 ms: 1 Millisecond(0.001 sec)
+//// * Hints *
+//Outliers
+//  Bench.multiplyBasicWithBasicUnit: Default-> 1 outlier was  removed (15.24 ms)
 
 public class Bench
 {
+    double a = 1.5;
     public MetricLength l1;
     public DerivedUnit d1;
     public DerivedUnit d2;
     public int repeat = 100000;
     public Bench()
     {        
+
         l1 = 5.km();
         d1 = l1.ToCompositeUnit();
         d2 = new DerivedUnit(5.km());
     }
-    
+
     [Benchmark(Baseline = true)]
+    public void multiplyDoubleWithBasicUnit()
+    {
+        for (int i = 0; i < repeat; i++)
+        {
+            var res = a * l1;
+        }
+    }
+
+    [Benchmark]
     public void multiplyBasicWithBasicUnit()
     {
         for(int i = 0; i < repeat; i++)
