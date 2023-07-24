@@ -48,8 +48,8 @@ namespace SIUnits
         internal static double GetValueBy(this MetricMass m, SiMassUnits unit, int degree)
         {
             if (unit == m.Unit) return m.Value;
-            double baseScaler = Math.Pow(10, _scalers[m.Unit]);
-            double targetScaler = Math.Pow(10, _scalers[unit]);
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[m.Unit]), degree);
+            double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]), degree);
             return m.Value * baseScaler / targetScaler;
         }
     }

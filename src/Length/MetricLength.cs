@@ -45,11 +45,11 @@ namespace SIUnits
         #endregion
         public override bool Equals(object obj)
         {
-            if(typeof(object) == this.GetType())
+            if(obj is MetricLength)
             {
                 return _artihmetics.Equal(this, (MetricLength)obj);
             }
-            return base.Equals(obj);
+            return false;
         }
         public override int GetHashCode()
         {

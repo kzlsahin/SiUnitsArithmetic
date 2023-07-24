@@ -63,8 +63,8 @@ namespace SIUnits.Length
         internal static double GetUnitValue(this MetricLength l, SiMetricUnits unit, int degree)
         {
             if (unit == l.Unit) return l.Value;
-            double baseScaler = Math.Pow(10, _scalers[l.Unit]);
-            double targetScaler = Math.Pow(10, _scalers[unit]);
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.Unit]),degree);
+            double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]),degree);
             return l.Value * baseScaler / targetScaler;
         }
     }
