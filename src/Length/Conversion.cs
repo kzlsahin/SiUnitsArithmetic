@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits
+namespace SIUnits.Length
 {
     internal static class Conversion
     {
@@ -60,17 +60,12 @@ namespace SIUnits
             {SiMetricUnits.zettametre,"Zm"},
             {SiMetricUnits.yottametre,"Ym"}
             };
-        internal static double GetMetre(this MetricLength metric)
+        internal static double GetUnitValue(this MetricLength l, SiMetricUnits unit, int degree)
         {
-            if(metric.Unit == SiMetricUnits.metre) return metric.Value;
-            int scaler = _scalers[metric.Unit];
-            return metric.Value * Math.Pow(10, scaler * metric.Degree);
-        }
-        internal static double GetUnitValue(this double value, SiMetricUnits unit, int degree)
-        {
-            if (unit == SiMetricUnits.metre) return value;
-            int scaler = -1 * _scalers[unit];
-            return value * Math.Pow(10, scaler*degree);
+            if (unit == l.Unit) return l.Value;
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.Unit]),degree);
+            double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]),degree);
+            return l.Value * baseScaler / targetScaler;
         }
     }
 }

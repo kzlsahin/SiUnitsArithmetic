@@ -8,29 +8,38 @@ using SIUnits;
 using static BenchmarkDotNet.Attributes.MarkdownExporterAttribute;
 
 
-var summary = BenchmarkRunner.Run<Bench>();
+var summary = BenchmarkRunner.Run<OperationsByTypeBench>();
 Console.WriteLine(summary);
 Console.Read();
 
-//| Method                          | Mean          | Error         | StdDev        | Ratio     | RatioSD   |
-//| ------------------------------- | -------------:| -----------:  | -----------:  | -------:  | --------: |
-//| multiplyDoubleWithBasicUnit     | 28.60 us      | 0.308 us      | 0.288 us      | 1.00      | 0.00      |
-//| multiplyBasicWithBasicUnit      | 14,929.94 us  | 121.174 us    | 107.418 us    | 521.98    | 8.46      |
-//| multiplyBasicWithDerivedUnit    | 25,000.78 us  | 497.840 us    | 532.683 us    | 871.14    | 17.09     |
-//| multiplyDerivedWithDerivedUnit  | 23,547.13 us  | 389.963 us    | 364.772 us    | 823.44    | 17.30     |
+//| Method                          | Mean      | Error     | StdDev    | Ratio | RatioSD |
+//| ------------------------------- | ---------:| ---------:| ---------:| -----:| -------:|
+//| multiplyDoubleWithBasicUnit     | 1.941 ms  | 0.0047 ms | 0.0042 ms | 1.00  | 0.00  |
+//| multiplyBasicWithBasicUnit      | 2.552 ms  | 0.0371 ms | 0.0347 ms | 1.32  | 0.02  |
+//| multiplyBasicWithDerivedUnit    | 11.202 ms | 0.1071 ms | 0.0949 ms | 5.77  | 0.06  |
+//| multiplyDerivedWithDerivedUnit  | 9.447 ms  | 0.1872 ms | 0.2624 ms | 4.81  | 0.15  |
 
 //// * Hints *
 //Outliers
-//  Bench.multiplyBasicWithBasicUnit: Default-> 1 outlier was  removed (15.24 ms)
+//  OperationsByTypeBench.multiplyDoubleWithBasicUnit: Default-> 1 outlier was  removed (1.96 ms)
+//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed (11.76 ms)
 
-public class Bench
+//// * Legends *
+//  Mean: Arithmetic mean of all measurements
+//  Error   : Half of 99.9% confidence interval
+//  StdDev  : Standard deviation of all measurements
+//  Ratio   : Mean of the ratio distribution ([Current]/[Baseline])
+//  RatioSD: Standard deviation of the ratio distribution ([Current]/[Baseline])
+//  1 ms: 1 Millisecond(0.001 sec)
+
+public class OperationsByTypeBench
 {
     double a = 1.5;
     public MetricLength l1;
     public DerivedUnit d1;
     public DerivedUnit d2;
     public int repeat = 100000;
-    public Bench()
+    public OperationsByTypeBench()
     {        
 
         l1 = 5.km();

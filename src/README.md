@@ -1,6 +1,7 @@
 ﻿# **SI Units library with arithmetic capabilities**
 
-This package defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s)..
+SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
+Supports length, mass and time units.
 
 The need for such a library arises from the development of engineering programs that have methods requiring specific numbers with specified units.
  By using this library, the unit of the input will no longer be important. 

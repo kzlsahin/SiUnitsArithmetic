@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SIUnits.Artihmetic;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SIUnits
 {
-    public struct MetricMass
+    public class MetricMass : Metric<SiMassUnits>
     {
         public MetricMass(double value, int degree,SiMassUnits unit)
         {
@@ -17,81 +18,40 @@ namespace SIUnits
         public int Degree{ get; }
         public SiMassUnits Unit { get;}
         public string Symbol { get { return this.GetSymbol(); } }
-
-        #region operators
-        public static MetricMass operator *(MetricMass a, MetricMass b) => MetricMass.Multiply(a, b);
-        public static DerivedUnit operator *(MetricMass a, MetricLength b) => a.ToCompositeUnit() * b;
-        public static DerivedUnit operator *(MetricMass a, MetricTime b) => a.ToCompositeUnit() * b;
-        public static MetricMass operator *(MetricMass a, double b) => MetricMass.Multiply(b, a);
-        public static MetricMass operator *(double a, MetricMass b) => MetricMass.Multiply(a, b);
-        public static MetricMass operator /(MetricMass a, MetricMass b) => MetricMass.Divide(a, b);
-        public static DerivedUnit operator /(MetricMass a, MetricLength b) => a.ToCompositeUnit() / b;
-        public static DerivedUnit operator /(MetricMass a, MetricTime b) => a.ToCompositeUnit() / b;
-        public static MetricMass operator /(MetricMass a, double b) => MetricMass.Divide(a, b);
-        public static MetricMass operator /(double a, MetricMass b) => MetricMass.Divide(a, b);
-        public static MetricMass operator +(MetricMass a, MetricMass b) => MetricMass.Sum(a, b);
-        public static MetricMass operator -(MetricMass a, MetricMass b) => MetricMass.Subtract(a, b);
-        #endregion
-
-        public static MetricMass Multiply(MetricMass a, MetricMass b)
+        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _artihmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
+        public Metric<SiMassUnits> NewInstance(double value, int degree, SiMassUnits unit)
         {
-            SiMassUnits unit = a.Unit;
-            int deg = a.Degree + b.Degree;
-            double value = (a.GetSecond() * b.GetSecond()).GetUnitValue(unit, deg);            
-            return new MetricMass(value, deg, unit);
-        }
-        public static MetricMass Multiply(MetricMass a, double b)
-        {
-            SiMassUnits unit = a.Unit;
-            double value = a.Value * b;
-            return new MetricMass(value, a.Degree, unit);
-        }
-        public static MetricMass Multiply(double b, MetricMass a)
-        {
-            SiMassUnits unit = a.Unit;
-            double value = a.Value * b;
-            return new MetricMass(value, a.Degree, unit);
-        }
-        public static MetricMass Divide(MetricMass a, MetricMass b)
-        {
-            SiMassUnits unit = a.Unit;
-            int deg = a.Degree - b.Degree;
-            double value = (a.GetSecond() / b.GetSecond()).GetUnitValue(unit, deg);
-            return new MetricMass(value, deg, unit);
-        }
-        public static MetricMass Divide(MetricMass a, double b)
-        {
-            SiMassUnits unit = a.Unit;
-            double value = a.Value / b;
-            return new MetricMass(value, a.Degree, unit);
-        }
-        public static MetricMass Divide(double b, MetricMass a)
-        {
-            SiMassUnits unit = a.Unit;
-            double value = b / a.Value;
-            int degree = -1 * a.Degree;
             return new MetricMass(value, degree, unit);
         }
-        public static MetricMass Sum(MetricMass a, MetricMass b)
+        #region operators
+        public static MetricMass operator *(MetricMass a, MetricMass b) => _artihmetics.Multiply(a, b);
+        public static DerivedUnit operator *(MetricMass a, MetricLength b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricMass a, MetricTime b) => a.ToCompositeUnit() * b;
+        public static MetricMass operator *(MetricMass a, double b) => _artihmetics.Multiply(b, a);
+        public static MetricMass operator *(double a, MetricMass b) => _artihmetics.Multiply(a, b);
+        public static MetricMass operator /(MetricMass a, MetricMass b) => _artihmetics.Divide(a, b);
+        public static DerivedUnit operator /(MetricMass a, MetricLength b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricMass a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static MetricMass operator /(MetricMass a, double b) => _artihmetics.Divide(a, b);
+        public static MetricMass operator /(double a, MetricMass b) => _artihmetics.Divide(a, b);
+        public static MetricMass operator +(MetricMass a, MetricMass b) => _artihmetics.Sum(a, b);
+        public static MetricMass operator -(MetricMass a, MetricMass b) => _artihmetics.Subtract(a, b);
+        public static bool operator ==(MetricMass a, MetricMass b) => _artihmetics.Equal(a, b);
+        public static bool operator !=(MetricMass a, MetricMass b) => !_artihmetics.Equal(a, b);
+        #endregion
+        public override bool Equals(object obj)
         {
-            if(a.Degree != b.Degree) 
+            if (obj is MetricMass)
             {
-                throw new ArgumentException("various degrees of SiUnits cannot be summed");
+                return _artihmetics.Equal(this, (MetricMass)obj);
             }
-            SiMassUnits unit = a.Unit;
-            double value = (a.GetSecond() + b.GetSecond()).GetUnitValue(unit, a.Degree);
-            return new MetricMass(value, a.Degree, unit);
+            return false;
         }
-        public static MetricMass Subtract(MetricMass a, MetricMass b)
+        public override int GetHashCode()
         {
-            if (a.Degree != b.Degree)
-            {
-                throw new ArgumentException("various degrees of SiUnits cannot be subtracted");
-            }
-            SiMassUnits unit = a.Unit;
-            double value = (a.GetSecond() - b.GetSecond()).GetUnitValue(unit, a.Degree);
-            return new MetricMass(value, a.Degree, unit);
+            return HashCode.Combine(this.Unit, this.Degree, this.Value);
         }
+
         public string UnitStr(bool asPositiveExponent = false)
         {
             if (Degree > 0)
@@ -122,6 +82,11 @@ namespace SIUnits
             {
                 return $"{Value} 1/{this.GetSymbol()}{(-1*Degree).ToSupStr()}";
             }
+        }
+
+        public double GetValueBy(SiMassUnits unit)
+        {
+            return this.GetValueBy(unit, this.Degree);
         }
     }
 }

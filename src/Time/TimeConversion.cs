@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits
+namespace SIUnits.Time
 {
     internal static class TimeConversion
     {
@@ -41,11 +41,12 @@ namespace SIUnits
             double scaler = Math.Pow(_scalers[time.Unit], time.Degree);
             return time.Value * scaler;
         }
-        internal static double GetUnitValue(this double value, SiTimeUnits unit, int degree)
+        internal static double GetUnitValue(this MetricTime t, SiTimeUnits unit, int degree)
         {
-            if (unit == SiTimeUnits.second) return value;
-            double scaler = 1 / Math.Pow(_scalers[unit],degree);
-            return value * scaler;
+            if (unit == t.Unit) return t.Value;
+            double baseScaler = Math.Pow(_scalers[t.Unit], degree);
+            double targetScaler = Math.Pow(_scalers[unit], degree);
+            return t.Value * baseScaler / targetScaler;
         }
     }
 }

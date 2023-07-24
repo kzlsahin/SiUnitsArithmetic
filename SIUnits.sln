@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIUnits", "src\SIUnits.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BencmarkConsole", "BencmarkConsole\BencmarkConsole.csproj", "{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricUnitTests", "MetricUnitTests\MetricUnitTests.csproj", "{D9875562-87AD-46EF-A45E-9F09F95892BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A35A1A00-CB4D-4267-A16E-2029BFF8E4C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

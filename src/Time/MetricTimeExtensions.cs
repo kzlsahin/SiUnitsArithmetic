@@ -79,32 +79,32 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime msec(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.milisecond, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
         }
         public static MetricTime milisecond(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.milisecond, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
         }
         public static MetricTime sec(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.second, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
         }
         public static MetricTime second(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.second, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
         }
         public static MetricTime hour(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.hour, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.hour);
             return new MetricTime(value, a.Degree, SiTimeUnits.hour);
         }
         public static MetricTime minute(this MetricTime a)
         {
-            double value = a.GetSecond().GetUnitValue(SiTimeUnits.minute, a.Degree);
+            double value = a.GetValueBy(SiTimeUnits.minute);
             return new MetricTime(value, a.Degree, SiTimeUnits.minute);
         }
     }

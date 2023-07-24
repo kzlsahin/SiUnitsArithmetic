@@ -45,17 +45,12 @@ namespace SIUnits
             {SiMassUnits.kilotonne,     "kt" },
             {SiMassUnits.megatonne,     "Mt" },
         };
-        internal static double GetSecond(this MetricMass mass)
+        internal static double GetValueBy(this MetricMass m, SiMassUnits unit, int degree)
         {
-            if (mass.Unit == SiMassUnits.gram) return mass.Value;
-            double scaler = _scalers[mass.Unit];
-            return mass.Value * Math.Pow(10, scaler * mass.Degree);
-        }
-        internal static double GetUnitValue(this double value, SiMassUnits unit, int degree)
-        {
-            if (unit == SiMassUnits.gram) return value;
-            double scaler = -1 * _scalers[unit];
-            return value * Math.Pow(10, scaler * degree); ;
+            if (unit == m.Unit) return m.Value;
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[m.Unit]), degree);
+            double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]), degree);
+            return m.Value * baseScaler / targetScaler;
         }
     }
 }
