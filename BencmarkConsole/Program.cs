@@ -8,29 +8,30 @@ using SIUnits;
 using static BenchmarkDotNet.Attributes.MarkdownExporterAttribute;
 
 
-var summary = BenchmarkRunner.Run<Bench>();
+var summary = BenchmarkRunner.Run<OperationsByTypeBench>();
 Console.WriteLine(summary);
 Console.Read();
 
-//| Method                          | Mean          | Error         | StdDev        | Ratio     | RatioSD   |
-//| ------------------------------- | -------------:| -----------:  | -----------:  | -------:  | --------: |
-//| multiplyDoubleWithBasicUnit     | 28.60 us      | 0.308 us      | 0.288 us      | 1.00      | 0.00      |
-//| multiplyBasicWithBasicUnit      | 14,929.94 us  | 121.174 us    | 107.418 us    | 521.98    | 8.46      |
-//| multiplyBasicWithDerivedUnit    | 25,000.78 us  | 497.840 us    | 532.683 us    | 871.14    | 17.09     |
-//| multiplyDerivedWithDerivedUnit  | 23,547.13 us  | 389.963 us    | 364.772 us    | 823.44    | 17.30     |
+//| Method                          | Mean      | Error         | StdDev    | Ratio | RatioSD |
+//| ------------------------------- | ---------:| ----------:   | ---------:| -----:| --------:|
+//| multiplyDoubleWithBasicUnit     | 1.908 ms  | 0.0184 ms     | 0.0163 ms | 1.00  | 0.00 |
+//| multiplyBasicWithBasicUnit      | 12.618 ms | 0.2366 ms     | 0.2213 ms | 6.61  | 0.11 |
+//| multiplyBasicWithDerivedUnit    | 22.374 ms | 0.4057 ms     | 0.3596 ms | 11.73 | 0.22 |
+//| multiplyDerivedWithDerivedUnit  | 20.424 ms | 0.3167 ms     | 0.2645 ms | 10.70 | 0.16 |
 
 //// * Hints *
 //Outliers
-//  Bench.multiplyBasicWithBasicUnit: Default-> 1 outlier was  removed (15.24 ms)
-
-public class Bench
+//  OperationsByTypeBench.multiplyDoubleWithBasicUnit: Default-> 1 outlier was  removed (2.00 ms)
+//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed (23.75 ms)
+//  OperationsByTypeBench.multiplyDerivedWithDerivedUnit: Default-> 2 outliers were removed (21.34 ms, 21.86 ms)
+public class OperationsByTypeBench
 {
     double a = 1.5;
     public MetricLength l1;
     public DerivedUnit d1;
     public DerivedUnit d2;
     public int repeat = 100000;
-    public Bench()
+    public OperationsByTypeBench()
     {        
 
         l1 = 5.km();
