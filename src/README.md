@@ -74,132 +74,59 @@ var m14 = (m12 / 2).m();
 
 ```
 
-### **Operations**
 
-- '+' ( Metric(n) + Metric(n) ) => Metric(n); where n is degree
 
-- '-' ( Metric(n) - Metric(n) ) => Metric(n); where n is degree
-
-- '*'  ( Metric(n) * Metric(m) ) => Metric(n); where n and m are degrees
-
-- '/'  ( Metric(n) / Metric(m) ) => Metric(n-m); where n and m are degrees
-
-- '*'  ( n *  Metric(m) ) => Metric(m);  where n is double 
-
-- '/'  ( n / Metric(m) ) => Metric(-m); where n is double
-
-- '*'  ( Metric(m) * n) => Metric(m);  where n is double
-
-- '/'  ( Metric(m)  / n) => Metric(m); where n is double
+| Operations      |  Operants      |  Result  |          |
+|-----------------|----------------|----------|----------|
+| '+' |Metric(n) + Metric(n)   |=> Metric(n)   |where n is degree         | 
+| '-' |Metric(n) - Metric(n)   |=> Metric(n)   |where n is degree          | 
+| '*' |Metric(n) * Metric(m)   |=> Metric(n)   |where n and m are degrees | 
+| '/' |Metric(n) / Metric(m)   |=> Metric(n-m) |where n and m are degrees | 
+| '*' |n * Metric(m)           |=> Metric(m)   |where n is double         | 
+| '/' |n / Metric(m)           |=> Metric(-m)  |where n is double         | 
+| '*' |Metric(m) * n           |=> Metric(m)   |where n is double         | 
+| '/' |Metric(m) / n           |=> Metric(m)   |where n is double         | 
 
 Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 ### **Conversions**
 
-- [MetricLength].km(degree)
-
-- [MetricLength].m(degree)
-
-- [MetricLength].dm(degree)
-
-- [MetricLength].cm(degree)
-
-- [MetricLength].mm(degree)
-
-- [MetricLength].Metric(SiMetricUnits unit)
+| MetricLength  | MetricMass | MetricTime |
+|--------------|-------------|------------|
+|[MetricLength].km(degree)|[MetricMass].mg()|[MetricTime].msec()|
+|[MetricLength].m(degree)|[MetricMass].g()|[MetricTime].milisecond()|
+|[MetricLength].dm(degree)|[MetricMass].kg()|[MetricTime].second()|
+|[MetricLength].cm(degree)|[MetricMass].tonne()|[MetricTime].minute()|
+|[MetricLength].mm(degree)|[MetricMass].t()|[MetricTime].hour()|
+|[MetricLength].metric(SiMetricUnits unit)|[MetricMass].metric(SiMassUnit)|[MetricTime].milisecond()|
 
 
 ## **Supported Units**
 
-### Units of Length
+| ### Units of Length |### Units of Time|### Units of Mass
+|--------------------|-----------------|------------     |
+|yoktometre, [ym]   | picosecond       | picogram, [pg]  |
+| zeptometre, [zm]  | nanosecond       | nanogram, [ng]  |
+| attometre, [am]   | microsecond      | microgram, [µg] |
+| femtometre, [fm]  | milisecond       | miligram, [mg]  |
+| picometre, [pm]   | second           | centigram, [cg] |
+| nanometre, [nm]   | minute           | decigram, [dg]  |
+| micrometre, [µm]  | hour             | gram, [g]       |
+| milimetre, [mm]   | day              | decagram, [dac] |
+| centimetre, [cm]  |                  | hectogram, [hg] |
+| decimetre, [dm]   |                  | kilogram, [kg]  |
+| metre, [m]        |                  | tonne, [t]      |
+| decametre, [dam]  |                  | kilotonne, [kt] |
+| hectometre, [hm]  |                  | megatonne, [Mt] |
+| kilometre, [km]   |                  |                 |
+| megametre, [Mm]   |                  |                 |
+| gigametre, [Gm]   |                  |                 |
+| terametre, [Tm]   |                  |                 |
+| petametre, [Pm]   |                  |                 |
+| exametre, [Em]    |                  |                 |
+| zettametre, [Zm]  |                  |                 |
+| yottametre, [Ym]  |                  |                 |
 
-- yoktometre, [ym]
-
-- zeptometre, [zm]
-
-- attometre, [am]
-
-- femtometre, [fm]
-
-- picometre, [pm]
-
-- nanometre, [nm]
-
-- micrometre, [µm]
-
-- milimetre, [mm]
-
-- centimetre, [cm]
-
-- decimetre, [dm]
-
-- metre, [m]
-
-- decametre, [dam]
-
-- hectometre, [hm]
-
-- kilometre, [km]
-
-- megametre, [Mm]
-
-- gigametre, [Gm]
-
-- terametre, [Tm]
-
-- petametre, [Pm]
-
-- exametre, [Em]
-
-- zettametre, [Zm]
-
-- yottametre, [Ym]
-
-### Units of Time
-
-- picosecond
-
-- nanosecond
-
-- microsecond
-
-- milisecond
-
-- second
-
-- minute
-
-- hour
-
-- day
-
-### Units of Mass
-
-- picogram, [pg]
-
-- nanogram, [ng]
-
-- microgram, [µg]
-
-- miligram, [mg]
-
-- centigram, [cg]
-
-- decigram, [dg]
-
-- gram, [g]
-
-- decagram, [dac]
-
-- hectogram, [hg]
-
-- kilogram, [kg]
-
-- tonne, [t]
-
-- kilotonne, [kt]
-
-- megatonne, [Mt]
 
 
 
