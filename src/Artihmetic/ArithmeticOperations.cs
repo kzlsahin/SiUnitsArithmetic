@@ -89,8 +89,15 @@ namespace SIUnits.Artihmetic
             bool isEqual = a.Degree == b.Degree;
             if (isEqual)
             {
-                U unit = a.Unit;
-                isEqual &= a.GetValueBy(unit) == b.GetValueBy(unit);
+                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
+                if(UnitConfig.UnitPrecision == 0)
+                {
+                    isEqual = a.GetValueBy(unit) == b.GetValueBy(unit);
+                }
+                else
+                {
+                    isEqual = Math.Abs(a.GetValueBy(unit) - b.GetValueBy(unit)) < Math.Pow(10, -1 * UnitConfig.UnitPrecision);
+                }
             }
             return isEqual;
         }
