@@ -47,6 +47,7 @@ namespace SIUnits.Tests
         [TestMethod]
         public void UnitLengthTest()
         {
+            UnitConfig.UnitPrecision = 3;
             var l1 = 5.m() + 2.m();
             var l2 = 5.m() * 2.m();
             var l3 = 2.m() * 3;
@@ -69,7 +70,7 @@ namespace SIUnits.Tests
             Assert.AreEqual(2.m(), l7);
             Assert.AreEqual(20.m(0), l8);
             Assert.AreEqual(8000.m(2), l9);
-            Assert.AreEqual(80.mm(2), l10);
+            Assert.AreEqual(true, 800.mm(2) == l10);
             Assert.AreEqual(80.m(2), l11);
             Assert.AreEqual(0.001.m(2), l12);
             Assert.AreEqual(1000000.mm(2), l13);
@@ -82,6 +83,73 @@ namespace SIUnits.Tests
             Assert.AreEqual(3600.second(), 1.hour());
             Assert.AreEqual(3600.minute(2), 1.hour() * 60.minute());
             Assert.AreEqual(1.hour(0), 1.hour() / 1.hour());
+        }
+
+        [TestMethod]
+        public void CollectionLengthTest()
+        {
+            HashSet<MetricLength> set = new();
+            List<MetricLength> lengths = new();
+            lengths.Add(1.m());
+            lengths.Add(40.mm());
+            lengths.Add(5.cm());
+            lengths.Add(8.dm());
+            lengths.Add(0.01.km());
+            lengths.Add(1.m());
+            lengths.Add(40.mm());
+            lengths.Add(5.cm());
+            lengths.Add(9.mm(2));
+            lengths.Add(9.mm(2));
+            List<bool> expecteds = new()
+            {
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false
+            };
+            for (int i = 0; i < lengths.Count; i++)
+            {
+                Assert.AreEqual(expecteds[i], set.Add(lengths[i]));
+            }
+        }
+        [TestMethod]
+        public void CollectionMassTest()
+        {
+            HashSet<MetricMass> set = new();
+            List<MetricMass> lengths = new();
+            lengths.Add(1.kg());
+            lengths.Add(40.g());
+            lengths.Add(5.MetricMass(SiMassUnits.centigram, 1));
+            lengths.Add(8.MetricMass(SiMassUnits.decigram, 1));
+            lengths.Add(0.01.t());
+            lengths.Add(1.kg());
+            lengths.Add(40.g());
+            lengths.Add(5.MetricMass(SiMassUnits.centigram, 1));
+            lengths.Add(9.g(2));
+            lengths.Add(9.g(2));
+            List<bool> expecteds = new()
+            {
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false
+            };
+            for (int i = 0; i < lengths.Count; i++)
+            {
+                Assert.AreEqual(expecteds[i], set.Add(lengths[i]));
+            }
         }
     }
 }
