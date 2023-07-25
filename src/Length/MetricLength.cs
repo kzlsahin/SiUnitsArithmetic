@@ -21,9 +21,18 @@ namespace SIUnits
         {
 
         }
+        /// <summary>
+        /// Value of this MetricLength in units of this MetricLength.
+        /// </summary>
         public double Value { get; }
+        /// <summary>
+        /// power of this MetricLength (if it is 2 and unit is metre, then it means m^2).
+        /// </summary>
         public int Degree { get; }
         public string Symbol { get { return this.GetSymbol(); } }
+        /// <summary>
+        /// unit of this MetricLength.
+        /// </summary>
         public SiMetricUnits Unit { get; }
 
         readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _artihmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;

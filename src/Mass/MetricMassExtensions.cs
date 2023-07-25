@@ -90,46 +90,93 @@ namespace SIUnits
         {
             return new MetricMass(a, degree, unit);
         }
+        /// <summary>
+        /// Converts MetricMass unit into specified unit.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="unit"></param>
+        /// <param name="degree"></param>
+        /// <returns>if the unit of MetricTime is not specified unit, returns a new MetricMass in specified unit.</returns>
         public static MetricMass MetricMass(this MetricMass a, SiMassUnits unit, int degree = 1)
         {
             double value = a.GetValueBy(unit);
             return new MetricMass(value, a.Degree, unit);
         }
+        /// <summary>
+        /// Converts MetricMass unit into miligram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in miligram.</param>
+        /// <returns></returns>
         public static MetricMass mg(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.miligram);
             return new MetricMass(value, a.Degree, SiMassUnits.miligram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into miligram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in miligram.</param>
+        /// <returns></returns>
         public static MetricMass miligram(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.miligram);
             return new MetricMass(value, a.Degree, SiMassUnits.miligram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into gram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in gram.</param>
+        /// <returns></returns>
         public static MetricMass g(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.gram);
             return new MetricMass(value, a.Degree, SiMassUnits.gram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into gram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in gram.</param>
+        /// <returns></returns>
         public static MetricMass gram(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.gram);
             return new MetricMass(value, a.Degree, SiMassUnits.gram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into kilogram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in kilogram.</param>
+        /// <returns></returns>
         public static MetricMass kg(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.kilogram);
             return new MetricMass(value, a.Degree, SiMassUnits.kilogram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into kilogram.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in kilogram.</param>
+        /// <returns></returns>
         public static MetricMass kilogram(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.kilogram);
             return new MetricMass(value, a.Degree, SiMassUnits.kilogram);
         }
+        /// <summary>
+        /// Converts MetricMass unit into tonne.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in tonne.</param>
+        /// <returns></returns>
         public static MetricMass t(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.tonne);
             return new MetricMass(value, a.Degree, SiMassUnits.tonne);
         }
+        /// <summary>
+        /// Converts MetricMass unit into tonne.
+        /// </summary>
+        /// <param name="a">if the unit of MetricMass is not miligram, returns a new MetricMass in tonne.</param>
+        /// <returns></returns>
         public static MetricMass tonne(this MetricMass a)
         {
             double value = a.GetValueBy(SiMassUnits.tonne);

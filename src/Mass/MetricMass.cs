@@ -14,8 +14,17 @@ namespace SIUnits
             Degree = degree;
             Unit = unit;
         }
+        /// <summary>
+        /// Value of this MetricMass in units of this MetricMass.
+        /// </summary>
         public double Value { get;}
+        /// <summary>
+        /// power of this MetricMass (if it is 2, then it means kg^2).
+        /// </summary>
         public int Degree{ get; }
+        /// <summary>
+        /// unit of this MetricMass.
+        /// </summary>
         public SiMassUnits Unit { get;}
         public string Symbol { get { return this.GetSymbol(); } }
         readonly static ArithmeticOperations<MetricMass, SiMassUnits> _artihmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;

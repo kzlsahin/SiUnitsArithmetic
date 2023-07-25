@@ -76,43 +76,87 @@ namespace SIUnits
         {
             return new MetricTime(a, degree, unit);
         }
-        public static MetricTime MetricMass(this MetricTime a, SiTimeUnits unit, int degree = 1)
+        /// <summary>
+        /// Converts MetricTime unit into specified unit.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="unit"></param>
+        /// <param name="degree"></param>
+        /// <returns>if the unit of MetricTime is not specified unit, returns a new MetricTime in specified unit.</returns>
+        public static MetricTime MetricTime(this MetricTime a, SiTimeUnits unit, int degree = 1)
         {
             double value = a.GetValueBy(unit);
             return new MetricTime(value, a.Degree, unit);
         }
         /// <summary>
-        /// milisecond
+        /// Converts MetricTime unit into milisecond.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">if the unit of MetricTime is not milisecond, returns a new MetricTime in milisecond.</param>
         /// <returns></returns>
         public static MetricTime msec(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.milisecond)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
         }
+        /// <summary>
+        /// Converts MetricTime unit into milisecond.
+        /// </summary>
+        /// <param name="a">if the unit of MetricTime is not milisecond, returns a new MetricTime in milisecond.</param>
+        /// <returns></returns>
         public static MetricTime milisecond(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.milisecond)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
         }
+        /// <summary>
+        /// Converts MetricTime unit into second.
+        /// </summary>
+        /// <param name="a">if the unit of MetricTime is not second, returns a new MetricTime in second.</param>
+        /// <returns></returns>
         public static MetricTime sec(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.second)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
         }
+        /// <summary>
+        /// Converts MetricTime unit into second.
+        /// </summary>
+        /// <param name="a">if the unit of MetricTime is not second, returns a new MetricTime in second.</param>
+        /// <returns></returns>
         public static MetricTime second(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.second)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
         }
+        /// <summary>
+        /// Converts MetricTime unit into hour.
+        /// </summary>
+        /// <param name="a">if the unit of MetricTime is not hour, returns a new MetricTime in hour.</param>
+        /// <returns></returns>
         public static MetricTime hour(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.hour)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.hour);
             return new MetricTime(value, a.Degree, SiTimeUnits.hour);
         }
+        /// <summary>
+        /// Converts MetricTime unit into minute.
+        /// </summary>
+        /// <param name="a">if the unit of MetricTime is not minute, returns a new MetricTime in minute.</param>
+        /// <returns></returns>
         public static MetricTime minute(this MetricTime a)
         {
+            if (a.Unit == SiTimeUnits.minute)
+                return a;
             double value = a.GetValueBy(SiTimeUnits.minute);
             return new MetricTime(value, a.Degree, SiTimeUnits.minute);
         }

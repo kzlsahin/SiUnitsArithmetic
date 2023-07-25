@@ -30,9 +30,9 @@ namespace SIUnits.Time
             {SiTimeUnits.nanosecond,   "nanosec"},
             {SiTimeUnits.microsecond,  "microsec"},
             {SiTimeUnits.milisecond,   "milisec" },
-            {SiTimeUnits.second,       "s" },
-            {SiTimeUnits.minute,       "m" },
-            {SiTimeUnits.hour,         "h" },
+            {SiTimeUnits.second,       "sec" },
+            {SiTimeUnits.minute,       "min" },
+            {SiTimeUnits.hour,         "hour" },
             {SiTimeUnits.day,          "day"},
         };
         internal static double GetSecond(this MetricTime time)

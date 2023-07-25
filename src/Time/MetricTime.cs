@@ -19,8 +19,17 @@ namespace SIUnits
         {
             return new MetricTime(value, degree, unit);
         }
+        /// <summary>
+        /// Value of this MetricTime in units of this MetricTime.
+        /// </summary>
         public double Value { get;}
+        /// <summary>
+        /// power of this MetricTime (if it is 2 and unit is minute, then it means min^2).
+        /// </summary>
         public int Degree{ get; }
+        /// <summary>
+        /// unit of this MetricTime.
+        /// </summary>
         public SiTimeUnits Unit { get;}
         public string Symbol { get { return this.GetSymbol(); } }
         readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _artihmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
