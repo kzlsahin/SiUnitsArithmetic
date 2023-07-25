@@ -68,20 +68,39 @@ namespace SIUnits
 
             }
         }
-        public override string ToString()
+        public string ToString(string formatter)
         {
-            if(Degree == 0)
+            string value;
+            if (formatter == string.Empty)
             {
-                return $"{Value}";
-            }
-            if (Degree > 0)
-            {
-                return $"{Value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
+                value = Value.ToString();
             }
             else
             {
-                return $"{Value} 1/{this.GetSymbol()}{(-1*Degree).ToSupStr()}";
+                value = Value.ToString(formatter);
             }
+
+            if (Degree == 0)
+            {
+                return value;
+            }
+            if (Degree > 0)
+            {
+                return $"{value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
+            }
+            else
+            {
+                return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
+            }
+        }
+        public override string ToString()
+        {
+            if (UnitConfig.UnitPrecision == 0)
+            {
+                return ToString(string.Empty);
+            }
+            string formatter = $"F{UnitConfig.UnitPrecision}";
+            return ToString(formatter);
         }
 
         public double GetValueBy(SiMassUnits unit)
