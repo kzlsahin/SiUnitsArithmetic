@@ -49,7 +49,7 @@ var speed = 1.m() / 1.second()
 //10,000000000000002 m².s³/kg²
 
 var m1 = 2.m();
-// 2 <m>
+// 2 m
 
 m1.dcm()
 // 200 cm
@@ -98,7 +98,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 |[MetricLength].dm(degree)|[MetricMass].kg()|[MetricTime].second()|
 |[MetricLength].cm(degree)|[MetricMass].tonne()|[MetricTime].minute()|
 |[MetricLength].mm(degree)|[MetricMass].t()|[MetricTime].hour()|
-|[MetricLength].metric(SiMetricUnits unit)|[MetricMass].metric(SiMassUnit)|[MetricTime].milisecond()|
+|[MetricLength].MetricLength(SiMetricUnits unit)|[MetricMass].MetricMass(SiMassUnit)|[MetricTime].MetricTime()|
 
 
 ## **Supported Units**
@@ -134,7 +134,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 https://github.com/kzlsahin/SiUnitsArithmetic
 
-The project is open for contributions.
+Contributions are welcome.
 
 ## **Lisance**
 
