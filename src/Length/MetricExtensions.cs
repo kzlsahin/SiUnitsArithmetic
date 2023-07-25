@@ -36,7 +36,7 @@ namespace SIUnits
         {
             return new MetricLength(a, degree, SiMetricUnits.kilometre);
         }
-        public static MetricLength metric(this int a, SiMetricUnits unit, int degree)
+        public static MetricLength MetricLength(this int a, SiMetricUnits unit, int degree)
         {
             return new MetricLength(a, degree, unit);
         }
@@ -60,7 +60,7 @@ namespace SIUnits
         {
             return new MetricLength(a, degree, SiMetricUnits.kilometre);
         }
-        public static MetricLength metric(this double a, SiMetricUnits unit, int degree)
+        public static MetricLength MetricLength(this double a, SiMetricUnits unit, int degree)
         {
             return new MetricLength(a, degree, unit);
         }
@@ -89,7 +89,7 @@ namespace SIUnits
             double value = a.GetValueBy(SiMetricUnits.kilometre);
             return new MetricLength(value, a.Degree, SiMetricUnits.kilometre);
         }
-        public static MetricLength metric(this MetricLength a, SiMetricUnits unit, int degree)
+        public static MetricLength MetricLength(this MetricLength a, SiMetricUnits unit, int degree)
         {
             double value = a.GetValueBy(unit);
             return new MetricLength(value, a.Degree, unit);

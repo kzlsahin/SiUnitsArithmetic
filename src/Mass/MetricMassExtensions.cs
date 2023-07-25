@@ -82,9 +82,18 @@ namespace SIUnits
         {
             return new MetricMass(a, degree, SiMassUnits.tonne);
         }
-        public static MetricMass metric(this double a, SiMassUnits unit, int degree = 1)
+        public static MetricMass MetricMass(this double a, SiMassUnits unit, int degree = 1)
         {
             return new MetricMass(a, degree, unit);
+        }
+        public static MetricMass MetricMass(this int a, SiMassUnits unit, int degree = 1)
+        {
+            return new MetricMass(a, degree, unit);
+        }
+        public static MetricMass MetricMass(this MetricMass a, SiMassUnits unit, int degree = 1)
+        {
+            double value = a.GetValueBy(unit);
+            return new MetricMass(value, a.Degree, unit);
         }
         public static MetricMass mg(this MetricMass a)
         {

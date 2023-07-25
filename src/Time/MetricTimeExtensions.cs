@@ -68,9 +68,18 @@ namespace SIUnits
         {
             return new MetricTime(a, degree, SiTimeUnits.minute);
         }
-        public static MetricTime metric(this double a, SiTimeUnits unit, int degree = 1)
+        public static MetricTime MetricTime(this double a, SiTimeUnits unit, int degree = 1)
         {
             return new MetricTime(a, degree, unit);
+        }
+        public static MetricTime MetricTime(this int a, SiTimeUnits unit, int degree = 1)
+        {
+            return new MetricTime(a, degree, unit);
+        }
+        public static MetricTime MetricMass(this MetricTime a, SiTimeUnits unit, int degree = 1)
+        {
+            double value = a.GetValueBy(unit);
+            return new MetricTime(value, a.Degree, unit);
         }
         /// <summary>
         /// milisecond
