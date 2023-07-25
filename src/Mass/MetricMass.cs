@@ -49,7 +49,7 @@ namespace SIUnits
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.Unit, this.Degree, this.Value);
+            return (new Tuple<int, int, double>((int)this.Unit*10 +1, this.Degree, this.Value)).GetHashCode();
         }
 
         public string UnitStr(bool asPositiveExponent = false)
