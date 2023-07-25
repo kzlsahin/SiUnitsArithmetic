@@ -78,14 +78,14 @@ var m14 = (m12 / 2).m();
 
 | Operations      |  Operants      |  Result  |          |
 |-----------------|----------------|----------|----------|
-| '+' |Metric(n) + Metric(n)   |=> Metric(n)   |where n is degree         | 
-| '-' |Metric(n) - Metric(n)   |=> Metric(n)   |where n is degree          | 
-| '*' |Metric(n) * Metric(m)   |=> Metric(n)   |where n and m are degrees | 
-| '/' |Metric(n) / Metric(m)   |=> Metric(n-m) |where n and m are degrees | 
-| '*' |n * Metric(m)           |=> Metric(m)   |where n is double         | 
-| '/' |n / Metric(m)           |=> Metric(-m)  |where n is double         | 
-| '*' |Metric(m) * n           |=> Metric(m)   |where n is double         | 
-| '/' |Metric(m) / n           |=> Metric(m)   |where n is double         | 
+| + |Metric(n) + Metric(n)   |=> Metric(n)   |where n is degree         | 
+| - |Metric(n) - Metric(n)   |=> Metric(n)   |where n is degree          | 
+| * |Metric(n) * Metric(m)   |=> Metric(n)   |where n and m are degrees | 
+| / |Metric(n) / Metric(m)   |=> Metric(n-m) |where n and m are degrees | 
+| * |n * Metric(m)           |=> Metric(m)   |where n is double         | 
+| / |n / Metric(m)           |=> Metric(-m)  |where n is double         | 
+| * |Metric(m) * n           |=> Metric(m)   |where n is double         | 
+| / |Metric(m) / n           |=> Metric(m)   |where n is double         | 
 
 Note: zero degree metrics [Metric(0)] are equal to scalers.
 
@@ -103,7 +103,7 @@ Note: zero degree metrics [Metric(0)] are equal to scalers.
 
 ## **Supported Units**
 
-| ### Units of Length |### Units of Time|### Units of Mass
+| Units of Length |Units of Time|Units of Mass
 |--------------------|-----------------|------------     |
 |yoktometre, [ym]   | picosecond       | picogram, [pg]  |
 | zeptometre, [zm]  | nanosecond       | nanogram, [ng]  |
