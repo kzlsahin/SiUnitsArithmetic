@@ -16,6 +16,7 @@ namespace SIUnits.Tests
         [TestMethod]
         public void UnitMassTest()
         {
+            UnitConfig.UnitPrecision = 4;
             var m1 = 5.kg() + 2.kg();
             var m2 = 5.kg() * 2.kg();
             var m3 = 2.kg() * 3;
@@ -43,11 +44,14 @@ namespace SIUnits.Tests
             Assert.AreEqual(80.kg(2), m11);
             Assert.AreEqual(0.001.kg(2), m12);
             Assert.AreEqual(1000000.g(2), m13);
+
+            Assert.AreEqual(1.kg()==1000.g(), true);
+            Assert.AreEqual(1.mg()==0.001.g(), true);
         }
         [TestMethod]
         public void UnitLengthTest()
         {
-            UnitConfig.UnitPrecision = 3;
+            UnitConfig.UnitPrecision = 4;
             var l1 = 5.m() + 2.m();
             var l2 = 5.m() * 2.m();
             var l3 = 2.m() * 3;
@@ -74,10 +78,15 @@ namespace SIUnits.Tests
             Assert.AreEqual(80.m(2), l11);
             Assert.AreEqual(0.001.m(2), l12);
             Assert.AreEqual(1000000.mm(2), l13);
+
+            Assert.AreEqual(1.m() == 1000.mm(), true);
+            Assert.AreEqual(1.cm() == 0.1.dm(), true);
         }
         [TestMethod]
         public void UnitTimeTest()
         {
+            UnitConfig.UnitPrecision = 4;
+
             Assert.AreEqual(60.minute(), 1.hour());
             Assert.AreEqual(3600.minute(2), 1.hour(2));
             Assert.AreEqual(3600.second(), 1.hour());
