@@ -1,16 +1,18 @@
-﻿using System;
+﻿using SIUnits.Artihmetic;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace SIUnits
 {
     public sealed class DerivedUnit
     {
-        readonly MetricLength l_unit;
-        readonly MetricTime t_unit;
-        readonly MetricMass m_unit;
-        public DerivedUnit(MetricLength l) : this(l, new MetricTime(1,0,SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
+        internal readonly MetricLength l_unit;
+        internal readonly MetricTime t_unit;
+        internal readonly MetricMass m_unit;
+        public DerivedUnit(MetricLength l) : this(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
         {
 
         }
@@ -26,7 +28,7 @@ namespace SIUnits
         {
 
         }
-        DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        public DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
@@ -38,18 +40,42 @@ namespace SIUnits
         public string Symbol { get; }
         public DerivedDegree Degree { get; private set; }
 
+        static DerivedUnitArithmetics _arithmetics = DerivedUnitArithmetics.Instance;
         #region operators
-        public static DerivedUnit operator *(DerivedUnit a, DerivedUnit b) => DerivedUnit.Multiply(a, b);
-        public static DerivedUnit operator *(DerivedUnit a, MetricLength b) => DerivedUnit.Multiply(a, b);
-        public static DerivedUnit operator *(DerivedUnit a, double b) => DerivedUnit.Multiply(a, b);
-        public static DerivedUnit operator *(double a, DerivedUnit b) => DerivedUnit.Multiply(b, a);
-        public static DerivedUnit operator /(DerivedUnit a, DerivedUnit b) => DerivedUnit.Divide(a, b);
-        public static DerivedUnit operator /(DerivedUnit a, double b) => DerivedUnit.Divide(a, b);
-        public static DerivedUnit operator /(double a, DerivedUnit b) => DerivedUnit.Divide(a, b);
-        public static DerivedUnit operator +(DerivedUnit a, DerivedUnit b) => DerivedUnit.Sum(a, b);
-        public static DerivedUnit operator -(DerivedUnit a, DerivedUnit b) => DerivedUnit.Subtract(a, b);
-
+        public static DerivedUnit operator *(DerivedUnit a, DerivedUnit b) => _arithmetics.Multiply(a, b);
+        public static DerivedUnit operator *(DerivedUnit a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static DerivedUnit operator *(DerivedUnit a, double b) => _arithmetics.Multiply(a, b);
+        public static DerivedUnit operator *(double a, DerivedUnit b) => _arithmetics.Multiply(b, a);
+        public static DerivedUnit operator /(DerivedUnit a, DerivedUnit b) => _arithmetics.Divide(a, b);
+        public static DerivedUnit operator /(DerivedUnit a, double b) => _arithmetics.Divide(a, b);
+        public static DerivedUnit operator /(double a, DerivedUnit b) => _arithmetics.Divide(a, b);
+        public static DerivedUnit operator +(DerivedUnit a, DerivedUnit b) => _arithmetics.Sum(a, b);
+        public static DerivedUnit operator -(DerivedUnit a, DerivedUnit b) => _arithmetics.Subtract(a, b);
+        public static bool operator ==(DerivedUnit a, DerivedUnit b) => _arithmetics.IsEqual(a, b);
+        public static bool operator !=(DerivedUnit a, DerivedUnit b) => !_arithmetics.IsEqual(a, b);
         #endregion
+        /// <summary>
+        /// The DerivedUnit objects are immutable objects.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is DerivedUnit)
+            {
+                DerivedUnit unit = obj as DerivedUnit;
+                return _arithmetics.IsEqual(this, unit);
+            }
+            return false;
+        }
+        /// <summary>
+        /// HashCode of the DerivedUnit.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return (new Tuple<MetricLength, MetricTime, MetricMass>(l_unit, t_unit, m_unit)).GetHashCode();
+        }
 
         #region conversions
 
@@ -67,84 +93,39 @@ namespace SIUnits
         }
         #endregion
 
-        public static DerivedUnit Multiply(DerivedUnit a, DerivedUnit b)
-        {
-            MetricLength newL = a.l_unit * b.l_unit;
-            MetricTime newT = a.t_unit * b.t_unit;
-            MetricMass newM = a.m_unit * b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
-        }
 
-        public static DerivedUnit Multiply(DerivedUnit a, double b)
-        {
-            MetricLength newL = a.l_unit * b;
-            MetricTime newT = a.t_unit * b;
-            MetricMass newM = a.m_unit * b;
-            return new DerivedUnit(newL, newT, newM);
-        }
-
-        public static DerivedUnit Sum(DerivedUnit a, DerivedUnit b)
-        {
-            if (a.Degree != b.Degree)
-            {
-                throw new ArgumentException("various degrees of SiUnits cannot be summed");
-            }
-            MetricLength newL = a.l_unit + b.l_unit;
-            MetricTime newT = a.t_unit + b.t_unit;
-            MetricMass newM = a.m_unit + b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
-        }
-        public static DerivedUnit Subtract(DerivedUnit a, DerivedUnit b)
-        {
-            if (a.Degree != b.Degree)
-            {
-                throw new ArgumentException("various degrees of SiUnits cannot be summed");
-            }
-            MetricLength newL = a.l_unit - b.l_unit;
-            MetricTime newT = a.t_unit - b.t_unit;
-            MetricMass newM = a.m_unit - b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
-        }
-        public static DerivedUnit Divide(DerivedUnit a, DerivedUnit b)
-        {
-            MetricLength newL = a.l_unit / b.l_unit;
-            MetricTime newT = a.t_unit / b.t_unit;
-            MetricMass newM = a.m_unit / b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
-        }
-        public static DerivedUnit Divide(DerivedUnit a, double b)
-        {
-            MetricLength newL = a.l_unit / b;
-            MetricTime newT = a.t_unit / b;
-            MetricMass newM = a.m_unit / b;
-            return new DerivedUnit(newL, newT, newM);
-        }
-        public static DerivedUnit Divide(double a, DerivedUnit b)
-        {
-            MetricLength newL = a / b.l_unit;
-            MetricTime newT = a / b.t_unit;
-            MetricMass newM = a / b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
-        }
-
-        public override string ToString()
+        /// <summary>
+        /// writes the value of the unit with unit symbol.
+        /// </summary>
+        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
+        /// <returns></returns>
+        public string ToString(string formatter)
         {
             StringBuilder sb = new StringBuilder();
+            string value;
+            if (formatter == string.Empty)
+            {
+                value = Value.ToString();
+            }
+            else
+            {
+                value = Value.ToString(formatter);
+            }
             sb.Append(Value.ToString());
             sb.Append(" ");
             bool preceded = false;
-            if(l_unit.Degree > 0)
+            if (l_unit.Degree > 0)
             {
                 sb.Append($"{l_unit.UnitStr(true)}");
                 preceded = true;
             }
-            if(t_unit.Degree > 0)
+            if (t_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
                 sb.Append($"{t_unit.UnitStr(true)}");
                 preceded = true;
             }
-            if(m_unit.Degree > 0)
+            if (m_unit.Degree > 0)
             {
                 if (preceded) sb.Append(".");
                 sb.Append($"{m_unit.UnitStr(true)}");
@@ -156,10 +137,10 @@ namespace SIUnits
                 if (!subproceded)
                 {
                     if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
-                }                
+                }
                 sb.Append($"{(l_unit.UnitStr(true))}");
                 subproceded = true;
-                preceded=true;
+                preceded = true;
             }
             if (t_unit.Degree < 0)
             {
@@ -184,6 +165,14 @@ namespace SIUnits
                 preceded = true;
             }
             return sb.ToString();
+        }
+        /// <summary>
+        /// writes the value of the unit with unit symbol.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.ToString(string.Empty);
         }
     }
 }
