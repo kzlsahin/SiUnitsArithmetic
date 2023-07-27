@@ -10,22 +10,17 @@
     <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
 Supports length, mass and time units.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.2.3</Version>
+    <Version>1.2.3.1</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/kzlsahin/SiUnitsArithmetic</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
+    <AssemblyVersion>1.2.3.1</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
     <PackageTags>si units metric measurement quantity unit quantity convert conversion immutable </PackageTags>
-    <PackageReleaseNotes>Conversion bug for higher order units is fixed,
-Arithmetic performance is improved,
-Documentation comments are added,
-UnitConfig and UnitPrecission is added.
-Equality checks values according to this precission if the precission is other then zero.
-ToString methods are improved according to UnitPrecission. If precission is other then zero, values are formatted with "F[UnitPrecission]".
-GethashCode methods are modified. Microsoftc.Bcl dependency is removed.
-extension methods of generic conversions are renamed.</PackageReleaseNotes>
+    <PackageReleaseNotes>Equality behavior of MetricMasss and MetricTime classes are fixed.
+DerivedUnits class is refactored and equality behaviour is fixed.
+Documentation comments are added.</PackageReleaseNotes>
   <Configurations>Debug;Release</Configurations>
   <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
