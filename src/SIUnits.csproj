@@ -17,7 +17,7 @@ Supports length, mass and time units.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyVersion>1.2.3.1</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>si units metric measurement quantity unit quantity convert conversion immutable </PackageTags>
+    <PackageTags>si units unit metric measurement arithmetic mathematic equations equality quantity convert conversion immutable </PackageTags>
     <PackageReleaseNotes>Equality behavior of MetricMasss and MetricTime classes are fixed.
 DerivedUnits class is refactored and equality behaviour is fixed.
 Documentation comments are added.</PackageReleaseNotes>
