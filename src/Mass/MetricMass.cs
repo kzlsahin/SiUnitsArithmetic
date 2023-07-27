@@ -45,14 +45,14 @@ namespace SIUnits
         public static MetricMass operator /(double a, MetricMass b) => _artihmetics.Divide(a, b);
         public static MetricMass operator +(MetricMass a, MetricMass b) => _artihmetics.Sum(a, b);
         public static MetricMass operator -(MetricMass a, MetricMass b) => _artihmetics.Subtract(a, b);
-        public static bool operator ==(MetricMass a, MetricMass b) => _artihmetics.Equal(a, b);
-        public static bool operator !=(MetricMass a, MetricMass b) => !_artihmetics.Equal(a, b);
+        public static bool operator ==(MetricMass a, MetricMass b) => _artihmetics.IsEqual(a, b);
+        public static bool operator !=(MetricMass a, MetricMass b) => !_artihmetics.IsEqual(a, b);
         #endregion
         public override bool Equals(object obj)
         {
             if (obj is MetricMass)
             {
-                return _artihmetics.Equal(this, (MetricMass)obj);
+                return _artihmetics.IsEqual(this, (MetricMass)obj);
             }
             return false;
         }
@@ -60,7 +60,11 @@ namespace SIUnits
         {
             return (new Tuple<int, int, double>((int)this.Unit*10 +1, this.Degree, this.Value)).GetHashCode();
         }
-
+        /// <summary>
+        /// returns unit symbol (for ex. m or 1/m).
+        /// </summary>
+        /// <param name="asPositiveExponent">If true, then this method returns only unit symbol without considering degree of the unit (or exponent)</param>
+        /// <returns></returns>
         public string UnitStr(bool asPositiveExponent = false)
         {
             if (Degree > 0)
@@ -77,6 +81,11 @@ namespace SIUnits
 
             }
         }
+        /// <summary>
+        /// writes the value of the unit with unit symbol.
+        /// </summary>
+        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
+        /// <returns></returns>
         public string ToString(string formatter)
         {
             string value;
@@ -102,6 +111,10 @@ namespace SIUnits
                 return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
             }
         }
+        /// <summary>
+        /// writes the value of the unit with unit symbol.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (UnitConfig.UnitPrecision == 0)

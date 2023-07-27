@@ -27,6 +27,7 @@ ToString methods are improved according to UnitPrecission. If precission is othe
 GethashCode methods are modified. Microsoftc.Bcl dependency is removed.
 extension methods of generic conversions are renamed.</PackageReleaseNotes>
   <Configurations>Debug;Release</Configurations>
+  <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Benchmark|AnyCPU'">
