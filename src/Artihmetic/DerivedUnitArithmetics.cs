@@ -27,7 +27,7 @@ namespace SIUnits.Artihmetic
             MetricLength newL = a.l_unit * b.l_unit;
             MetricTime newT = a.t_unit * b.t_unit;
             MetricMass newM = a.m_unit * b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
 
         internal DerivedUnit Multiply(DerivedUnit a, double b)
@@ -35,7 +35,7 @@ namespace SIUnits.Artihmetic
             MetricLength newL = a.l_unit * b;
             MetricTime newT = a.t_unit * b;
             MetricMass newM = a.m_unit * b;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
 
         internal DerivedUnit Sum(DerivedUnit a, DerivedUnit b)
@@ -47,7 +47,7 @@ namespace SIUnits.Artihmetic
             MetricLength newL = a.l_unit + b.l_unit;
             MetricTime newT = a.t_unit + b.t_unit;
             MetricMass newM = a.m_unit + b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
         internal DerivedUnit Subtract(DerivedUnit a, DerivedUnit b)
         {
@@ -58,28 +58,28 @@ namespace SIUnits.Artihmetic
             MetricLength newL = a.l_unit - b.l_unit;
             MetricTime newT = a.t_unit - b.t_unit;
             MetricMass newM = a.m_unit - b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
         internal DerivedUnit Divide(DerivedUnit a, DerivedUnit b)
         {
             MetricLength newL = a.l_unit / b.l_unit;
             MetricTime newT = a.t_unit / b.t_unit;
             MetricMass newM = a.m_unit / b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
         internal DerivedUnit Divide(DerivedUnit a, double b)
         {
             MetricLength newL = a.l_unit / b;
             MetricTime newT = a.t_unit / b;
             MetricMass newM = a.m_unit / b;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
         internal DerivedUnit Divide(double a, DerivedUnit b)
         {
             MetricLength newL = a / b.l_unit;
             MetricTime newT = a / b.t_unit;
             MetricMass newM = a / b.m_unit;
-            return new DerivedUnit(newL, newT, newM);
+            return DerivedUnit.New(newL, newT, newM);
         }
         internal bool IsEqual(DerivedUnit a, DerivedUnit b)
         {

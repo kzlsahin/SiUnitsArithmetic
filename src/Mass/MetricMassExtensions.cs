@@ -14,7 +14,7 @@ namespace SIUnits
         /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricMass m)
         {
-            return new DerivedUnit(m);
+            return DerivedUnit.New(m);
         }
         public static MetricMass mg(this double a, int degree = 1)
         {

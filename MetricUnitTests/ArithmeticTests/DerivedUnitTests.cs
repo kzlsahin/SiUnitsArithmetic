@@ -31,6 +31,14 @@ namespace MetricUnitTests.ArithmeticTests
             der2 = 0.01.km() * 1000.g() / 1.second(2);
             Assert.AreEqual(der1 == der2, true);
 
+            Force f1 = (Force)((1.kg() * 1.m()) / 1.second(2));
+            Assert.IsTrue(f1 is Force);
+
+            Speed speed = (Speed)(2.km() / 1.hour());
+            Assert.IsTrue(speed is Speed);
+
+            Acceleration acc = (Acceleration)(speed / 1.hour());
+            Assert.IsTrue(acc is Acceleration);
         }
     }
 }

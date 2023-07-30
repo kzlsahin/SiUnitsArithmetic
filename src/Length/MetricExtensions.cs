@@ -14,7 +14,7 @@ namespace SIUnits
         /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricLength l)
         {
-            return new DerivedUnit(l);
+            return DerivedUnit.New(l);
         }
         /// <summary>
         /// Creates a length unit in metres from integer value.
