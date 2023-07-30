@@ -10,56 +10,130 @@ namespace SIUnits
         /// <summary>
         /// Converts into a derived unit type
         /// </summary>
-        /// <param name="l"></param>
+        /// <param name="l">the length unit to be converted</param>
         /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricLength l)
         {
             return new DerivedUnit(l);
         }
+        /// <summary>
+        /// Creates a length unit in metres from integer value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength m(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.metre);
         }
+        /// <summary>
+        /// creates a length unit in milimeters from integer value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength mm(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.milimetre);
         }
+        /// <summary>
+        /// creates length unit in centimetre from integer values.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength cm(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.centimetre);
         }
+        /// <summary>
+        /// creates length unit in decimetre from integer value
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength dm(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.decimetre);
         }
+        /// <summary>
+        /// creates length unit in kilometres from integer value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength km(this int a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.kilometre);
         }
+        /// <summary>
+        /// creates length unit in specified metric unit and specified degree from integer value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="unit"></param>
+        /// <param name="degree"></param>
+        /// <returns></returns>
         public static MetricLength MetricLength(this int a, SiMetricUnits unit, int degree)
         {
             return new MetricLength(a, degree, unit);
         }
+        /// <summary>
+        /// Creates a length unit in metres from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength m(this double a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.metre);
         }
+        /// <summary>
+        /// Creates a length unit in milimetres from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength mm(this double a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.milimetre);
         }
+        /// <summary>
+        /// Creates a length unit in centimetres from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength cm(this double a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.centimetre);
         }
+        /// <summary>
+        /// Creates a length unit in decimetres from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength dm(this double a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.decimetre);
         }
+        /// <summary>
+        /// Creates a length unit in kilometres from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
+        /// <returns></returns>
         public static MetricLength km(this double a, int degree = 1)
         {
             return new MetricLength(a, degree, SiMetricUnits.kilometre);
         }
+        /// <summary>
+        /// creates length unit in specified metric unit and specified degree from double value.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="unit"></param>
+        /// <param name="degree"></param>
+        /// <returns></returns>
         public static MetricLength MetricLength(this double a, SiMetricUnits unit, int degree)
         {
             return new MetricLength(a, degree, unit);
