@@ -15,6 +15,7 @@ namespace MetricUnitTests.ArithmeticTests
         public void MultiplyDerivedUnits()
         {
             var der1 = 1.m() / 1.second(2);
+            Assert.AreEqual(DerivedUnit.New(1.m(), 1.second(-2), 1.kg(0)), der1);
         }
         [TestMethod]
         public void EqualityDerivedUnits()
@@ -31,14 +32,14 @@ namespace MetricUnitTests.ArithmeticTests
             der2 = 0.01.km() * 1000.g() / 1.second(2);
             Assert.AreEqual(der1 == der2, true);
 
-            Force f1 = (Force)((1.kg() * 1.m()) / 1.second(2));
-            Assert.IsTrue(f1 is Force);
+            Newton f1 = (Newton)((1.kg() * 1.m()) / 1.second(2));
+            Assert.IsTrue(f1 is Newton);
 
-            Speed speed = (Speed)(2.km() / 1.hour());
-            Assert.IsTrue(speed is Speed);
+            var speed = 2.km() / 1.hour();
+            var acc = speed / 1.hour();
 
-            Acceleration acc = (Acceleration)(speed / 1.hour());
-            Assert.IsTrue(acc is Acceleration);
+            Joule energy = (Joule)(f1 * 10.m());
+            Assert.IsTrue(energy is Joule);
         }
     }
 }
