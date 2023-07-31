@@ -1,4 +1,5 @@
 ﻿using SIUnits.Artihmetic;
+using SIUnits;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,6 +17,7 @@ namespace SIUnits
         internal readonly MetricLength l_unit;
         internal readonly MetricTime t_unit;
         internal readonly MetricMass m_unit;
+        internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
         public static DerivedUnit New(MetricLength l)
         {
             return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
@@ -30,30 +32,19 @@ namespace SIUnits
         }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
-            DerivedDegree Degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
-            if (Degree == Speed.refDegree)
+            DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
+            Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
+            if(specialUnitMap.GetSpecialUnitContructor(degree,out specialUnitConstructor))
             {
-                return new Speed(lengthUnit, timeUnit);
-            }
-            if (Degree == Density.refDegree)
-            {
-                return new Density(lengthUnit, massUnit);
-            }
-            if (Degree == Acceleration.refDegree)
-            {
-                return new Acceleration(lengthUnit, timeUnit);
-            }
-            if (Degree == Force.refDegree)
-            {
-                return new Force(lengthUnit, timeUnit, massUnit);
+                return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
             }
             return new DerivedUnit(lengthUnit, timeUnit, massUnit);
         }
-            protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
+        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
         {
 
         }
-        protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
