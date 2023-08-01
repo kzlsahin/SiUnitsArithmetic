@@ -14,7 +14,7 @@ namespace SIUnits
         /// <returns></returns>
         public static DerivedUnit ToCompositeUnit(this MetricTime t)
         {
-            return new DerivedUnit(t);
+            return DerivedUnit.New(t);
         }
         /// <summary>
         /// milisecond

@@ -1,4 +1,5 @@
 ﻿using SIUnits.Artihmetic;
+using SIUnits;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,28 +8,43 @@ using System.Text;
 
 namespace SIUnits
 {
-    public sealed class DerivedUnit
+    /// <summary>
+    /// Represents a derived unit type consists of more then one units such as m/s or kg/m3.
+    /// </summary>
+    public class DerivedUnit
     {
+        
         internal readonly MetricLength l_unit;
         internal readonly MetricTime t_unit;
         internal readonly MetricMass m_unit;
-        public DerivedUnit(MetricLength l) : this(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
+        internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
+        public static DerivedUnit New(MetricLength l)
+        {
+            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
+        public static DerivedUnit New(MetricTime t) 
+        {
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
+        public static DerivedUnit New(MetricMass m) 
+        {
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m);
+        }
+        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        {
+            DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
+            Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
+            if(specialUnitMap.GetSpecialUnitContructor(degree,out specialUnitConstructor))
+            {
+                return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
+            }
+            return new DerivedUnit(lengthUnit, timeUnit, massUnit);
+        }
+        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
         {
 
         }
-        public DerivedUnit(MetricTime t) : this(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram))
-        {
-
-        }
-        public DerivedUnit(MetricMass m) : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m)
-        {
-
-        }
-        DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
-        {
-
-        }
-        public DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
@@ -81,15 +97,15 @@ namespace SIUnits
 
         public static implicit operator DerivedUnit(MetricLength l)
         {
-            return new DerivedUnit(l);
+            return DerivedUnit.New(l);
         }
         public static implicit operator DerivedUnit(MetricTime t)
         {
-            return new DerivedUnit(t);
+            return DerivedUnit.New(t);
         }
         public static implicit operator DerivedUnit(MetricMass m)
         {
-            return new DerivedUnit(m);
+            return DerivedUnit.New(m);
         }
         #endregion
 
