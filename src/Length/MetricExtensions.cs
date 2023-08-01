@@ -203,7 +203,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of MetricLength is specified unit, returns a new MetricLength in specified unit.</returns>
-        public static MetricLength MetricLength(this MetricLength a, SiMetricUnits unit, int degree)
+        public static MetricLength MetricLength(this MetricLength a, SiMetricUnits unit)
         {
             if (a.Unit == unit)
                 return a;

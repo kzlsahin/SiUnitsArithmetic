@@ -84,13 +84,57 @@ namespace SIUnits.Artihmetic
             int degree = -1 * b.Degree;
             return (T)b.NewInstance(value, degree, unit);
         }
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        internal bool IsLessThen(T a, T b)
+        {
+            bool isEqual = a.Degree == b.Degree;
+            bool lessThen;
+            if (isEqual)
+            {
+                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
+                lessThen = a.GetValueBy(unit) < b.GetValueBy(unit);
+            }
+            else
+            {
+                throw new ArgumentException("Degrees of units are different.");
+            }
+            return lessThen;
+        }
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        internal bool IsGreaterThen(T a, T b)
+        {
+            bool isEqual = a.Degree == b.Degree;
+            bool greaterThen;
+            if (isEqual)
+            {
+                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
+                greaterThen = a.GetValueBy(unit) > b.GetValueBy(unit);
+            }
+            else
+            {
+                throw new ArgumentException("Degrees of units are different.");
+            }
+            return greaterThen;
+        }
         internal bool IsEqual(T a, T b)
         {
             bool isEqual = a.Degree == b.Degree;
             if (isEqual)
             {
                 U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
-                if(UnitConfig.UnitPrecision == 0)
+                if (UnitConfig.UnitPrecision == 0)
                 {
                     isEqual = a.GetValueBy(unit) == b.GetValueBy(unit);
                 }

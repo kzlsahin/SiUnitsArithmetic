@@ -97,7 +97,7 @@ namespace SIUnits
         /// <param name="unit"></param>
         /// <param name="degree"></param>
         /// <returns>if the unit of MetricTime is not specified unit, returns a new MetricMass in specified unit.</returns>
-        public static MetricMass MetricMass(this MetricMass a, SiMassUnits unit, int degree = 1)
+        public static MetricMass MetricMass(this MetricMass a, SiMassUnits unit)
         {
             double value = a.GetValueBy(unit);
             return new MetricMass(value, a.Degree, unit);

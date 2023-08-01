@@ -11,7 +11,7 @@ namespace SIUnits
     {
         internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -2, 1);
         
-        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), 1)
+        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg())
         {
         }
         /// <summary>

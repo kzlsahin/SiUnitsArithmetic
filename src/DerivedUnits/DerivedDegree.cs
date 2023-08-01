@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -31,6 +32,17 @@ namespace SIUnits
         /// degree of the mass unit component of the derivedUnit
         /// </summary>
         public readonly int m_degree;
+
+        public static DerivedDegree operator +(DerivedDegree a, DerivedDegree b)
+        {
+            DerivedDegree newDegree = new DerivedDegree(a.l_degree + b.l_degree, a.t_degree + b.t_degree, a.m_degree + b.m_degree);
+            return newDegree;
+        }
+        public static DerivedDegree operator -(DerivedDegree a, DerivedDegree b)
+        {
+            DerivedDegree newDegree = new DerivedDegree(a.l_degree - b.l_degree, a.t_degree - b.t_degree, a.m_degree - b.m_degree);
+            return newDegree;
+        }
         /// <summary>
         /// two derived units are equal if the degrees of all of the unit components in the derived unit are equal.
         /// </summary>

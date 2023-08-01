@@ -17,26 +17,32 @@ namespace SIUnits
         internal readonly MetricLength l_unit;
         internal readonly MetricTime t_unit;
         internal readonly MetricMass m_unit;
-        internal readonly double scaler;
         internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
         public static DerivedUnit New(MetricLength l)
         {
-            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram),1);
+            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
+        public static DerivedUnit New(MetricLength l, MetricTime t)
+        {
+            return new DerivedUnit(l, t, new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
+        public static DerivedUnit New(MetricLength l, MetricMass m)
+        {
+            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), m);
         }
         public static DerivedUnit New(MetricTime t) 
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram), 1);
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
+        public static DerivedUnit New(MetricTime t, MetricMass m)
+        {
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, m);
         }
         public static DerivedUnit New(MetricMass m) 
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m, 1);
-        }
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m);
+        }        
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
-        {
-            return New(lengthUnit, timeUnit, massUnit, 1);
-        }
-
-        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, double scaler)
         {
             DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
             Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
@@ -44,22 +50,35 @@ namespace SIUnits
             {
                 return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
             }
-            return new DerivedUnit(lengthUnit, timeUnit, massUnit, scaler);
+            return new DerivedUnit(lengthUnit, timeUnit, massUnit);
         }
-        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram), 1)
+        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
         {
 
         }
-        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, double scaler)
+        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
             m_unit = massUnit;
-            this.scaler = scaler;
             Degree = new DerivedDegree(l_unit.Degree, t_unit.Degree, m_unit.Degree);
         }
 
         public double Value { get { return l_unit.Value * t_unit.Value * m_unit.Value; } }
+        /// <summary>
+        /// gets value in the specified metric units.
+        /// </summary>
+        /// <param name="l_metric"></param>
+        /// <param name="t_metric"></param>
+        /// <param name="m_metric"></param>
+        /// <returns></returns>
+        public double GetValue(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric)
+        {
+            double lValue = l_unit.GetValueBy(l_metric);
+            double tValue = t_unit.GetValueBy(t_metric);
+            double mValue = m_unit.GetValueBy(m_metric);
+            return lValue * tValue * mValue;
+        }
         public string Symbol { get; }
         public DerivedDegree Degree { get; private set; }
 
@@ -76,6 +95,39 @@ namespace SIUnits
         public static DerivedUnit operator -(DerivedUnit a, DerivedUnit b) => _arithmetics.Subtract(a, b);
         public static bool operator ==(DerivedUnit a, DerivedUnit b) => _arithmetics.IsEqual(a, b);
         public static bool operator !=(DerivedUnit a, DerivedUnit b) => !_arithmetics.IsEqual(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <(DerivedUnit a, DerivedUnit b) => _arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >(DerivedUnit a, DerivedUnit b) => _arithmetics.IsGreaterThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not greater then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not greater then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <=(DerivedUnit a, DerivedUnit b) => !_arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not less then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >=(DerivedUnit a, DerivedUnit b) => !_arithmetics.IsGreaterThen(a, b);
+
         #endregion
         /// <summary>
         /// The DerivedUnit objects are immutable objects.
@@ -116,7 +168,18 @@ namespace SIUnits
         }
         #endregion
 
-
+        /// <summary>
+        /// Returns new DerivedUnit in specified unit pattern.
+        /// </summary>
+        /// <param name="l_metric"></param>
+        /// <param name="t_metric"></param>
+        /// <param name="m_metric"></param>
+        /// <returns></returns>
+        public DerivedUnit ConvertTo(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric)
+        {
+            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit.MetricTime(t_metric), m_unit.MetricMass(m_metric));
+            return newUnit;
+        }
         /// <summary>
         /// writes the value of the unit with unit symbol.
         /// </summary>

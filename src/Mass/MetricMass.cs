@@ -27,32 +27,64 @@ namespace SIUnits
         /// </summary>
         public SiMassUnits Unit { get;}
         public string Symbol { get { return this.GetSymbol(); } }
-        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _artihmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
+        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
         public Metric<SiMassUnits> NewInstance(double value, int degree, SiMassUnits unit)
         {
             return new MetricMass(value, degree, unit);
         }
         #region operators
-        public static MetricMass operator *(MetricMass a, MetricMass b) => _artihmetics.Multiply(a, b);
+        public static MetricMass operator *(MetricMass a, MetricMass b) => _arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricMass a, MetricLength b) => a.ToCompositeUnit() * b;
         public static DerivedUnit operator *(MetricMass a, MetricTime b) => a.ToCompositeUnit() * b;
-        public static MetricMass operator *(MetricMass a, double b) => _artihmetics.Multiply(b, a);
-        public static MetricMass operator *(double a, MetricMass b) => _artihmetics.Multiply(a, b);
-        public static MetricMass operator /(MetricMass a, MetricMass b) => _artihmetics.Divide(a, b);
+        public static MetricMass operator *(MetricMass a, double b) => _arithmetics.Multiply(b, a);
+        public static MetricMass operator *(double a, MetricMass b) => _arithmetics.Multiply(a, b);
+        public static MetricMass operator /(MetricMass a, MetricMass b) => _arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricMass a, MetricLength b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricMass a, MetricTime b) => a.ToCompositeUnit() / b;
-        public static MetricMass operator /(MetricMass a, double b) => _artihmetics.Divide(a, b);
-        public static MetricMass operator /(double a, MetricMass b) => _artihmetics.Divide(a, b);
-        public static MetricMass operator +(MetricMass a, MetricMass b) => _artihmetics.Sum(a, b);
-        public static MetricMass operator -(MetricMass a, MetricMass b) => _artihmetics.Subtract(a, b);
-        public static bool operator ==(MetricMass a, MetricMass b) => _artihmetics.IsEqual(a, b);
-        public static bool operator !=(MetricMass a, MetricMass b) => !_artihmetics.IsEqual(a, b);
+        public static MetricMass operator /(MetricMass a, double b) => _arithmetics.Divide(a, b);
+        public static MetricMass operator /(double a, MetricMass b) => _arithmetics.Divide(a, b);
+        public static MetricMass operator +(MetricMass a, MetricMass b) => _arithmetics.Sum(a, b);
+        public static MetricMass operator -(MetricMass a, MetricMass b) => _arithmetics.Subtract(a, b);
+        public static bool operator ==(MetricMass a, MetricMass b) => _arithmetics.IsEqual(a, b);
+        public static bool operator !=(MetricMass a, MetricMass b) => !_arithmetics.IsEqual(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <(MetricMass a, MetricMass b) => _arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >(MetricMass a, MetricMass b) => _arithmetics.IsGreaterThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not greater then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not greater then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <=(MetricMass a, MetricMass b) => !_arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not less then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >=(MetricMass a, MetricMass b) => !_arithmetics.IsGreaterThen(a, b);
         #endregion
         public override bool Equals(object obj)
         {
             if (obj is MetricMass)
             {
-                return _artihmetics.IsEqual(this, (MetricMass)obj);
+                return _arithmetics.IsEqual(this, (MetricMass)obj);
             }
             return false;
         }

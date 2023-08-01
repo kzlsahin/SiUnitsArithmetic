@@ -160,5 +160,36 @@ namespace SIUnits.Tests
                 Assert.AreEqual(expecteds[i], set.Add(lengths[i]));
             }
         }
+
+        [TestMethod]
+        public void Compare()
+        {
+            Assert.IsTrue(1.second() < 1.minute());
+            Assert.IsTrue(1.minute() < 1.hour());
+            Assert.IsTrue(1.milisecond() < 1.second());
+            Assert.IsTrue(2.minute() > 1.minute());
+            Assert.IsTrue(1.hour() > 1.minute());
+            Assert.IsTrue(0.5.second() > 0.0001.minute());
+
+            Assert.IsTrue(1.m() < 1.km());
+            Assert.IsTrue(1.mm() < 1.cm());
+            Assert.IsTrue(1.dm() < 1.m());
+            Assert.IsTrue(2.cm() > 1.cm());
+            Assert.IsTrue(1.m() > 1.dm());
+            Assert.IsTrue(0.5.mm() > 0.0001.m());
+
+            Assert.IsTrue(1.g() < 1.kg());
+            Assert.IsTrue(1.mg() < 1.g());
+            Assert.IsTrue(1.kg() < 1.tonne());
+            Assert.IsTrue(2.kg() > 1.kg());
+            Assert.IsTrue(1001.g() > 1.g());
+            Assert.IsTrue(0.5.kg() > 0.0001.tonne());
+
+            Assert.IsTrue(1.kg() <= 1.kg());
+            Assert.IsTrue(1.m() >= 1.m());
+            Assert.IsTrue(1.second() <= 1.second());
+
+        }
+
     }
 }

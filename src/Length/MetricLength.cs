@@ -47,7 +47,7 @@ namespace SIUnits
         /// </summary>
         public SiMetricUnits Unit { get; }
 
-        readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _artihmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
+        readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _arithmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
         #region operators
         /// <summary>
         /// Multiplies a MetricLength with another MetricLength by converting the unit of the one of the operants to the unit ot otherone and multiplies the values.
@@ -57,7 +57,7 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength with the same unit of the oprant that has the lower unit.</returns>
-        public static MetricLength operator *(MetricLength a, MetricLength b) => _artihmetics.Multiply(a, b);
+        public static MetricLength operator *(MetricLength a, MetricLength b) => _arithmetics.Multiply(a, b);
         /// <summary>
         /// Multiplies a MetricLength with a MetricTime and returns derived unit.
         /// </summary>
@@ -78,35 +78,68 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(MetricLength a, double b) => _artihmetics.Multiply(b, a);
+        public static MetricLength operator *(MetricLength a, double b) => _arithmetics.Multiply(b, a);
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(double a, MetricLength b) => _artihmetics.Multiply(a, b);
-        public static MetricLength operator /(MetricLength a, MetricLength b) => _artihmetics.Divide(a, b);
+        public static MetricLength operator *(double a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static MetricLength operator /(MetricLength a, MetricLength b) => _arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricLength operator /(MetricLength a, double b) => _artihmetics.Divide(a, b);
-        public static MetricLength operator /(double a, MetricLength b) => _artihmetics.Divide(a, b);
-        public static MetricLength operator +(MetricLength a, MetricLength b) => _artihmetics.Sum(a, b);
-        public static MetricLength operator -(MetricLength a, MetricLength b) => _artihmetics.Subtract(a, b);
+        public static MetricLength operator /(MetricLength a, double b) => _arithmetics.Divide(a, b);
+        public static MetricLength operator /(double a, MetricLength b) => _arithmetics.Divide(a, b);
+        public static MetricLength operator +(MetricLength a, MetricLength b) => _arithmetics.Sum(a, b);
+        public static MetricLength operator -(MetricLength a, MetricLength b) => _arithmetics.Subtract(a, b);
         /// <summary>
         /// checks equality of the two MetricLength based on their values relative to their units such as 100 cm == 1 metre => true.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator ==(MetricLength a, MetricLength b) => _artihmetics.IsEqual(a, b);
+        public static bool operator ==(MetricLength a, MetricLength b) => _arithmetics.IsEqual(a, b);
         /// <summary>
         /// checks the unequality of the two MetricLength based on their values relative to their units.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator !=(MetricLength a, MetricLength b) => !_artihmetics.IsEqual(a, b);
+        public static bool operator !=(MetricLength a, MetricLength b) => !_arithmetics.IsEqual(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <(MetricLength a, MetricLength b) => _arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >(MetricLength a, MetricLength b) => _arithmetics.IsGreaterThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not greater then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not greater then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <=(MetricLength a, MetricLength b) => !_arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not less then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >=(MetricLength a, MetricLength b) => !_arithmetics.IsGreaterThen(a, b);
+
         #endregion
         /// <summary>
         /// checks value equality like 100 cm == 1 metre => true.
@@ -117,7 +150,7 @@ namespace SIUnits
         {
             if(obj is MetricLength)
             {
-                return _artihmetics.IsEqual(this, (MetricLength)obj);
+                return _arithmetics.IsEqual(this, (MetricLength)obj);
             }
             return false;
         }

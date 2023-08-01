@@ -10,17 +10,20 @@
     <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
 Supports length, mass and time units. Derived units consisting of multiple basic units (length, time, mass) are also supported, including Newton and Joule.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/kzlsahin/SiUnitsArithmetic</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.2.4.0</AssemblyVersion>
+    <AssemblyVersion>1.2.5.0</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
     <PackageTags>si units unit metric measurement arithmetic mathematic equations equality quantity convert conversion immutable </PackageTags>
     <PackageReleaseNotes>- Bug 0f multiplication and division of derivedunits with double type values is fixed.
 - Special derived units Newton and Joule are added.
-- Extensibility is added.</PackageReleaseNotes>
+- Extensibility is added.
+- DerivedUnit arithmetics are improved.
+- Unit tests coverage is extended.
+- Logic comparison operators are added.</PackageReleaseNotes>
   <Configurations>Debug;Release</Configurations>
   <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>

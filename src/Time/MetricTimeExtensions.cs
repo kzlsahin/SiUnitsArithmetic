@@ -83,7 +83,7 @@ namespace SIUnits
         /// <param name="unit"></param>
         /// <param name="degree"></param>
         /// <returns>if the unit of MetricTime is not specified unit, returns a new MetricTime in specified unit.</returns>
-        public static MetricTime MetricTime(this MetricTime a, SiTimeUnits unit, int degree = 1)
+        public static MetricTime MetricTime(this MetricTime a, SiTimeUnits unit)
         {
             double value = a.GetValueBy(unit);
             return new MetricTime(value, a.Degree, unit);

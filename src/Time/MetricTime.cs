@@ -32,29 +32,61 @@ namespace SIUnits
         /// </summary>
         public SiTimeUnits Unit { get;}
         public string Symbol { get { return this.GetSymbol(); } }
-        readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _artihmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
+        readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _arithmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
 
         #region operators
-        public static MetricTime operator *(MetricTime a, MetricTime b) => _artihmetics.Multiply(a, b);
+        public static MetricTime operator *(MetricTime a, MetricTime b) => _arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricTime a, MetricLength b) => a.ToCompositeUnit() * b;
         public static DerivedUnit operator *(MetricTime a, MetricMass b) => a.ToCompositeUnit() * b;
-        public static MetricTime operator *(MetricTime a, double b) => _artihmetics.Multiply(b, a);
-        public static MetricTime operator *(double a, MetricTime b) => _artihmetics.Multiply(a, b);
-        public static MetricTime operator /(MetricTime a, MetricTime b) => _artihmetics.Divide(a, b);
+        public static MetricTime operator *(MetricTime a, double b) => _arithmetics.Multiply(b, a);
+        public static MetricTime operator *(double a, MetricTime b) => _arithmetics.Multiply(a, b);
+        public static MetricTime operator /(MetricTime a, MetricTime b) => _arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricTime a, MetricLength b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricTime a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricTime operator /(MetricTime a, double b) => _artihmetics.Divide(a, b);
-        public static MetricTime operator /(double a, MetricTime b) => _artihmetics.Divide(a, b);
-        public static MetricTime operator +(MetricTime a, MetricTime b) => _artihmetics.Sum(a, b);
-        public static MetricTime operator -(MetricTime a, MetricTime b) => _artihmetics.Subtract(a, b);
-        public static bool operator ==(MetricTime a, MetricTime b) => _artihmetics.IsEqual(a, b);
-        public static bool operator !=(MetricTime a, MetricTime b) => !_artihmetics.IsEqual(a, b);
+        public static MetricTime operator /(MetricTime a, double b) => _arithmetics.Divide(a, b);
+        public static MetricTime operator /(double a, MetricTime b) => _arithmetics.Divide(a, b);
+        public static MetricTime operator +(MetricTime a, MetricTime b) => _arithmetics.Sum(a, b);
+        public static MetricTime operator -(MetricTime a, MetricTime b) => _arithmetics.Subtract(a, b);
+        public static bool operator ==(MetricTime a, MetricTime b) => _arithmetics.IsEqual(a, b);
+        public static bool operator !=(MetricTime a, MetricTime b) => !_arithmetics.IsEqual(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <(MetricTime a, MetricTime b) => _arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >(MetricTime a, MetricTime b) => _arithmetics.IsGreaterThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not greater then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not greater then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator <=(MetricTime a, MetricTime b) => !_arithmetics.IsLessThen(a, b);
+        /// <summary>
+        /// Checks if the value of a is not less then value of b. Degrees of both units shall be equal.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>true if the value of a is not less then value of b</returns>
+        /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
+        public static bool operator >=(MetricTime a, MetricTime b) => !_arithmetics.IsGreaterThen(a, b);
         #endregion
         public override bool Equals(object obj)
         {
             if (obj is MetricTime)
             {
-                return _artihmetics.IsEqual(this, (MetricTime)obj);
+                return _arithmetics.IsEqual(this, (MetricTime)obj);
             }
             return false;
         }

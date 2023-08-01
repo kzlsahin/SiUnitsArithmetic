@@ -70,7 +70,16 @@ class CustomUnit : CustomSpecialUnit<CustomUnit>
 ### **Examples**
 
 ```
-// now supports derived unit arithmetics
+// now supports derived unit arithmetics and special units Joule and newton.
+var speed = 2.km() / 1.hour();
+var acc = speed / 1.hour();
+var f2 = acc * 80.kg();
+var e1 = f2 * 500.mm();
+Joule e2 = (Joule)(f1 * 10.m());
+Assert.IsTrue(e1 is Joule); //true
+Assert.IsTrue(f2 is Newton); //true
+Assert.IsTrue(e2 is Joule); //true
+
 var speed = 1.m() / 1.second()
 // 1 m/s
 
