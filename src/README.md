@@ -45,6 +45,7 @@ Now custom units can be defined by the users of this library. Example of a Custo
 
 // This unit has to be registered
 // call this method only once in the application
+// derived degree indicates the exponents of length, time and mass unit components of the custom derived unit.
 CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2), CustomUnit.Instance);
 
 class CustomUnit : CustomSpecialUnit<CustomUnit>
