@@ -1,16 +1,17 @@
 ﻿# **SI Units library with arithmetic capabilities**
 
-SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
-Supports length, mass and time units.
+SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
 
-Derived units consisting of multiple basic units (length, time, mass) are also supported.
-Newton and Joule are added as special units which are also derived unit types.
+Derived units compund of any combination of basic units (length, time, mass) are supported, including Newton and Joule are also included.
 
-The need for such a library arises from the development of engineering programs that have methods requiring specific numbers with specified units.
- By using this library, the unit of the input will no longer be important. 
- The method will only require metric types, and will do whatever is necessary to handle the mathematics behind them, 
- including unit to unit multiplication, resulting in higher or lower order units (m² or 1/m).
-
+The demand for such libraries has grown alongside the development 
+of engineering programs that require specific numbers with 
+specified units. My solution eliminates the challenge of 
+managing units by allowing you to focus on the metric types, 
+such as MetricLength or MetricTime. The library takes care of 
+the underlying mathematics, seamlessly handling unit conversions 
+and enabling operations like unit to unit multiplication, 
+resulting in higher or lower order units like m² or 1/m.
 Consider the Square class below:
 
 ```

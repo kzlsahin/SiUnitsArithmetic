@@ -8,7 +8,7 @@
     <Authors>kzlsahin</Authors>
     <Product>$(AssemblyName)Arithmetic</Product>
     <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
-Supports length, mass and time units. Derived units consisting of multiple basic units (length, time, mass) are also supported, including Newton and Joule.</Description>
+Supports length, mass and time units. Derived units compund of any combination of basic units (length, time, mass) are also supported, including Newton and Joule.</Description>
     <Copyright>MIT License</Copyright>
     <Version>1.2.5</Version>
     <PackageProjectUrl></PackageProjectUrl>
