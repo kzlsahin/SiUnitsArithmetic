@@ -32,10 +32,11 @@ namespace SIUnits.Artihmetic
 
         internal DerivedUnit Multiply(DerivedUnit a, double b)
         {
-            MetricLength newL = a.l_unit * b;
-            MetricTime newT = a.t_unit * b;
-            MetricMass newM = a.m_unit * b;
-            return DerivedUnit.New(newL, newT, newM);
+            MetricLength newL = a.l_unit;
+            MetricTime newT = a.t_unit;
+            MetricMass newM = a.m_unit;
+            double newScale = a.scaler * b;
+            return DerivedUnit.New(newL, newT, newM, newScale);
         }
 
         internal DerivedUnit Sum(DerivedUnit a, DerivedUnit b)
@@ -69,10 +70,11 @@ namespace SIUnits.Artihmetic
         }
         internal DerivedUnit Divide(DerivedUnit a, double b)
         {
-            MetricLength newL = a.l_unit / b;
-            MetricTime newT = a.t_unit / b;
-            MetricMass newM = a.m_unit / b;
-            return DerivedUnit.New(newL, newT, newM);
+            MetricLength newL = a.l_unit;
+            MetricTime newT = a.t_unit;
+            MetricMass newM = a.m_unit;
+            double newScale = a.scaler / b;
+            return DerivedUnit.New(newL, newT, newM, newScale);
         }
         internal DerivedUnit Divide(double a, DerivedUnit b)
         {

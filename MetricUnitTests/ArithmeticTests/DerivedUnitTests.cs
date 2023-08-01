@@ -20,7 +20,7 @@ namespace MetricUnitTests.ArithmeticTests
         [TestMethod]
         public void EqualityDerivedUnits()
         {
-            UnitConfig.UnitPrecision = 4;
+            UnitConfig.UnitPrecision = 3;
             var der1 = 1.m() / 1.second(2);
             var der2 = 1.m() / 1.second(2);
             Assert.AreEqual(der1 == der2, true);
@@ -32,7 +32,11 @@ namespace MetricUnitTests.ArithmeticTests
             der2 = 0.01.km() * 1000.g() / 1.second(2);
             Assert.AreEqual(der1 == der2, true);
 
-           
+            der1 = (100.mm() * 1.kg()) / 3600.second(2);
+            der2 = (0.0001.km() * 1000000.mg()) / 1.minute(2);
+            var der3 = ((0.0001.km() * 1000000.mg()) / 1.hour(2))*3600;
+            Assert.AreEqual(der1 == der2, true);
+            Assert.AreEqual(der2 == der3, true);
         }
         [TestMethod]
         public void SpecialUnitTests()

@@ -3,6 +3,9 @@
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
 Supports length, mass and time units.
 
+Derived units consisting of multiple basic units (length, time, mass) are also supported.
+Newton and Joule are added as special units which are also derived unit types.
+
 The need for such a library arises from the development of engineering programs that have methods requiring specific numbers with specified units.
  By using this library, the unit of the input will no longer be important. 
  The method will only require metric types, and will do whatever is necessary to handle the mathematics behind them, 
@@ -34,7 +37,35 @@ class Square
 The units of the inputs of the constructor won't be a problem anymore.
 The same class can handle the values with various units (mm, m, cm) and return the same result with correct unit.
 
+### Extensiblity
 
+Now custom units can be defined by the users of this library. Example of a Customunit:
+
+```
+
+// This unit has to be registered
+// call this method only once in the application
+CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2), CustomUnit.Instance);
+
+class CustomUnit : CustomSpecialUnit<CustomUnit>
+{
+    // use new modifier
+    public new string Symbol { get; } = "custom";
+    CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
+    
+    }
+    // override this method
+    protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
+    {
+        return new CustomUnit(l_unit, t_unit, m_unit, 1);
+    }
+    // define a static Instance method
+    public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
+    {
+        return new CustomUnit(l_unit, t_unit, m_unit, 1);
+    }
+}
+```
 ### **Examples**
 
 ```

@@ -9,7 +9,7 @@ namespace SIUnits
     /// </summary>
     public abstract class CustomSpecialUnit<T> : DerivedUnit where T: CustomSpecialUnit<T>
     {
-        protected CustomSpecialUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit) : base(l_unit, t_unit, m_unit)
+        protected CustomSpecialUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
         {
 
         }

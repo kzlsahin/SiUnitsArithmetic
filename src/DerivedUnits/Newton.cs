@@ -11,7 +11,7 @@ namespace SIUnits
     {
         internal readonly static DerivedDegree refDegree = new DerivedDegree(1, -2, 1);
         
-        Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg())
+        Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), 1)
         {
         }
         /// <summary>

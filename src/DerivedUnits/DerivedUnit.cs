@@ -17,20 +17,26 @@ namespace SIUnits
         internal readonly MetricLength l_unit;
         internal readonly MetricTime t_unit;
         internal readonly MetricMass m_unit;
+        internal readonly double scaler;
         internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
         public static DerivedUnit New(MetricLength l)
         {
-            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram),1);
         }
         public static DerivedUnit New(MetricTime t) 
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram), 1);
         }
         public static DerivedUnit New(MetricMass m) 
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m);
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m, 1);
         }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        {
+            return New(lengthUnit, timeUnit, massUnit, 1);
+        }
+
+        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, double scaler)
         {
             DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
             Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
@@ -38,17 +44,18 @@ namespace SIUnits
             {
                 return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
             }
-            return new DerivedUnit(lengthUnit, timeUnit, massUnit);
+            return new DerivedUnit(lengthUnit, timeUnit, massUnit, scaler);
         }
-        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
+        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram), 1)
         {
 
         }
-        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, double scaler)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
             m_unit = massUnit;
+            this.scaler = scaler;
             Degree = new DerivedDegree(l_unit.Degree, t_unit.Degree, m_unit.Degree);
         }
 
