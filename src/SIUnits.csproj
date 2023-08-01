@@ -7,8 +7,8 @@
     <Title>SI Units Arithmetic</Title>
     <Authors>kzlsahin</Authors>
     <Product>$(AssemblyName)Arithmetic</Product>
-    <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units, resulting in higher or lower order units (m², 1/m or m/s).
-Supports length, mass and time units. Derived units compund of any combination of basic units (length, time, mass) are also supported, including Newton and Joule.</Description>
+    <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units  of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
+ Derived units compund of any combination of basic units (length, time, mass) are supported, including Newton and Joule are also included.</Description>
     <Copyright>MIT License</Copyright>
     <Version>1.2.5</Version>
     <PackageProjectUrl></PackageProjectUrl>
@@ -18,7 +18,7 @@ Supports length, mass and time units. Derived units compund of any combination o
     <AssemblyVersion>1.2.5.0</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
     <PackageTags>si units unit metric measurement arithmetic mathematic equations equality quantity convert conversion immutable </PackageTags>
-    <PackageReleaseNotes>- Bug 0f multiplication and division of derivedunits with double type values is fixed.
+    <PackageReleaseNotes>- Bug of multiplication and division of derivedUnits with double type values is fixed.
 - Special derived units Newton and Joule are added.
 - Extensibility is added.
 - DerivedUnit arithmetics are improved.
