@@ -53,18 +53,18 @@ class CustomUnit : CustomSpecialUnit<CustomUnit>
 {
     // use new modifier
     public new string Symbol { get; } = "custom";
-    CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
+    CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit)
     
     }
     // override this method
     protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
     {
-        return new CustomUnit(l_unit, t_unit, m_unit, 1);
+        return new CustomUnit(l_unit, t_unit, m_unit);
     }
     // define a static Instance method
     public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
     {
-        return new CustomUnit(l_unit, t_unit, m_unit, 1);
+        return new CustomUnit(l_unit, t_unit, m_unit);
     }
 }
 ```
