@@ -16,7 +16,9 @@ namespace SIUnits
         public abstract IBasicUnit NewInstance(double value, int degree, int unitOrder);
         public abstract Metric<T> NewInstance(double value, int degree, T unit);
         public abstract double GetValueBy(int unitOrder);
+        public abstract double GetValueBy(T unit);
         public abstract Guid Id { get; }
+        public abstract DerivedUnit ToCompositeUnit();
         /// <summary>
         /// returns unit symbol (for ex. m or 1/m).
         /// </summary>
@@ -81,5 +83,6 @@ namespace SIUnits
             string formatter = $"F{UnitConfig.UnitPrecision}";
             return ToString(formatter);
         }
+
     }
 }

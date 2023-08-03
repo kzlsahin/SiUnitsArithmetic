@@ -12,5 +12,6 @@ namespace SIUnits
         int UnitOrder { get; }
         double GetValueBy(int unitOrder);
         IBasicUnit NewInstance(double value, int degree, int unitOrder);
+        DerivedUnit ToCompositeUnit();
     }
 }
