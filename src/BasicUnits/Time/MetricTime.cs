@@ -13,10 +13,15 @@ namespace SIUnits
         {
             Value = value;
             Degree = degree;
-            UnitOrder = unit;
+            Unit = unit;
         }
         public override Metric<SiTimeUnits> NewInstance(double value, int degree, SiTimeUnits unit)
         {
+            return new MetricTime(value, degree, unit);
+        }
+        public override IBasicUnit NewInstance(double value, int degree, int unitOrder)
+        {
+            SiTimeUnits unit = (SiTimeUnits)UnitOrder;
             return new MetricTime(value, degree, unit);
         }
         /// <summary>
@@ -30,7 +35,8 @@ namespace SIUnits
         /// <summary>
         /// unit of this MetricTime.
         /// </summary>
-        public override SiTimeUnits UnitOrder { get;}
+        public override SiTimeUnits Unit { get;}
+        public override int UnitOrder { get => (int)Unit; }
         /// <summary>
         /// String symbol of the unit
         /// </summary>
@@ -45,18 +51,16 @@ namespace SIUnits
         readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _arithmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
 
         #region operators
-        public static MetricTime operator *(MetricTime a, MetricTime b) => _arithmetics.Multiply(a, b);
-        public static DerivedUnit operator *(MetricTime a, MetricLength b) => a.ToCompositeUnit() * b;
-        public static DerivedUnit operator *(MetricTime a, MetricMass b) => a.ToCompositeUnit() * b;
-        public static MetricTime operator *(MetricTime a, double b) => _arithmetics.Multiply(b, a);
-        public static MetricTime operator *(double a, MetricTime b) => _arithmetics.Multiply(a, b);
+        public static MetricTime operator *(MetricTime a, MetricTime b) => (MetricTime)_arithmetics.Multiply(a, b);
+        public static DerivedUnit operator *(MetricTime a, IBasicUnit b) => a.ToCompositeUnit() * b.ToCompositeUnit();
+        public static MetricTime operator *(MetricTime a, double b) => (MetricTime)_arithmetics.Multiply(b, a);
+        public static MetricTime operator *(double a, MetricTime b) => (MetricTime)_arithmetics.Multiply(a, b);
         public static MetricTime operator /(MetricTime a, MetricTime b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricTime a, MetricLength b) => a.ToCompositeUnit() / b;
-        public static DerivedUnit operator /(MetricTime a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricTime operator /(MetricTime a, double b) => _arithmetics.Divide(a, b);
-        public static MetricTime operator /(double a, MetricTime b) => _arithmetics.Divide(a, b);
-        public static MetricTime operator +(MetricTime a, MetricTime b) => _arithmetics.Sum(a, b);
-        public static MetricTime operator -(MetricTime a, MetricTime b) => _arithmetics.Subtract(a, b);
+        public static DerivedUnit operator /(MetricTime a, IBasicUnit b) => a.ToCompositeUnit() / b.ToCompositeUnit();
+        public static MetricTime operator /(MetricTime a, double b) => (MetricTime)_arithmetics.Divide(a, b);
+        public static MetricTime operator /(double a, MetricTime b) => (MetricTime)_arithmetics.Divide(a, b);
+        public static MetricTime operator +(MetricTime a, MetricTime b) => (MetricTime)_arithmetics.Sum(a, b);
+        public static MetricTime operator -(MetricTime a, MetricTime b) => (MetricTime)_arithmetics.Subtract(a, b);
         public static bool operator ==(MetricTime a, MetricTime b) => _arithmetics.IsEqual(a, b);
         public static bool operator !=(MetricTime a, MetricTime b) => !_arithmetics.IsEqual(a, b);
         /// <summary>
@@ -110,10 +114,18 @@ namespace SIUnits
 
             return (new Tuple<int, int, double>((int)this.UnitOrder*10 +2, this.Degree, this.Value)).GetHashCode();
         }
-        
         public override double GetValueBy(SiTimeUnits unit)
         {
             return this.GetUnitValue(unit, this.Degree);
+        }
+        public override double GetValueBy(int unitOrder)
+        {
+            SiTimeUnits unit = (SiTimeUnits)unitOrder;
+            return this.GetUnitValue(unit, this.Degree);
+        }
+        public override DerivedUnit ToCompositeUnit()
+        {
+            return DerivedUnit.New(this);
         }
     }
 }
