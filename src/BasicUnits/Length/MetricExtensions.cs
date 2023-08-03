@@ -8,15 +8,6 @@ namespace SIUnits
     public static class MetricExtensions
     {
         /// <summary>
-        /// Converts into a derived unit type
-        /// </summary>
-        /// <param name="l">the length unit to be converted</param>
-        /// <returns></returns>
-        public static DerivedUnit ToCompositeUnit(this MetricLength l)
-        {
-            return DerivedUnit.New(l);
-        }
-        /// <summary>
         /// Creates a length unit in metres from integer value.
         /// </summary>
         /// <param name="a"></param>
@@ -145,7 +136,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is not metre, returns a new MetricLength in metre.</returns>
         public static MetricLength m(this MetricLength a)
         {
-            if (a.UnitOrder == SiMetricUnits.metre)
+            if (a.Unit == SiMetricUnits.metre)
                 return a;
             double value = a.GetValueBy(SiMetricUnits.metre);
             return new MetricLength(value, a.Degree, SiMetricUnits.metre);
@@ -157,7 +148,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is not milimetre, returns a new MetricLength in milimetre.</returns>
         public static MetricLength mm(this MetricLength a)
         {
-            if (a.UnitOrder == SiMetricUnits.milimetre)
+            if (a.Unit == SiMetricUnits.milimetre)
                 return a;
             double value = a.GetValueBy(SiMetricUnits.milimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.milimetre);
@@ -169,7 +160,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is not centimetre, returns a new MetricLength in centimetre.</returns>
         public static MetricLength cm(this MetricLength a)
         {
-            if (a.UnitOrder == SiMetricUnits.centimetre)
+            if (a.Unit == SiMetricUnits.centimetre)
                 return a;
             double value = a.GetValueBy(SiMetricUnits.centimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.centimetre);
@@ -181,7 +172,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is not decimetre, returns a new MetricLength in decimetre.</returns>
         public static MetricLength dm(this MetricLength a)
         {
-            if (a.UnitOrder == SiMetricUnits.decimetre)
+            if (a.Unit == SiMetricUnits.decimetre)
                 return a;
             double value = a.GetValueBy(SiMetricUnits.decimetre);
             return new MetricLength(value, a.Degree, SiMetricUnits.decimetre);
@@ -193,7 +184,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is not kilometre, returns a new MetricLength in kilometre.</returns>
         public static MetricLength km(this MetricLength a)
         {
-            if (a.UnitOrder == SiMetricUnits.kilometre)
+            if (a.Unit == SiMetricUnits.kilometre)
                 return a;
             double value = a.GetValueBy(SiMetricUnits.kilometre);
             return new MetricLength(value, a.Degree, SiMetricUnits.kilometre);
@@ -205,7 +196,7 @@ namespace SIUnits
         /// <returns>if the unit of MetricLength is specified unit, returns a new MetricLength in specified unit.</returns>
         public static MetricLength MetricLength(this MetricLength a, SiMetricUnits unit)
         {
-            if (a.UnitOrder == unit)
+            if (a.Unit == unit)
                 return a;
             double value = a.GetValueBy(unit);
             return new MetricLength(value, a.Degree, unit);

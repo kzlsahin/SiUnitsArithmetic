@@ -74,42 +74,34 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength with the same unit of the oprant that has the lower unit.</returns>
-        public static MetricLength operator *(MetricLength a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static MetricLength operator *(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
         /// <summary>
         /// Multiplies a MetricLength with a MetricTime and returns derived unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
-        /// <summary>
-        /// Multiplies a MetricLength with a MetricMass and returns derived unit.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and mass units such as kg/m3 (result of 1.kg()*1.m(-3)).</returns>
-        public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, IBasicUnit b) => a.ToCompositeUnit() * b;
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(MetricLength a, double b) => _arithmetics.Multiply(b, a);
+        public static MetricLength operator *(MetricLength a, double b) => (MetricLength)_arithmetics.Multiply(b, a);
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(double a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static MetricLength operator *(double a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
         public static MetricLength operator /(MetricLength a, MetricLength b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
-        public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricLength operator /(MetricLength a, double b) => _arithmetics.Divide(a, b);
-        public static MetricLength operator /(double a, MetricLength b) => _arithmetics.Divide(a, b);
-        public static MetricLength operator +(MetricLength a, MetricLength b) => _arithmetics.Sum(a, b);
-        public static MetricLength operator -(MetricLength a, MetricLength b) => _arithmetics.Subtract(a, b);
+        public static DerivedUnit operator /(MetricLength a, IBasicUnit b) => a.ToCompositeUnit() / b;
+        public static MetricLength operator /(MetricLength a, double b) => (MetricLength)_arithmetics.Divide(a, b);
+        public static MetricLength operator /(double a, MetricLength b) => (MetricLength)_arithmetics.Divide(a, b);
+        public static MetricLength operator +(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Sum(a, b);
+        public static MetricLength operator -(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Subtract(a, b);
         /// <summary>
         /// checks equality of the two MetricLength based on their values relative to their units such as 100 cm == 1 metre => true.
         /// </summary>
@@ -180,11 +172,19 @@ namespace SIUnits
         {            
             return (new Tuple<int,int,double>((int)this.UnitOrder * 10, this.Degree, this.Value)).GetHashCode();
         }
-       
+        public override double GetValueBy(SiMetricUnits unit)
+        {
+            return this.GetUnitValue(unit, this.Degree);
+        }
         public override double GetValueBy(int unitOrder)
         {
             SiMetricUnits unit = (SiMetricUnits)unitOrder;
             return this.GetUnitValue(unit, this.Degree);
+        }
+
+        public override DerivedUnit ToCompositeUnit()
+        {
+            return DerivedUnit.New(this);
         }
     }
 }

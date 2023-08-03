@@ -12,7 +12,7 @@ namespace SIUnits.Length
         }
         internal static string GetSymbol(this MetricLength metric)
         {
-            return _symbols[metric.UnitOrder];
+            return _symbols[metric.Unit];
         }
         private static Dictionary<SiMetricUnits, int> _scalers = new Dictionary<SiMetricUnits, int> {
             { SiMetricUnits.yoktometre, -24 },
@@ -62,8 +62,8 @@ namespace SIUnits.Length
             };
         internal static double GetUnitValue(this MetricLength l, SiMetricUnits unit, int degree)
         {
-            if (unit == l.UnitOrder) return l.Value;
-            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.UnitOrder]),degree);
+            if (unit == l.Unit) return l.Value;
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.Unit]),degree);
             double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]),degree);
             return l.Value * baseScaler / targetScaler;
         }
