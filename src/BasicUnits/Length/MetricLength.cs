@@ -34,6 +34,11 @@ namespace SIUnits
         {
             return new MetricLength(value, degree, unit);
         }
+        public override IBasicUnit NewInstance(double value, int degree, int unitOrder)
+        {
+            SiMetricUnits unit = (SiMetricUnits)unitOrder;
+            return new MetricLength(value, degree, unit);
+        }
 
         /// <summary>
         /// Value of this MetricLength in units of this MetricLength.
@@ -50,7 +55,8 @@ namespace SIUnits
         /// <summary>
         /// unit of this MetricLength.
         /// </summary>
-        public override SiMetricUnits Unit { get; }
+        public override int UnitOrder {get => (int)Unit; }
+        public override SiMetricUnits Unit {get; }
 
         static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
         /// <summary>
@@ -172,11 +178,12 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {            
-            return (new Tuple<int,int,double>((int)this.Unit * 10, this.Degree, this.Value)).GetHashCode();
+            return (new Tuple<int,int,double>((int)this.UnitOrder * 10, this.Degree, this.Value)).GetHashCode();
         }
        
-        public override double GetValueBy(SiMetricUnits unit)
+        public override double GetValueBy(int unitOrder)
         {
+            SiMetricUnits unit = (SiMetricUnits)unitOrder;
             return this.GetUnitValue(unit, this.Degree);
         }
     }

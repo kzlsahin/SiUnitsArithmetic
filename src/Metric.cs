@@ -4,14 +4,18 @@ using System.Text;
 
 namespace SIUnits
 {
-    public abstract class Metric<T> where T : Enum
+    public abstract class Metric<T> :
+        IBasicUnit
+        where T : Enum
     {
         public abstract double Value { get; }
         public abstract int Degree { get; }
-        public abstract T Unit { get; }
         public abstract String Symbol { get; }
+        public abstract int UnitOrder { get; }
+        public abstract T Unit { get; }
+        public abstract IBasicUnit NewInstance(double value, int degree, int unitOrder);
         public abstract Metric<T> NewInstance(double value, int degree, T unit);
-        public abstract double GetValueBy(T unit);
+        public abstract double GetValueBy(int unitOrder);
         public abstract Guid Id { get; }
         /// <summary>
         /// returns unit symbol (for ex. m or 1/m).

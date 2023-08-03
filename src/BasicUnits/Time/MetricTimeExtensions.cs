@@ -95,7 +95,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime msec(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.milisecond)
+            if (a.UnitOrder == SiTimeUnits.milisecond)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
@@ -107,7 +107,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime milisecond(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.milisecond)
+            if (a.UnitOrder == SiTimeUnits.milisecond)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.milisecond);
             return new MetricTime(value, a.Degree, SiTimeUnits.milisecond);
@@ -119,7 +119,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime sec(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.second)
+            if (a.UnitOrder == SiTimeUnits.second)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
@@ -131,7 +131,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime second(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.second)
+            if (a.UnitOrder == SiTimeUnits.second)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.second);
             return new MetricTime(value, a.Degree, SiTimeUnits.second);
@@ -143,7 +143,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime hour(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.hour)
+            if (a.UnitOrder == SiTimeUnits.hour)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.hour);
             return new MetricTime(value, a.Degree, SiTimeUnits.hour);
@@ -155,7 +155,7 @@ namespace SIUnits
         /// <returns></returns>
         public static MetricTime minute(this MetricTime a)
         {
-            if (a.Unit == SiTimeUnits.minute)
+            if (a.UnitOrder == SiTimeUnits.minute)
                 return a;
             double value = a.GetValueBy(SiTimeUnits.minute);
             return new MetricTime(value, a.Degree, SiTimeUnits.minute);

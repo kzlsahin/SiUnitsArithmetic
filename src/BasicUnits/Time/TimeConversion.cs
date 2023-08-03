@@ -12,7 +12,7 @@ namespace SIUnits.Time
         }
         internal static string GetSymbol(this MetricTime metric)
         {
-            return _symbols[metric.Unit];
+            return _symbols[metric.UnitOrder];
         }
         private static Dictionary<SiTimeUnits, double> _scalers = new Dictionary<SiTimeUnits, double> {
             {SiTimeUnits.picosecond,   Math.Pow(10, -12)},
@@ -37,14 +37,14 @@ namespace SIUnits.Time
         };
         internal static double GetSecond(this MetricTime time)
         {
-            if (time.Unit == SiTimeUnits.second) return time.Value;
-            double scaler = Math.Pow(_scalers[time.Unit], time.Degree);
+            if (time.UnitOrder == SiTimeUnits.second) return time.Value;
+            double scaler = Math.Pow(_scalers[time.UnitOrder], time.Degree);
             return time.Value * scaler;
         }
         internal static double GetUnitValue(this MetricTime t, SiTimeUnits unit, int degree)
         {
-            if (unit == t.Unit) return t.Value;
-            double baseScaler = Math.Pow(_scalers[t.Unit], degree);
+            if (unit == t.UnitOrder) return t.Value;
+            double baseScaler = Math.Pow(_scalers[t.UnitOrder], degree);
             double targetScaler = Math.Pow(_scalers[unit], degree);
             return t.Value * baseScaler / targetScaler;
         }

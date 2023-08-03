@@ -18,6 +18,11 @@ namespace SIUnits
         {
             return new MetricMass(value, degree, unit);
         }
+        public override IBasicUnit NewInstance(double value, int degree, int unitOrder)
+        {
+            SiMassUnits unit = (SiMassUnits)unitOrder;
+            return new MetricMass(value, degree, unit);
+        }
         /// <summary>
         /// Value of this MetricMass in units of this MetricMass.
         /// </summary>
@@ -29,7 +34,11 @@ namespace SIUnits
         /// <summary>
         /// unit of this MetricMass.
         /// </summary>
-        public override SiMassUnits Unit { get;}
+        public override int UnitOrder { get => (int)(Unit);}
+        /// <summary>
+        /// unit of this MetricMass.
+        /// </summary>
+        public override SiMassUnits Unit { get; }
         /// <summary>
         /// String symbol of the unit
         /// </summary>
@@ -44,13 +53,11 @@ namespace SIUnits
 
         #region operators
         public static MetricMass operator *(MetricMass a, MetricMass b) => _arithmetics.Multiply(a, b);
-        public static DerivedUnit operator *(MetricMass a, MetricLength b) => a.ToCompositeUnit() * b;
-        public static DerivedUnit operator *(MetricMass a, MetricTime b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() * b;
         public static MetricMass operator *(MetricMass a, double b) => _arithmetics.Multiply(b, a);
         public static MetricMass operator *(double a, MetricMass b) => _arithmetics.Multiply(a, b);
         public static MetricMass operator /(MetricMass a, MetricMass b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricMass a, MetricLength b) => a.ToCompositeUnit() / b;
-        public static DerivedUnit operator /(MetricMass a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() / b;
         public static MetricMass operator /(MetricMass a, double b) => _arithmetics.Divide(a, b);
         public static MetricMass operator /(double a, MetricMass b) => _arithmetics.Divide(a, b);
         public static MetricMass operator +(MetricMass a, MetricMass b) => _arithmetics.Sum(a, b);
@@ -105,11 +112,12 @@ namespace SIUnits
         }
         public override int GetHashCode()
         {
-            return (new Tuple<int, int, double>((int)this.Unit*10 +1, this.Degree, this.Value)).GetHashCode();
+            return (new Tuple<int, int, double>((int)this.UnitOrder*10 +1, this.Degree, this.Value)).GetHashCode();
         }       
 
-        public override double GetValueBy(SiMassUnits unit)
+        public override double GetValueBy(int unitOrder)
         {
+            SiMassUnits unit = (SiMassUnits)unitOrder;
             return this.GetValueBy(unit, this.Degree);
         }
     }

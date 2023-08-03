@@ -13,7 +13,7 @@ namespace SIUnits
         {
             Value = value;
             Degree = degree;
-            Unit = unit;
+            UnitOrder = unit;
         }
         public override Metric<SiTimeUnits> NewInstance(double value, int degree, SiTimeUnits unit)
         {
@@ -30,7 +30,7 @@ namespace SIUnits
         /// <summary>
         /// unit of this MetricTime.
         /// </summary>
-        public override SiTimeUnits Unit { get;}
+        public override SiTimeUnits UnitOrder { get;}
         /// <summary>
         /// String symbol of the unit
         /// </summary>
@@ -108,7 +108,7 @@ namespace SIUnits
         public override int GetHashCode()
         {
 
-            return (new Tuple<int, int, double>((int)this.Unit*10 +2, this.Degree, this.Value)).GetHashCode();
+            return (new Tuple<int, int, double>((int)this.UnitOrder*10 +2, this.Degree, this.Value)).GetHashCode();
         }
         
         public override double GetValueBy(SiTimeUnits unit)
