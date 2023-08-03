@@ -12,7 +12,7 @@ namespace SIUnits
         }
         internal static string GetSymbol(this MetricMass metric)
         {
-            return _symbols[metric.UnitOrder];
+            return _symbols[metric.Unit];
         }
         private static Dictionary<SiMassUnits, int> _scalers = new Dictionary<SiMassUnits, int> {
             {SiMassUnits.picogram,      -12 },
@@ -47,8 +47,8 @@ namespace SIUnits
         };
         internal static double GetValueBy(this MetricMass m, SiMassUnits unit, int degree)
         {
-            if (unit == m.UnitOrder) return m.Value;
-            double baseScaler = Math.Pow(Math.Pow(10, _scalers[m.UnitOrder]), degree);
+            if (unit == m.Unit) return m.Value;
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[m.Unit]), degree);
             double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]), degree);
             return m.Value * baseScaler / targetScaler;
         }

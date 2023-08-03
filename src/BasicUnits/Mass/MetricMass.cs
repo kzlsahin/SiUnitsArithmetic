@@ -52,16 +52,16 @@ namespace SIUnits
         readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
 
         #region operators
-        public static MetricMass operator *(MetricMass a, MetricMass b) => _arithmetics.Multiply(a, b);
-        public static DerivedUnit operator *(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() * b;
-        public static MetricMass operator *(MetricMass a, double b) => _arithmetics.Multiply(b, a);
-        public static MetricMass operator *(double a, MetricMass b) => _arithmetics.Multiply(a, b);
+        public static MetricMass operator *(MetricMass a, MetricMass b) => (MetricMass)_arithmetics.Multiply(a, b);
+        public static DerivedUnit operator *(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() * b.ToCompositeUnit();
+        public static MetricMass operator *(MetricMass a, double b) => (MetricMass)_arithmetics.Multiply(b, a);
+        public static MetricMass operator *(double a, MetricMass b) => (MetricMass)_arithmetics.Multiply(a, b);
         public static MetricMass operator /(MetricMass a, MetricMass b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() / b;
-        public static MetricMass operator /(MetricMass a, double b) => _arithmetics.Divide(a, b);
-        public static MetricMass operator /(double a, MetricMass b) => _arithmetics.Divide(a, b);
-        public static MetricMass operator +(MetricMass a, MetricMass b) => _arithmetics.Sum(a, b);
-        public static MetricMass operator -(MetricMass a, MetricMass b) => _arithmetics.Subtract(a, b);
+        public static DerivedUnit operator /(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() / b.ToCompositeUnit();
+        public static MetricMass operator /(MetricMass a, double b) => (MetricMass)_arithmetics.Divide(a, b);
+        public static MetricMass operator /(double a, MetricMass b) => (MetricMass)_arithmetics.Divide(a, b);
+        public static MetricMass operator +(MetricMass a, MetricMass b) => (MetricMass)_arithmetics.Sum(a, b);
+        public static MetricMass operator -(MetricMass a, MetricMass b) => (MetricMass)_arithmetics.Subtract(a, b);
         public static bool operator ==(MetricMass a, MetricMass b) => _arithmetics.IsEqual(a, b);
         public static bool operator !=(MetricMass a, MetricMass b) => !_arithmetics.IsEqual(a, b);
         /// <summary>
@@ -114,11 +114,18 @@ namespace SIUnits
         {
             return (new Tuple<int, int, double>((int)this.UnitOrder*10 +1, this.Degree, this.Value)).GetHashCode();
         }       
-
         public override double GetValueBy(int unitOrder)
         {
             SiMassUnits unit = (SiMassUnits)unitOrder;
             return this.GetValueBy(unit, this.Degree);
+        }
+        public override double GetValueBy(SiMassUnits unit)
+        {
+            return this.GetValueBy(unit, this.Degree);
+        }
+        public override DerivedUnit ToCompositeUnit()
+        {
+            return DerivedUnit.New(this);
         }
     }
 }
