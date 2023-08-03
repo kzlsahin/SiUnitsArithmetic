@@ -15,23 +15,33 @@ namespace SIUnits
             Degree = degree;
             Unit = unit;
         }
-        public Metric<SiTimeUnits> NewInstance(double value, int degree, SiTimeUnits unit)
+        public override Metric<SiTimeUnits> NewInstance(double value, int degree, SiTimeUnits unit)
         {
             return new MetricTime(value, degree, unit);
         }
         /// <summary>
         /// Value of this MetricTime in units of this MetricTime.
         /// </summary>
-        public double Value { get;}
+        public override double Value { get;}
         /// <summary>
         /// power of this MetricTime (if it is 2 and unit is minute, then it means min^2).
         /// </summary>
-        public int Degree{ get; }
+        public override int Degree { get; }
         /// <summary>
         /// unit of this MetricTime.
         /// </summary>
-        public SiTimeUnits Unit { get;}
-        public string Symbol { get { return this.GetSymbol(); } }
+        public override SiTimeUnits Unit { get;}
+        /// <summary>
+        /// String symbol of the unit
+        /// </summary>
+        public override string Symbol { get { return this.GetSymbol(); } }
+
+        static Guid _id = new Guid("C19C4E5F-F216-49AB-9265-9F250B58A58A");
+        /// <summary>
+        /// to get the static Id of this unit type.
+        /// </summary>
+        public override Guid Id { get => _id; }
+
         readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _arithmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
 
         #region operators
@@ -82,6 +92,11 @@ namespace SIUnits
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
         public static bool operator >=(MetricTime a, MetricTime b) => !_arithmetics.IsGreaterThen(a, b);
         #endregion
+        /// <summary>
+        /// checks value equality like 60 minute == 1 hour => true.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is MetricTime)
@@ -95,71 +110,8 @@ namespace SIUnits
 
             return (new Tuple<int, int, double>((int)this.Unit*10 +2, this.Degree, this.Value)).GetHashCode();
         }
-        /// <summary>
-        /// returns unit symbol (for ex. m or 1/m).
-        /// </summary>
-        /// <param name="asPositiveExponent">If true, then this method returns only unit symbol without considering degree of the unit (or exponent)</param>
-        /// <returns></returns>
-        public string UnitStr(bool asPositiveExponent = false)
-        {
-            if (Degree > 0)
-            {
-                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            if (asPositiveExponent)
-            {
-                return $"{Symbol}{(Degree == -1 ? "" : (-1 * Degree).ToSupStr())}";
-            }
-            else
-            {
-                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
-
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
-        /// <returns></returns>
-        public string ToString(string formatter)
-        {
-            string value;
-            if (formatter == string.Empty)
-            {
-                value = Value.ToString();
-            }
-            else
-            {
-                value = Value.ToString(formatter);
-            }
-             
-            if (Degree == 0)
-            {
-                return value;
-            }
-            if (Degree > 0)
-            {
-                return $"{value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            else
-            {
-                return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if(UnitConfig.UnitPrecision == 0)
-            {
-                return ToString(string.Empty);
-            }
-            string formatter = $"F{UnitConfig.UnitPrecision}";
-            return ToString(formatter);
-        }
-        public double GetValueBy(SiTimeUnits unit)
+        
+        public override double GetValueBy(SiTimeUnits unit)
         {
             return this.GetUnitValue(unit, this.Degree);
         }

@@ -30,22 +30,33 @@ namespace SIUnits
         {
 
         }
+        public override Metric<SiMetricUnits> NewInstance(double value, int degree, SiMetricUnits unit)
+        {
+            return new MetricLength(value, degree, unit);
+        }
+
         /// <summary>
         /// Value of this MetricLength in units of this MetricLength.
         /// </summary>
-        public double Value { get; }
+        public override double Value { get; }
         /// <summary>
         /// power of this MetricLength (if it is 2 and unit is metre, then it means m^2).
         /// </summary>
-        public int Degree { get; }
+        public override int Degree { get; }
         /// <summary>
         /// returns the symbol of the unit of this MetricLength.
         /// </summary>
-        public string Symbol { get { return this.GetSymbol(); } }
+        public override string Symbol { get { return this.GetSymbol(); } }
         /// <summary>
         /// unit of this MetricLength.
         /// </summary>
-        public SiMetricUnits Unit { get; }
+        public override SiMetricUnits Unit { get; }
+
+        static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
+        /// <summary>
+        /// to get the static Id of this unit type.
+        /// </summary>
+        public override Guid Id { get => _id; }
 
         readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _arithmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
         #region operators
@@ -163,77 +174,8 @@ namespace SIUnits
         {            
             return (new Tuple<int,int,double>((int)this.Unit * 10, this.Degree, this.Value)).GetHashCode();
         }
-        /// <summary>
-        /// returns unit symbol (for ex. m or 1/m).
-        /// </summary>
-        /// <param name="asPositiveExponent">If true, then this method returns only unit symbol without considering degree of the unit (or exponent)</param>
-        /// <returns></returns>
-        public string UnitStr(bool asPositiveExponent = false)
-        {
-            if (Degree > 0)
-            {
-                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            if (asPositiveExponent)
-            {
-                return $"{Symbol}{(Degree == -1 ? "" : (-1 * Degree).ToSupStr())}";
-            }
-            else
-            {
-                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
-
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
-        /// <returns></returns>
-        public string ToString(string formatter)
-        {
-            string value;
-            if (formatter == string.Empty)
-            {
-                value = Value.ToString();
-            }
-            else
-            {
-                value = Value.ToString(formatter);
-            }
-
-            if (Degree == 0)
-            {
-                return value;
-            }
-            if (Degree > 0)
-            {
-                return $"{value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            else
-            {
-                return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if (UnitConfig.UnitPrecision == 0)
-            {
-                return ToString(string.Empty);
-            }
-            string formatter = $"F{UnitConfig.UnitPrecision}";
-            return ToString(formatter);
-        }
-
-        public Metric<SiMetricUnits> NewInstance(double value, int degree, SiMetricUnits unit)
-        {
-            return new MetricLength(value, degree, unit);
-        }
-
-        public double GetValueBy(SiMetricUnits unit)
+       
+        public override double GetValueBy(SiMetricUnits unit)
         {
             return this.GetUnitValue(unit, this.Degree);
         }

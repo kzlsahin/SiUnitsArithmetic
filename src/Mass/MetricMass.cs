@@ -14,24 +14,34 @@ namespace SIUnits
             Degree = degree;
             Unit = unit;
         }
-        /// <summary>
-        /// Value of this MetricMass in units of this MetricMass.
-        /// </summary>
-        public double Value { get;}
-        /// <summary>
-        /// power of this MetricMass (if it is 2, then it means kg^2).
-        /// </summary>
-        public int Degree{ get; }
-        /// <summary>
-        /// unit of this MetricMass.
-        /// </summary>
-        public SiMassUnits Unit { get;}
-        public string Symbol { get { return this.GetSymbol(); } }
-        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
-        public Metric<SiMassUnits> NewInstance(double value, int degree, SiMassUnits unit)
+        public override Metric<SiMassUnits> NewInstance(double value, int degree, SiMassUnits unit)
         {
             return new MetricMass(value, degree, unit);
         }
+        /// <summary>
+        /// Value of this MetricMass in units of this MetricMass.
+        /// </summary>
+        public override double Value { get;}
+        /// <summary>
+        /// power of this MetricMass (if it is 2, then it means kg^2).
+        /// </summary>
+        public override int Degree { get; }
+        /// <summary>
+        /// unit of this MetricMass.
+        /// </summary>
+        public override SiMassUnits Unit { get;}
+        /// <summary>
+        /// String symbol of the unit
+        /// </summary>
+        public override string Symbol { get { return this.GetSymbol(); } }
+
+        static Guid _id = new Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D");
+        /// <summary>
+        /// to get the static Id of this unit type.
+        /// </summary>
+        public override Guid Id { get => _id; }
+        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
+
         #region operators
         public static MetricMass operator *(MetricMass a, MetricMass b) => _arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricMass a, MetricLength b) => a.ToCompositeUnit() * b;
@@ -80,6 +90,11 @@ namespace SIUnits
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
         public static bool operator >=(MetricMass a, MetricMass b) => !_arithmetics.IsGreaterThen(a, b);
         #endregion
+        /// <summary>
+        /// checks value equality like 1000 g == 1 kg => true.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is MetricMass)
@@ -91,73 +106,9 @@ namespace SIUnits
         public override int GetHashCode()
         {
             return (new Tuple<int, int, double>((int)this.Unit*10 +1, this.Degree, this.Value)).GetHashCode();
-        }
-        /// <summary>
-        /// returns unit symbol (for ex. m or 1/m).
-        /// </summary>
-        /// <param name="asPositiveExponent">If true, then this method returns only unit symbol without considering degree of the unit (or exponent)</param>
-        /// <returns></returns>
-        public string UnitStr(bool asPositiveExponent = false)
-        {
-            if (Degree > 0)
-            {
-                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            if (asPositiveExponent)
-            {
-                return $"{Symbol}{(Degree == -1 ? "" : (-1*Degree).ToSupStr())}";
-            }
-            else
-            {
-                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
+        }       
 
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
-        /// <returns></returns>
-        public string ToString(string formatter)
-        {
-            string value;
-            if (formatter == string.Empty)
-            {
-                value = Value.ToString();
-            }
-            else
-            {
-                value = Value.ToString(formatter);
-            }
-
-            if (Degree == 0)
-            {
-                return value;
-            }
-            if (Degree > 0)
-            {
-                return $"{value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            else
-            {
-                return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if (UnitConfig.UnitPrecision == 0)
-            {
-                return ToString(string.Empty);
-            }
-            string formatter = $"F{UnitConfig.UnitPrecision}";
-            return ToString(formatter);
-        }
-
-        public double GetValueBy(SiMassUnits unit)
+        public override double GetValueBy(SiMassUnits unit)
         {
             return this.GetValueBy(unit, this.Degree);
         }
