@@ -7,15 +7,6 @@ namespace SIUnits.BasicUnits.ElectricCurrency
     public static class AmpereExtensions
     {
         /// <summary>
-        /// Converts into a derived unit type
-        /// </summary>
-        /// <param name="l">the length unit to be converted</param>
-        /// <returns></returns>
-        public static DerivedUnit ToCompositeUnit(this Ampere l)
-        {
-            return DerivedUnit.New(l);
-        }
-        /// <summary>
         /// Creates a length unit in amperes from integer value.
         /// </summary>
         /// <param name="a"></param>

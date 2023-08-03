@@ -12,7 +12,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         }
         internal static string GetSymbol(this Ampere metric)
         {
-            return _symbols[metric.UnitOrder];
+            return _symbols[metric.Unit];
         }
         private static Dictionary<SiAmpereUnits, int> _scalers = new Dictionary<SiAmpereUnits, int> {
             { SiAmpereUnits.yoktoampere, -24 },
@@ -38,32 +38,32 @@ namespace SIUnits.BasicUnits.ElectricCurrency
             {SiAmpereUnits.yottaampere,24}
             };
         private static Dictionary<SiAmpereUnits, string> _symbols = new Dictionary<SiAmpereUnits, string> {
-            {SiAmpereUnits.yoktoampere,"ym"},
-            {SiAmpereUnits.zeptoampere,"zm"},
-            {SiAmpereUnits.attoampere, "am"},
-            {SiAmpereUnits.femtoampere,"fm"},
-            {SiAmpereUnits.picoampere, "pm"},
-            {SiAmpereUnits.nanoampere, "nm"},
-            {SiAmpereUnits.microampere,"µm"},
-            {SiAmpereUnits.miliampere, "mm"},
-            {SiAmpereUnits.centiampere,"cm"},
-            {SiAmpereUnits.deciampere, "dm"},
-            {SiAmpereUnits.ampere,     "m"},
-            {SiAmpereUnits.decaampere, "dam"},
-            {SiAmpereUnits.hectoampere,"hm"},
-            {SiAmpereUnits.kiloampere, "km"},
-            {SiAmpereUnits.megaampere, "Mm"},
-            {SiAmpereUnits.gigaampere, "Gm"},
-            {SiAmpereUnits.teraampere, "Tm"},
-            {SiAmpereUnits.petaampere, "Pm"},
-            {SiAmpereUnits.exaampere,  "Em"},
-            {SiAmpereUnits.zettaampere,"Zm"},
-            {SiAmpereUnits.yottaampere,"Ym"}
+            {SiAmpereUnits.yoktoampere,"yA"},
+            {SiAmpereUnits.zeptoampere,"zA"},
+            {SiAmpereUnits.attoampere, "aA"},
+            {SiAmpereUnits.femtoampere,"fA"},
+            {SiAmpereUnits.picoampere, "pA"},
+            {SiAmpereUnits.nanoampere, "nA"},
+            {SiAmpereUnits.microampere,"µA"},
+            {SiAmpereUnits.miliampere, "mA"},
+            {SiAmpereUnits.centiampere,"cA"},
+            {SiAmpereUnits.deciampere, "dA"},
+            {SiAmpereUnits.ampere,      "A"},
+            {SiAmpereUnits.decaampere, "daA"},
+            {SiAmpereUnits.hectoampere,"hA"},
+            {SiAmpereUnits.kiloampere, "kA"},
+            {SiAmpereUnits.megaampere, "MA"},
+            {SiAmpereUnits.gigaampere, "GA"},
+            {SiAmpereUnits.teraampere, "TA"},
+            {SiAmpereUnits.petaampere, "PA"},
+            {SiAmpereUnits.exaampere,  "EA"},
+            {SiAmpereUnits.zettaampere,"ZA"},
+            {SiAmpereUnits.yottaampere,"YA"}
             };
         internal static double GetUnitValue(this Ampere l, SiAmpereUnits unit, int degree)
         {
-            if (unit == l.UnitOrder) return l.Value;
-            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.UnitOrder]), degree);
+            if (unit == l.Unit) return l.Value;
+            double baseScaler = Math.Pow(Math.Pow(10, _scalers[l.Unit]), degree);
             double targetScaler = Math.Pow(Math.Pow(10, _scalers[unit]), degree);
             return l.Value * baseScaler / targetScaler;
         }

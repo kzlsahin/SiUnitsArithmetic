@@ -22,7 +22,7 @@ namespace SIUnits
         {
             Value = value;
             Degree = degree;
-            UnitOrder = unit;
+            Unit = unit;
         }
         internal Ampere() : this(0, 1, SiAmpereUnits.ampere)
         {
@@ -33,6 +33,11 @@ namespace SIUnits
             return new Ampere(value, degree, unit);
         }
 
+        public override IBasicUnit NewInstance(double value, int degree, int unitOrder)
+        {
+            SiAmpereUnits unit = (SiAmpereUnits)unitOrder;
+            return new Ampere(value, degree, unit);
+        }
         /// <summary>
         /// Value of this Ampere in units of this Ampere.
         /// </summary>
@@ -48,7 +53,11 @@ namespace SIUnits
         /// <summary>
         /// unit of this Ampere.
         /// </summary>
-        public override SiAmpereUnits UnitOrder { get; }
+        public override SiAmpereUnits Unit { get; }
+        /// <summary>
+        /// Unit index of the unit among metric units scale.
+        /// </summary>
+        public override int UnitOrder { get => (int)Unit; }
 
         static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
         /// <summary>
@@ -73,14 +82,14 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator *(Ampere a, MetricTime b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(Ampere a, MetricTime b) => AmpereExtensions.ToCompositeUnit(a) * b;
         /// <summary>
         /// Multiplies a Ampere with a MetricMass and returns derived unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and mass units such as kg/m3 (result of 1.kg()*1.m(-3)).</returns>
-        public static DerivedUnit operator *(Ampere a, MetricMass b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(Ampere a, MetricMass b) => AmpereExtensions.ToCompositeUnit(a) * b;
         /// <summary>
         /// scaler multiplication of Ampere.
         /// </summary>
@@ -108,14 +117,14 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator /(Ampere a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(Ampere a, MetricTime b) => AmpereExtensions.ToCompositeUnit(a) / b;
         /// <summary>
         /// Multiplies a Ampere with a Ampere and returns Ampere unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator /(Ampere a, MetricMass b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(Ampere a, MetricMass b) => AmpereExtensions.ToCompositeUnit(a) / b;
         public static Ampere operator /(Ampere a, double b) => _arithmetics.Divide(a, b);
         public static Ampere operator /(double a, Ampere b) => _arithmetics.Divide(a, b);
         public static Ampere operator +(Ampere a, Ampere b) => _arithmetics.Sum(a, b);
@@ -194,6 +203,16 @@ namespace SIUnits
         public override double GetValueBy(SiAmpereUnits unit)
         {
             return this.GetUnitValue(unit, this.Degree);
+        }
+        public override double GetValueBy(int unitOrder)
+        {
+            var unit = (SiAmpereUnits)unitOrder;
+            return this.GetUnitValue(unit, this.Degree);
+        }
+
+        public override DerivedUnit ToCompositeUnit()
+        {
+            return DerivedUnit.New(this);
         }
     }
 }
