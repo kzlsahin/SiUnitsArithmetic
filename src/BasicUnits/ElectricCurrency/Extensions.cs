@@ -135,7 +135,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is not ampere, returns a new Ampere in ampere.</returns>
         public static Ampere m(this Ampere a)
         {
-            if (a.UnitOrder == SiAmpereUnits.ampere)
+            if (a.Unit == SiAmpereUnits.ampere)
                 return a;
             double value = a.GetValueBy(SiAmpereUnits.ampere);
             return new Ampere(value, a.Degree, SiAmpereUnits.ampere);
@@ -147,7 +147,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is not miliampere, returns a new Ampere in miliampere.</returns>
         public static Ampere mm(this Ampere a)
         {
-            if (a.UnitOrder == SiAmpereUnits.miliampere)
+            if (a.Unit == SiAmpereUnits.miliampere)
                 return a;
             double value = a.GetValueBy(SiAmpereUnits.miliampere);
             return new Ampere(value, a.Degree, SiAmpereUnits.miliampere);
@@ -159,7 +159,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is not centiampere, returns a new Ampere in centiampere.</returns>
         public static Ampere cm(this Ampere a)
         {
-            if (a.UnitOrder == SiAmpereUnits.centiampere)
+            if (a.Unit == SiAmpereUnits.centiampere)
                 return a;
             double value = a.GetValueBy(SiAmpereUnits.centiampere);
             return new Ampere(value, a.Degree, SiAmpereUnits.centiampere);
@@ -171,7 +171,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is not deciampere, returns a new Ampere in deciampere.</returns>
         public static Ampere dm(this Ampere a)
         {
-            if (a.UnitOrder == SiAmpereUnits.deciampere)
+            if (a.Unit == SiAmpereUnits.deciampere)
                 return a;
             double value = a.GetValueBy(SiAmpereUnits.deciampere);
             return new Ampere(value, a.Degree, SiAmpereUnits.deciampere);
@@ -183,7 +183,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is not kiloampere, returns a new Ampere in kiloampere.</returns>
         public static Ampere km(this Ampere a)
         {
-            if (a.UnitOrder == SiAmpereUnits.kiloampere)
+            if (a.Unit == SiAmpereUnits.kiloampere)
                 return a;
             double value = a.GetValueBy(SiAmpereUnits.kiloampere);
             return new Ampere(value, a.Degree, SiAmpereUnits.kiloampere);
@@ -195,7 +195,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <returns>if the unit of Ampere is specified unit, returns a new Ampere in specified unit.</returns>
         public static Ampere Ampere(this Ampere a, SiAmpereUnits unit)
         {
-            if (a.UnitOrder == unit)
+            if (a.Unit == unit)
                 return a;
             double value = a.GetValueBy(unit);
             return new Ampere(value, a.Degree, unit);

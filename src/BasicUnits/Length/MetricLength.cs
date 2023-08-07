@@ -81,7 +81,9 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator *(MetricLength a, IBasicUnit b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, Ampere b) => a.ToCompositeUnit() * b;
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
@@ -97,7 +99,9 @@ namespace SIUnits
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
         public static MetricLength operator *(double a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
         public static MetricLength operator /(MetricLength a, MetricLength b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricLength a, IBasicUnit b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricLength a, Ampere b) => a.ToCompositeUnit() / b;
         public static MetricLength operator /(MetricLength a, double b) => (MetricLength)_arithmetics.Divide(a, b);
         public static MetricLength operator /(double a, MetricLength b) => (MetricLength)_arithmetics.Divide(a, b);
         public static MetricLength operator +(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Sum(a, b);

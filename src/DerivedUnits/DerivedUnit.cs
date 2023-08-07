@@ -89,7 +89,6 @@ namespace SIUnits
         static DerivedUnitArithmetics _arithmetics = DerivedUnitArithmetics.Instance;
         #region operators
         public static DerivedUnit operator *(DerivedUnit a, DerivedUnit b) => _arithmetics.Multiply(a, b);
-        public static DerivedUnit operator *(DerivedUnit a, MetricLength b) => _arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(DerivedUnit a, double b) => _arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(double a, DerivedUnit b) => _arithmetics.Multiply(b, a);
         public static DerivedUnit operator /(DerivedUnit a, DerivedUnit b) => _arithmetics.Divide(a, b);
@@ -169,6 +168,10 @@ namespace SIUnits
         public static implicit operator DerivedUnit(MetricMass m)
         {
             return DerivedUnit.New(m);
+        }
+        public static implicit operator DerivedUnit(Ampere a)
+        {
+            return DerivedUnit.New(a);
         }
         #endregion
 
