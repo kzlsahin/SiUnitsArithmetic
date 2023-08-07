@@ -75,60 +75,60 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new Ampere with the same unit of the oprant that has the lower unit.</returns>
-        public static Ampere operator *(Ampere a, Ampere b) => _arithmetics.Multiply(a, b);
+        public static Ampere operator *(Ampere a, Ampere b) => (Ampere)_arithmetics.Multiply(a, b);
         /// <summary>
         /// Multiplies a Ampere with a MetricTime and returns derived unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator *(Ampere a, MetricTime b) => AmpereExtensions.ToCompositeUnit(a) * b;
+        public static DerivedUnit operator *(Ampere a, MetricTime b) => a.ToCompositeUnit() * b;
         /// <summary>
         /// Multiplies a Ampere with a MetricMass and returns derived unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and mass units such as kg/m3 (result of 1.kg()*1.m(-3)).</returns>
-        public static DerivedUnit operator *(Ampere a, MetricMass b) => AmpereExtensions.ToCompositeUnit(a) * b;
+        public static DerivedUnit operator *(Ampere a, MetricMass b) => a.ToCompositeUnit() * b;
         /// <summary>
         /// scaler multiplication of Ampere.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new Ampere as a result of the scaler multiplication of the Ampere.</returns>
-        public static Ampere operator *(Ampere a, double b) => _arithmetics.Multiply(b, a);
+        public static Ampere operator *(Ampere a, double b) => (Ampere)_arithmetics.Multiply(b, a);
         /// <summary>
         /// scaler multiplication of Ampere.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new Ampere as a result of the scaler multiplication of the Ampere.</returns>
-        public static Ampere operator *(double a, Ampere b) => _arithmetics.Multiply(a, b);
+        public static Ampere operator *(double a, Ampere b) => (Ampere)_arithmetics.Multiply(a, b);
         /// <summary>
         /// Multiplies a Ampere with a Ampere and returns Ampere unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static Ampere operator /(Ampere a, Ampere b) => _arithmetics.Divide(a, b);
+        public static Ampere operator /(Ampere a, Ampere b) => (Ampere)_arithmetics.Divide(a, b);
         /// <summary>
         /// Multiplies a Ampere with a Ampere and returns Ampere unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator /(Ampere a, MetricTime b) => AmpereExtensions.ToCompositeUnit(a) / b;
+        public static DerivedUnit operator /(Ampere a, MetricTime b) => a.ToCompositeUnit() / b;
         /// <summary>
         /// Multiplies a Ampere with a Ampere and returns Ampere unit.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
-        public static DerivedUnit operator /(Ampere a, MetricMass b) => AmpereExtensions.ToCompositeUnit(a) / b;
-        public static Ampere operator /(Ampere a, double b) => _arithmetics.Divide(a, b);
-        public static Ampere operator /(double a, Ampere b) => _arithmetics.Divide(a, b);
-        public static Ampere operator +(Ampere a, Ampere b) => _arithmetics.Sum(a, b);
-        public static Ampere operator -(Ampere a, Ampere b) => _arithmetics.Subtract(a, b);
+        public static DerivedUnit operator /(Ampere a, MetricMass b) => a.ToCompositeUnit() / b;
+        public static Ampere operator /(Ampere a, double b) => (Ampere)_arithmetics.Divide(a, b);
+        public static Ampere operator /(double a, Ampere b) => (Ampere)_arithmetics.Divide(a, b);
+        public static Ampere operator +(Ampere a, Ampere b) => (Ampere)_arithmetics.Sum(a, b);
+        public static Ampere operator -(Ampere a, Ampere b) => (Ampere)_arithmetics.Subtract(a, b);
         /// <summary>
         /// checks equality of the two Ampere based on their values relative to their units such as 100 cm == 1 metre => true.
         /// </summary>

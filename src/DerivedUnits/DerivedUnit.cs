@@ -38,10 +38,14 @@ namespace SIUnits
         {
             return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, m);
         }
-        public static DerivedUnit New(MetricMass m) 
+        public static DerivedUnit New(MetricMass m)
         {
             return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m);
-        }        
+        }
+        public static DerivedUnit New(Ampere a)
+        {
+            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+        }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
             DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);

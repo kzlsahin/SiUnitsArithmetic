@@ -46,9 +46,9 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
-            SiMetricUnits l_metric = b.l_unit.UnitOrder;
-            SiTimeUnits t_metric = b.t_unit.UnitOrder;
-            SiMassUnits m_metric = b.m_unit.UnitOrder;
+            SiMetricUnits l_metric = b.l_unit.Unit;
+            SiTimeUnits t_metric = b.t_unit.Unit;
+            SiMassUnits m_metric = b.m_unit.Unit;
             double value_a = a.GetValue(l_metric, t_metric, m_metric);
             double value_b = b.Value;
             double value = value_a + value_b;
@@ -65,9 +65,9 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
-            SiMetricUnits l_metric = b.l_unit.UnitOrder;
-            SiTimeUnits t_metric = b.t_unit.UnitOrder;
-            SiMassUnits m_metric = b.m_unit.UnitOrder;
+            SiMetricUnits l_metric = b.l_unit.Unit;
+            SiTimeUnits t_metric = b.t_unit.Unit;
+            SiMassUnits m_metric = b.m_unit.Unit;
             double value_a = a.GetValue(l_metric, t_metric, m_metric);
             double value_b = b.Value;
             double value = value_a - value_b;
@@ -114,9 +114,9 @@ namespace SIUnits.Artihmetic
             bool lessThen;
             if (isEqual)
             {
-                SiMetricUnits l_metric = b.l_unit.UnitOrder;
-                SiTimeUnits t_metric = b.t_unit.UnitOrder;
-                SiMassUnits m_metric = b.m_unit.UnitOrder;
+                SiMetricUnits l_metric = b.l_unit.Unit;
+                SiTimeUnits t_metric = b.t_unit.Unit;
+                SiMassUnits m_metric = b.m_unit.Unit;
                 double value_a = a.GetValue(l_metric, t_metric, m_metric);
                 lessThen = value_a < b.Value;
             }
@@ -139,9 +139,9 @@ namespace SIUnits.Artihmetic
             bool greaterThen;
             if (isEqual)
             {
-                SiMetricUnits l_metric = b.l_unit.UnitOrder;
-                SiTimeUnits t_metric = b.t_unit.UnitOrder;
-                SiMassUnits m_metric = b.m_unit.UnitOrder;
+                SiMetricUnits l_metric = b.l_unit.Unit;
+                SiTimeUnits t_metric = b.t_unit.Unit;
+                SiMassUnits m_metric = b.m_unit.Unit;
                 double value_a = a.GetValue(l_metric, t_metric, m_metric);
                 greaterThen = value_a > b.Value;
             }
@@ -153,9 +153,9 @@ namespace SIUnits.Artihmetic
         }
         internal bool IsEqual(DerivedUnit a, DerivedUnit b)
         {
-            SiMetricUnits l_metric = b.l_unit.UnitOrder;
-            SiTimeUnits t_metric = b.t_unit.UnitOrder;
-            SiMassUnits m_metric = b.m_unit.UnitOrder;
+            SiMetricUnits l_metric = b.l_unit.Unit;
+            SiTimeUnits t_metric = b.t_unit.Unit;
+            SiMassUnits m_metric = b.m_unit.Unit;
             double value_a = a.GetValue(l_metric, t_metric, m_metric);
             if (UnitConfig.UnitPrecision == 0)
             {
