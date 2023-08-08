@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SIUnits
 {
     public abstract class Metric<T> :
-        IBasicUnit
+        IBasicUnit,
+        IComparable
         where T : Enum
     {
         public abstract double Value { get; }
@@ -83,6 +85,28 @@ namespace SIUnits
             string formatter = $"F{UnitConfig.UnitPrecision}";
             return ToString(formatter);
         }
-
+        /// <summary>
+        /// Compares the current instance with another object of the same type and returns an integer 
+        /// that indicates whether the current instance precedes, follows, 
+        /// or occurs in the same position in the sort order as the other object.
+        /// if Less than zero, this instance precedes obj in the sort order.
+        /// if zero, this instance occurs in the same position in the sort order as obj.
+        /// if greater then zero, this instance follows obj in the sort order.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public int CompareTo(object obj)
+        {
+            if (obj is null) return 1;
+            if(obj is Metric<T>)
+            {
+                return this.Value.CompareTo(((Metric<T>)obj).Value);
+            }
+            else
+            {
+                throw new ArgumentException($"Object is not a Metric<{typeof(T)}>");
+            }
+        }
     }
 }
