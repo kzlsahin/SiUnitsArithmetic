@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits.BasicUnits.ElectricCurrency
+namespace SIUnits
 {
     public static class AmpereExtensions
     {
@@ -12,7 +12,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere m(this int a, int degree = 1)
+        public static Ampere A(this int a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.ampere);
         }
@@ -22,7 +22,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere mm(this int a, int degree = 1)
+        public static Ampere mA(this int a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.miliampere);
         }
@@ -32,7 +32,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere cm(this int a, int degree = 1)
+        public static Ampere cA(this int a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.centiampere);
         }
@@ -42,7 +42,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere dm(this int a, int degree = 1)
+        public static Ampere dA(this int a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.deciampere);
         }
@@ -52,7 +52,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere km(this int a, int degree = 1)
+        public static Ampere kA(this int a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.kiloampere);
         }
@@ -73,7 +73,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere m(this double a, int degree = 1)
+        public static Ampere A(this double a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.ampere);
         }
@@ -83,7 +83,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere mm(this double a, int degree = 1)
+        public static Ampere mA(this double a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.miliampere);
         }
@@ -93,7 +93,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere cm(this double a, int degree = 1)
+        public static Ampere cA(this double a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.centiampere);
         }
@@ -103,7 +103,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere dm(this double a, int degree = 1)
+        public static Ampere dA(this double a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.deciampere);
         }
@@ -113,7 +113,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Ampere km(this double a, int degree = 1)
+        public static Ampere kA(this double a, int degree = 1)
         {
             return new Ampere(a, degree, SiAmpereUnits.kiloampere);
         }
@@ -133,7 +133,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Ampere is not ampere, returns a new Ampere in ampere.</returns>
-        public static Ampere m(this Ampere a)
+        public static Ampere A(this Ampere a)
         {
             if (a.Unit == SiAmpereUnits.ampere)
                 return a;
@@ -145,7 +145,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Ampere is not miliampere, returns a new Ampere in miliampere.</returns>
-        public static Ampere mm(this Ampere a)
+        public static Ampere mA(this Ampere a)
         {
             if (a.Unit == SiAmpereUnits.miliampere)
                 return a;
@@ -157,7 +157,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Ampere is not centiampere, returns a new Ampere in centiampere.</returns>
-        public static Ampere cm(this Ampere a)
+        public static Ampere cA(this Ampere a)
         {
             if (a.Unit == SiAmpereUnits.centiampere)
                 return a;
@@ -169,7 +169,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Ampere is not deciampere, returns a new Ampere in deciampere.</returns>
-        public static Ampere dm(this Ampere a)
+        public static Ampere dA(this Ampere a)
         {
             if (a.Unit == SiAmpereUnits.deciampere)
                 return a;
@@ -181,7 +181,7 @@ namespace SIUnits.BasicUnits.ElectricCurrency
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Ampere is not kiloampere, returns a new Ampere in kiloampere.</returns>
-        public static Ampere km(this Ampere a)
+        public static Ampere kA(this Ampere a)
         {
             if (a.Unit == SiAmpereUnits.kiloampere)
                 return a;

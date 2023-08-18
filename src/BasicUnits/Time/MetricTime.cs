@@ -24,6 +24,8 @@ namespace SIUnits
             SiTimeUnits unit = (SiTimeUnits)UnitOrder;
             return new MetricTime(value, degree, unit);
         }
+        public static MetricTime FundamentalUnit => new MetricTime(1, 1, SiTimeUnits.second);
+        internal static MetricTime ScalerOne => new MetricTime(1, 0, SiTimeUnits.second);
         /// <summary>
         /// Value of this MetricTime in units of this MetricTime.
         /// </summary>

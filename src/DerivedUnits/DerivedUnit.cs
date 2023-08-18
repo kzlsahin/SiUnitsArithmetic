@@ -17,55 +17,61 @@ namespace SIUnits
         internal readonly MetricLength l_unit;
         internal readonly MetricTime t_unit;
         internal readonly MetricMass m_unit;
+        internal readonly Ampere a_unit;
         internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
         public static DerivedUnit New(MetricLength l)
         {
-            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(l, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricLength l, MetricTime t)
         {
-            return new DerivedUnit(l, t, new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(l, t, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricLength l, MetricMass m)
         {
-            return new DerivedUnit(l, new MetricTime(1, 0, SiTimeUnits.second), m);
+            return new DerivedUnit(l, MetricTime.ScalerOne, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricTime t) 
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(MetricLength.ScalerOne, t, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricTime t, MetricMass m)
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), t, m);
+            return new DerivedUnit(MetricLength.ScalerOne, t, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricMass m)
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), m);
+            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(Ampere a)
         {
-            return new DerivedUnit(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram));
+            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, a);
         }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
-            DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree);
+            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
+        }
+        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
+        {
+            DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree, ampereUnit.Degree);
             Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
             if(specialUnitMap.GetSpecialUnitContructor(degree,out specialUnitConstructor))
             {
                 return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
             }
-            return new DerivedUnit(lengthUnit, timeUnit, massUnit);
+            return new DerivedUnit(lengthUnit, timeUnit, massUnit, ampereUnit);
         }
-        private protected DerivedUnit() : this(new MetricLength(1, 0, SiMetricUnits.metre), new MetricTime(1, 0, SiTimeUnits.second), new MetricMass(1, 0, SiMassUnits.kilogram))
+        private protected DerivedUnit() : this(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne)
         {
 
         }
-        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
         {
             l_unit = lengthUnit;
             t_unit = timeUnit;
             m_unit = massUnit;
-            Degree = new DerivedDegree(l_unit.Degree, t_unit.Degree, m_unit.Degree);
+            a_unit = ampereUnit;
+            Degree = new DerivedDegree(l_unit.Degree, t_unit.Degree, m_unit.Degree, a_unit.Degree);
         }
 
         public double Value { get { return l_unit.Value * t_unit.Value * m_unit.Value; } }
@@ -76,12 +82,13 @@ namespace SIUnits
         /// <param name="t_metric"></param>
         /// <param name="m_metric"></param>
         /// <returns></returns>
-        public double GetValue(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric)
+        public double GetValue(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric, SiAmpereUnits a_metric)
         {
             double lValue = l_unit.GetValueBy(l_metric);
             double tValue = t_unit.GetValueBy(t_metric);
             double mValue = m_unit.GetValueBy(m_metric);
-            return lValue * tValue * mValue;
+            double aValue = a_unit.GetValueBy(a_metric);
+            return lValue * tValue * mValue * aValue;
         }
         public string Symbol { get; }
         public DerivedDegree Degree { get; private set; }
@@ -152,7 +159,7 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (new Tuple<MetricLength, MetricTime, MetricMass>(l_unit, t_unit, m_unit)).GetHashCode();
+            return (new Tuple<MetricLength, MetricTime, MetricMass, Ampere>(l_unit, t_unit, m_unit, a_unit)).GetHashCode();
         }
 
         #region conversions
@@ -182,9 +189,9 @@ namespace SIUnits
         /// <param name="t_metric"></param>
         /// <param name="m_metric"></param>
         /// <returns></returns>
-        public DerivedUnit ConvertTo(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric)
+        public DerivedUnit ConvertTo(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric, SiAmpereUnits a_metric)
         {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit.MetricTime(t_metric), m_unit.MetricMass(m_metric));
+            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit.MetricTime(t_metric), m_unit.MetricMass(m_metric), a_unit.Ampere(a_metric));
             return newUnit;
         }
         /// <summary>
@@ -224,6 +231,12 @@ namespace SIUnits
                 sb.Append($"{m_unit.UnitStr(true)}");
                 preceded = true;
             }
+            if (a_unit.Degree > 0)
+            {
+                if (preceded) sb.Append(".");
+                sb.Append($"{a_unit.UnitStr(true)}");
+                preceded = true;
+            }
             bool subproceded = false;
             if (l_unit.Degree < 0)
             {
@@ -254,6 +267,17 @@ namespace SIUnits
                 }
                 if (subproceded) sb.Append(".");
                 sb.Append($"{(m_unit.UnitStr(true))}");
+                subproceded = true;
+                preceded = true;
+            }
+            if (a_unit.Degree < 0)
+            {
+                if (!subproceded)
+                {
+                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
+                }
+                if (subproceded) sb.Append(".");
+                sb.Append($"{(a_unit.UnitStr(true))}");
                 subproceded = true;
                 preceded = true;
             }

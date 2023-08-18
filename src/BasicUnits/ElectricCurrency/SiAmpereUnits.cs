@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SIUnits.BasicUnits.ElectricCurrency
+namespace SIUnits
 {
     public enum SiAmpereUnits
     {

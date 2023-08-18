@@ -23,6 +23,8 @@ namespace SIUnits
             SiMassUnits unit = (SiMassUnits)unitOrder;
             return new MetricMass(value, degree, unit);
         }
+        public static MetricMass FundamentalUnit => new MetricMass(1, 1, SiMassUnits.gram);
+        internal static MetricMass ScalerOne => new MetricMass(1, 0, SiMassUnits.gram);
         /// <summary>
         /// Value of this MetricMass in units of this MetricMass.
         /// </summary>
@@ -49,6 +51,7 @@ namespace SIUnits
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+
         readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
 
         #region operators

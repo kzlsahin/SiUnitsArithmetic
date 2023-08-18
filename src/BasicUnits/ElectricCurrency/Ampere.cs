@@ -38,6 +38,8 @@ namespace SIUnits
             SiAmpereUnits unit = (SiAmpereUnits)unitOrder;
             return new Ampere(value, degree, unit);
         }
+        public static Ampere FundamentalUnit => new Ampere(1, 1, SiAmpereUnits.ampere);
+        public static Ampere ScalerOne => new Ampere(1, 0, SiAmpereUnits.ampere);
         /// <summary>
         /// Value of this Ampere in units of this Ampere.
         /// </summary>

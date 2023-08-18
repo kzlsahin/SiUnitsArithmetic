@@ -14,7 +14,7 @@ namespace MetricUnitTests
         [TestMethod]
         public void CreateCustomSpecialUnit()
         {
-            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2), CustomUnit.Instance);
+            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2,0), CustomUnit.Instance);
             var customUnit = DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
             Assert.IsTrue(customUnit is CustomUnit);
             var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
@@ -29,7 +29,8 @@ namespace MetricUnitTests
         {
 
         }
-        protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
+
+        protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
         }

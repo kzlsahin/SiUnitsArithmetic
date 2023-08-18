@@ -9,9 +9,9 @@ namespace SIUnits
     /// </summary>
     public sealed class Newton : DerivedUnit
     {
-        internal readonly static DerivedDegree refDegree = new DerivedDegree(1, -2, 1);
+        internal readonly static DerivedDegree refDegree = new DerivedDegree(1, -2, 1, 0);
         
-        Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg())
+        Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
         {
         }
         /// <summary>

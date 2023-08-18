@@ -39,6 +39,8 @@ namespace SIUnits
             SiMetricUnits unit = (SiMetricUnits)unitOrder;
             return new MetricLength(value, degree, unit);
         }
+        public static MetricLength FundamentalUnit => new MetricLength(1, 1, SiMetricUnits.metre);
+        internal static MetricLength ScalerOne => new MetricLength(1, 0, SiMetricUnits.metre);
 
         /// <summary>
         /// Value of this MetricLength in units of this MetricLength.
