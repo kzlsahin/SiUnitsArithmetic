@@ -14,6 +14,26 @@ namespace SIUnits.Tests
     public class BasicunitTests
     {
         [TestMethod]
+        public void UnitAmpereTest()
+        {
+            UnitConfig.UnitPrecision = 4;
+            var a1 = 1.A();
+            var a2 = 3.A();
+            Assert.IsTrue(a1 + a2 == 4.Ampere(SiAmpereUnits.ampere, 1));
+            Assert.IsTrue(a1 - a2 == (-2).Ampere(SiAmpereUnits.ampere, 1));
+            Assert.IsTrue(4*a1 - a2 == 1.Ampere(SiAmpereUnits.ampere, 1));
+            Assert.IsTrue((a2 + 0.A()) == 3.Ampere(SiAmpereUnits.ampere, 1));
+            Assert.IsTrue((a1 + a2 / 3) == 2.Ampere(SiAmpereUnits.ampere, 1));
+
+            var a3 = 2.mA();
+            var a4 = 15.cA();
+            Assert.IsTrue(a3 * a4 == 3.cA(2));
+
+            a3 = 2.dA();
+            a4 = 25.cA();
+            Assert.IsTrue(a3 * a4 == 0.05.A(2));
+        }
+            [TestMethod]
         public void UnitMassTest()
         {
             UnitConfig.UnitPrecision = 4;
