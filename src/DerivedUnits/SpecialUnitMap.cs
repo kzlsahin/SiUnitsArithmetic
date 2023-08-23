@@ -20,28 +20,56 @@ namespace SIUnits
         }
         SpecialUnitMap()
         {
-            _constcutorMap = new Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, DerivedUnit>>();
-            _constcutorMap.Add(Newton.refDegree, Newton.New);
-            _constcutorMap.Add(Joule.refDegree, Joule.New);
+            _constructorMap = new Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit>>();
+            _constructorMap.Add(Newton.refDegree, Newton.New);
+            _constructorMap.Add(Joule.refDegree, Joule.New);
         }
 
-        Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, DerivedUnit>> _constcutorMap;
-        public bool RegisterSpecialUnit<T>(DerivedDegree degree, Func<MetricLength, MetricTime, MetricMass, CustomSpecialUnit<T>> constructor) where T : CustomSpecialUnit<T>
+        Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit>> _constructorMap;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="refdegree"></param>
+        /// <param name="constructor"></param>
+        /// <returns></returns>
+        public bool RegisterSpecialUnit<T>(DerivedDegree refdegree, Func<MetricLength, MetricTime, MetricMass, Ampere, CustomSpecialUnit<T>> constructor) where T : CustomSpecialUnit<T>
         {
-            return AddConstructor(degree, constructor);
+            bool res = AddConstructor(refdegree, constructor);
+            if (UnitConfig.Protectionlevel < 1)
+            {
+                return res;
+            }
+            else
+            {
+                if(res == false)
+                {
+                    throw new InvalidOperationException("The special unit you have been trying to register has the same combination of unit degrees with an existing special unit.");
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
-        internal bool AddConstructor(DerivedDegree degree, Func<MetricLength, MetricTime, MetricMass, DerivedUnit> contructor)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="refDegree"></param>
+        /// <param name="contructor"></param>
+        /// <returns></returns>
+        internal bool AddConstructor(DerivedDegree refDegree, Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit> contructor)
         {
-            if (_constcutorMap.ContainsKey(degree))
+            if (_constructorMap.ContainsKey(refDegree))
             {
                 return false;
             }
-            _constcutorMap.Add(degree, contructor);
+            _constructorMap.Add(refDegree, contructor);
             return true;
         }
-        internal bool GetSpecialUnitContructor(DerivedDegree degree, out Func<MetricLength, MetricTime, MetricMass, DerivedUnit> contructor)
+        internal bool GetSpecialUnitContructor(DerivedDegree degree, out Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit> contructor)
         {
-            if(_constcutorMap.TryGetValue(degree, out contructor))
+            if(_constructorMap.TryGetValue(degree, out contructor))
             {
                 return true;
             }

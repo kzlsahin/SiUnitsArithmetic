@@ -34,7 +34,7 @@ namespace MetricUnitTests
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
         }
-        public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
+        public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
         }

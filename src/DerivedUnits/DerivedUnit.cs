@@ -21,43 +21,43 @@ namespace SIUnits
         internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
         public static DerivedUnit New(MetricLength l)
         {
-            return new DerivedUnit(l, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
+            return New(l, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricLength l, MetricTime t)
         {
-            return new DerivedUnit(l, t, MetricMass.ScalerOne, Ampere.ScalerOne);
+            return New(l, t, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricLength l, MetricMass m)
         {
-            return new DerivedUnit(l, MetricTime.ScalerOne, m, Ampere.ScalerOne);
+            return New(l, MetricTime.ScalerOne, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricTime t) 
         {
-            return new DerivedUnit(MetricLength.ScalerOne, t, MetricMass.ScalerOne, Ampere.ScalerOne);
+            return New(MetricLength.ScalerOne, t, MetricMass.ScalerOne, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricTime t, MetricMass m)
         {
-            return new DerivedUnit(MetricLength.ScalerOne, t, m, Ampere.ScalerOne);
+            return New(MetricLength.ScalerOne, t, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricMass m)
         {
-            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, m, Ampere.ScalerOne);
+            return New(MetricLength.ScalerOne, MetricTime.ScalerOne, m, Ampere.ScalerOne);
         }
         public static DerivedUnit New(Ampere a)
         {
-            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, a);
+            return New(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, a);
         }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
         {
-            return new DerivedUnit(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
+            return New(lengthUnit, timeUnit, massUnit, Ampere.ScalerOne);
         }
         public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
         {
             DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree, ampereUnit.Degree);
-            Func<MetricLength, MetricTime, MetricMass, DerivedUnit> specialUnitConstructor;
+            Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit> specialUnitConstructor;
             if(specialUnitMap.GetSpecialUnitContructor(degree,out specialUnitConstructor))
             {
-                return specialUnitConstructor(lengthUnit, timeUnit, massUnit);
+                return specialUnitConstructor(lengthUnit, timeUnit, massUnit, ampereUnit);
             }
             return new DerivedUnit(lengthUnit, timeUnit, massUnit, ampereUnit);
         }
