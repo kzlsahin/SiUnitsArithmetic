@@ -13,5 +13,6 @@ namespace SIUnits
         /// </summary>
         /// <remarks>This value changes ToString() behavior of the units. To set back to default behavior, set its value to zero.</remarks>
         public static int UnitPrecision { get; set; } = 0;
+        public static int Protectionlevel { get; set; } = 2;
     }
 }

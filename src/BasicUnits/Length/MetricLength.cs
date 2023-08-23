@@ -30,22 +30,41 @@ namespace SIUnits
         {
 
         }
+        public override Metric<SiMetricUnits> NewInstance(double value, int degree, SiMetricUnits unit)
+        {
+            return new MetricLength(value, degree, unit);
+        }
+        public override IBasicUnit NewInstance(double value, int degree, int unitOrder)
+        {
+            SiMetricUnits unit = (SiMetricUnits)unitOrder;
+            return new MetricLength(value, degree, unit);
+        }
+        public static MetricLength FundamentalUnit => new MetricLength(1, 1, SiMetricUnits.metre);
+        internal static MetricLength ScalerOne => new MetricLength(1, 0, SiMetricUnits.metre);
+
         /// <summary>
         /// Value of this MetricLength in units of this MetricLength.
         /// </summary>
-        public double Value { get; }
+        public override double Value { get; }
         /// <summary>
         /// power of this MetricLength (if it is 2 and unit is metre, then it means m^2).
         /// </summary>
-        public int Degree { get; }
+        public override int Degree { get; }
         /// <summary>
         /// returns the symbol of the unit of this MetricLength.
         /// </summary>
-        public string Symbol { get { return this.GetSymbol(); } }
+        public override string Symbol { get { return this.GetSymbol(); } }
         /// <summary>
         /// unit of this MetricLength.
         /// </summary>
-        public SiMetricUnits Unit { get; }
+        public override int UnitOrder {get => (int)Unit; }
+        public override SiMetricUnits Unit {get; }
+
+        static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
+        /// <summary>
+        /// to get the static Id of this unit type.
+        /// </summary>
+        public override Guid Id { get => _id; }
 
         readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _arithmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
         #region operators
@@ -57,7 +76,7 @@ namespace SIUnits
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength with the same unit of the oprant that has the lower unit.</returns>
-        public static MetricLength operator *(MetricLength a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static MetricLength operator *(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
         /// <summary>
         /// Multiplies a MetricLength with a MetricTime and returns derived unit.
         /// </summary>
@@ -65,34 +84,30 @@ namespace SIUnits
         /// <param name="b"></param>
         /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and time units such as m/s (result of 1.m() * 1.s(-1)).</returns>
         public static DerivedUnit operator *(MetricLength a, MetricTime b) => a.ToCompositeUnit() * b;
-        /// <summary>
-        /// Multiplies a MetricLength with a MetricMass and returns derived unit.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns>returns a new DerivedUnit as a result of the multiplication of the length and mass units such as kg/m3 (result of 1.kg()*1.m(-3)).</returns>
         public static DerivedUnit operator *(MetricLength a, MetricMass b) => a.ToCompositeUnit() * b;
+        public static DerivedUnit operator *(MetricLength a, Ampere b) => a.ToCompositeUnit() * b;
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(MetricLength a, double b) => _arithmetics.Multiply(b, a);
+        public static MetricLength operator *(MetricLength a, double b) => (MetricLength)_arithmetics.Multiply(b, a);
         /// <summary>
         /// scaler multiplication of MetricLength.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
-        public static MetricLength operator *(double a, MetricLength b) => _arithmetics.Multiply(a, b);
+        public static MetricLength operator *(double a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
         public static MetricLength operator /(MetricLength a, MetricLength b) => _arithmetics.Divide(a, b);
-        public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
-        public static MetricLength operator /(MetricLength a, double b) => _arithmetics.Divide(a, b);
-        public static MetricLength operator /(double a, MetricLength b) => _arithmetics.Divide(a, b);
-        public static MetricLength operator +(MetricLength a, MetricLength b) => _arithmetics.Sum(a, b);
-        public static MetricLength operator -(MetricLength a, MetricLength b) => _arithmetics.Subtract(a, b);
+        public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
+        public static DerivedUnit operator /(MetricLength a, Ampere b) => a.ToCompositeUnit() / b;
+        public static MetricLength operator /(MetricLength a, double b) => (MetricLength)_arithmetics.Divide(a, b);
+        public static MetricLength operator /(double a, MetricLength b) => (MetricLength)_arithmetics.Divide(a, b);
+        public static MetricLength operator +(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Sum(a, b);
+        public static MetricLength operator -(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Subtract(a, b);
         /// <summary>
         /// checks equality of the two MetricLength based on their values relative to their units such as 100 cm == 1 metre => true.
         /// </summary>
@@ -161,81 +176,21 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {            
-            return (new Tuple<int,int,double>((int)this.Unit * 10, this.Degree, this.Value)).GetHashCode();
+            return (new Tuple<int,int,double>((int)this.UnitOrder * 10, this.Degree, this.Value)).GetHashCode();
         }
-        /// <summary>
-        /// returns unit symbol (for ex. m or 1/m).
-        /// </summary>
-        /// <param name="asPositiveExponent">If true, then this method returns only unit symbol without considering degree of the unit (or exponent)</param>
-        /// <returns></returns>
-        public string UnitStr(bool asPositiveExponent = false)
-        {
-            if (Degree > 0)
-            {
-                return $"{Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            if (asPositiveExponent)
-            {
-                return $"{Symbol}{(Degree == -1 ? "" : (-1 * Degree).ToSupStr())}";
-            }
-            else
-            {
-                return $"1/{Symbol}{(-1 * Degree).ToSupStr()}";
-
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
-        /// <returns></returns>
-        public string ToString(string formatter)
-        {
-            string value;
-            if (formatter == string.Empty)
-            {
-                value = Value.ToString();
-            }
-            else
-            {
-                value = Value.ToString(formatter);
-            }
-
-            if (Degree == 0)
-            {
-                return value;
-            }
-            if (Degree > 0)
-            {
-                return $"{value} {Symbol}{(Degree == 1 ? "" : Degree.ToSupStr())}";
-            }
-            else
-            {
-                return $"{value} 1/{Symbol}{(-1 * Degree).ToSupStr()}";
-            }
-        }
-        /// <summary>
-        /// writes the value of the unit with unit symbol.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            if (UnitConfig.UnitPrecision == 0)
-            {
-                return ToString(string.Empty);
-            }
-            string formatter = $"F{UnitConfig.UnitPrecision}";
-            return ToString(formatter);
-        }
-
-        public Metric<SiMetricUnits> NewInstance(double value, int degree, SiMetricUnits unit)
-        {
-            return new MetricLength(value, degree, unit);
-        }
-
-        public double GetValueBy(SiMetricUnits unit)
+        public override double GetValueBy(SiMetricUnits unit)
         {
             return this.GetUnitValue(unit, this.Degree);
+        }
+        public override double GetValueBy(int unitOrder)
+        {
+            SiMetricUnits unit = (SiMetricUnits)unitOrder;
+            return this.GetUnitValue(unit, this.Degree);
+        }
+
+        public override DerivedUnit ToCompositeUnit()
+        {
+            return DerivedUnit.New(this);
         }
     }
 }

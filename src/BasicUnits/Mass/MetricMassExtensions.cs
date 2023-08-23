@@ -7,15 +7,6 @@ namespace SIUnits
 {
     public static class MetricMassExtensions
     {
-        /// <summary>
-        /// Converts into a derived unit type
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        public static DerivedUnit ToCompositeUnit(this MetricMass m)
-        {
-            return DerivedUnit.New(m);
-        }
         public static MetricMass mg(this double a, int degree = 1)
         {
             return new MetricMass(a, degree, SiMassUnits.miligram);

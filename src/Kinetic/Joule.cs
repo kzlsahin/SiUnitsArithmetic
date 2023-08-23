@@ -9,9 +9,9 @@ namespace SIUnits
     /// </summary>
     public sealed class Joule : DerivedUnit
     {
-        internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -2, 1);
+        internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -2, 1, 0);
         
-        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg())
+        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
         {
         }
         /// <summary>

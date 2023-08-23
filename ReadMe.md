@@ -2,7 +2,7 @@
 
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
 
-Derived units compund of any combination of basic units (length, time, mass) are supported, including Newton and Joule are also included.
+Derived units compund of any combination of basic units (length, time, mass, electric currency) are supported, including Newton and Joule are also included.
 
 The demand for such libraries has grown alongside the development 
 of engineering programs that require specific numbers with 
@@ -45,30 +45,35 @@ The same class can handle the values with various units (mm, m, cm) and return t
 Now custom units can be defined by the users of this library. Example of a Customunit:
 
 ```
-
-// This unit has to be registered
+// Special unit has to be registered
 // call this method only once in the application
 // derived degree indicates the exponents of length, time and mass unit components of the custom derived unit.
-CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2), CustomUnit.Instance);
+public void CreateCustomSpecialUnit()
+        {
+            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2,0), CustomUnit.Instance);
+            var customUnit = DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
+            Assert.IsTrue(customUnit is CustomUnit);
+            var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
+            Assert.IsTrue(custom2 is CustomUnit);
+        }
 
 class CustomUnit : CustomSpecialUnit<CustomUnit>
-{
-    // use new modifier
-    public new string Symbol { get; } = "custom";
-    CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit)
-    
-    }
-    // override this method
-    protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
     {
-        return new CustomUnit(l_unit, t_unit, m_unit);
+        public new string Symbol { get; } = "custom";
+        CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
+        {
+
+        }
+
+        protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
+        {
+            return new CustomUnit(l_unit, t_unit, m_unit, 1);
+        }
+        public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
+        {
+            return new CustomUnit(l_unit, t_unit, m_unit, 1);
+        }
     }
-    // define a static Instance method
-    public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit)
-    {
-        return new CustomUnit(l_unit, t_unit, m_unit);
-    }
-}
 ```
 
 ### **Examples**
@@ -181,47 +186,30 @@ var m14 = (m12 / 2).m();
   
 ## Supported Units
 
-- yoktometre, [ym]
+| Units of Length |Units of Time|Units of Mass           | Eleectric Currency |
+|--------------------|-----------------|------------     |__________  |
+|yoktometre, [ym]   | picosecond       | picogram, [pg]  |yoktoampere,|
+| zeptometre, [zm]  | nanosecond       | nanogram, [ng]  |zeptoampere,|
+| attometre, [am]   | microsecond      | microgram, [µg] |attoampere, |
+| femtometre, [fm]  | milisecond       | miligram, [mg]  |femtoampere,|
+| picometre, [pm]   | second           | centigram, [cg] |picoampere, |
+| nanometre, [nm]   | minute           | decigram, [dg]  |nanoampere, |
+| micrometre, [µm]  | hour             | gram, [g]       |microampere,|
+| milimetre, [mm]   | day              | decagram, [dac] |miliampere, |
+| centimetre, [cm]  |                  | hectogram, [hg] |centiampere,|
+| decimetre, [dm]   |                  | kilogram, [kg]  |deciampere, |
+| metre, [m]        |                  | tonne, [t]      |ampere,     |
+| decametre, [dam]  |                  | kilotonne, [kt] |decaampere, |
+| hectometre, [hm]  |                  | megatonne, [Mt] |hectoampere,|
+| kilometre, [km]   |                  |                 |kiloampere, |
+| megametre, [Mm]   |                  |                 |megaampere, |
+| gigametre, [Gm]   |                  |                 |gigaampere, |
+| terametre, [Tm]   |                  |                 |teraampere, |
+| petametre, [Pm]   |                  |                 |petaampere, |
+| exametre, [Em]    |                  |                 |exaampere,  |
+| zettametre, [Zm]  |                  |                 |zettaampere,|
+| yottametre, [Ym]  |                  |                 |yottaampere,|
 
-- zeptometre, [zm]
-
-- attometre, [am]
-
-- femtometre, [fm]
-
-- picometre, [pm]
-
-- nanometre, [nm]
-
-- micrometre, [µm]
-
-- milimetre, [mm]
-
-- centimetre, [cm]
-
-- decimetre, [dm]
-
-- metre, [m]
-
-- decametre, [dam]
-
-- hectometre, [hm]
-
-- kilometre, [km]
-
-- megametre, [Mm]
-
-- gigametre, [Gm]
-
-- terametre, [Tm]
-
-- petametre, [Pm]
-
-- exametre, [Em]
-
-- zettametre, [Zm]
-
-- yottametre, [Ym]
 
 ## NuGet Package
 

@@ -8,15 +8,6 @@ namespace SIUnits
     public static class MetricExtensions
     {
         /// <summary>
-        /// Converts into a derived unit type
-        /// </summary>
-        /// <param name="l">the length unit to be converted</param>
-        /// <returns></returns>
-        public static DerivedUnit ToCompositeUnit(this MetricLength l)
-        {
-            return DerivedUnit.New(l);
-        }
-        /// <summary>
         /// Creates a length unit in metres from integer value.
         /// </summary>
         /// <param name="a"></param>

@@ -14,11 +14,12 @@ namespace SIUnits
         /// <param name="lengthDegree"></param>
         /// <param name="timeDegree"></param>
         /// <param name="massDegree"></param>
-        public DerivedDegree(int lengthDegree, int timeDegree, int massDegree )
+        public DerivedDegree(int lengthDegree, int timeDegree, int massDegree, int ampereDegree )
         {
             l_degree = lengthDegree;
             t_degree = timeDegree;
             m_degree = massDegree;
+            a_degree = ampereDegree;
         }
         /// <summary>
         /// degree of the length unit component of the derivedUnit
@@ -32,15 +33,18 @@ namespace SIUnits
         /// degree of the mass unit component of the derivedUnit
         /// </summary>
         public readonly int m_degree;
-
+        /// <summary>
+        /// degree of the ampere unit component of the derivedUnit
+        /// </summary>
+        public readonly int a_degree;
         public static DerivedDegree operator +(DerivedDegree a, DerivedDegree b)
         {
-            DerivedDegree newDegree = new DerivedDegree(a.l_degree + b.l_degree, a.t_degree + b.t_degree, a.m_degree + b.m_degree);
+            DerivedDegree newDegree = new DerivedDegree(a.l_degree + b.l_degree, a.t_degree + b.t_degree, a.m_degree + b.m_degree, a.a_degree + b.a_degree);
             return newDegree;
         }
         public static DerivedDegree operator -(DerivedDegree a, DerivedDegree b)
         {
-            DerivedDegree newDegree = new DerivedDegree(a.l_degree - b.l_degree, a.t_degree - b.t_degree, a.m_degree - b.m_degree);
+            DerivedDegree newDegree = new DerivedDegree(a.l_degree - b.l_degree, a.t_degree - b.t_degree, a.m_degree - b.m_degree, a.a_degree - b.a_degree);
             return newDegree;
         }
         /// <summary>
@@ -56,7 +60,8 @@ namespace SIUnits
                 var rival = (DerivedDegree)obj;
                 return l_degree == rival.l_degree &&
                     t_degree == rival.t_degree &&
-                    m_degree == rival.m_degree;
+                    m_degree == rival.m_degree &&
+                    a_degree == rival.a_degree;
             }
             else
             {
@@ -69,7 +74,7 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (new Tuple<int,int,int>(l_degree, t_degree, m_degree)).GetHashCode();
+            return (new Tuple<int,int,int,int>(l_degree, t_degree, m_degree,a_degree)).GetHashCode();
         }
 
         public override string ToString()

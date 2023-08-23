@@ -24,15 +24,15 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns>a new T unit.</returns>
         /// <exception cref="ArgumentException"> Summation of two units with different degrees throws exception</exception>
-        internal T Sum(T a, T b)
+        internal IBasicUnit Sum(IBasicUnit a, IBasicUnit b)
         {
             if (a.Degree != b.Degree)
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
-            U unit = a.Unit;
-            double value = (a.GetValueBy(unit) + b.GetValueBy(unit));
-            return (T)a.NewInstance(value, a.Degree, unit);
+            int unitOrder = a.UnitOrder;
+            double value = (a.GetValueBy(unitOrder) + b.GetValueBy(unitOrder));
+            return (T)a.NewInstance(value, a.Degree, unitOrder);
         }
         /// <summary>
         /// Subtraction of two T units.Caution! error-prone method. Subtraction of two units with different degrees throws exception
@@ -41,48 +41,48 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns> new T unit.</returns>
         /// <exception cref="ArgumentException">Subtraction of two units with different degrees throws exception</exception>
-        internal T Subtract(T a, T b)
+        internal IBasicUnit Subtract(IBasicUnit a, IBasicUnit b)
         {
             if (a.Degree != b.Degree)
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be subtracted");
             }
-            U unit = a.Unit;
-            double value = (a.GetValueBy(unit) - b.GetValueBy(unit));
-            return (T)a.NewInstance(value, a.Degree, unit);
+            int unitOrder = a.UnitOrder;
+            double value = (a.GetValueBy(unitOrder) - b.GetValueBy(unitOrder));
+            return (T)a.NewInstance(value, a.Degree, unitOrder);
         }
-        internal T Multiply(T a, T b)
+        internal IBasicUnit Multiply(IBasicUnit a, IBasicUnit b)
         {
-            U unit = a.Unit;
+            int unitOrder = a.UnitOrder;
             int deg = a.Degree + b.Degree;
-            double value = (a.GetValueBy(unit) * b.GetValueBy(unit));
-            return (T)a.NewInstance(value, deg, unit);
+            double value = (a.GetValueBy(unitOrder) * b.GetValueBy(unitOrder));
+            return (T)a.NewInstance(value, deg, unitOrder);
         }
-        internal T Multiply(double a, T b)
+        internal IBasicUnit Multiply(double a, IBasicUnit b)
         {
-            U unit = b.Unit;
+            int unitOrder = b.UnitOrder;
             double value = b.Value * a;
-            return (T)b.NewInstance(value, b.Degree, unit);
+            return (T)b.NewInstance(value, b.Degree, unitOrder);
         }
-        internal T Divide(T a, T b)
+        internal T Divide(IBasicUnit a, IBasicUnit b)
         {
-            U unit = a.Unit;
+            int unitOrder = a.UnitOrder;
             int deg = a.Degree - b.Degree;
-            double value = (a.GetValueBy(unit) / b.GetValueBy(unit));
-            return (T)a.NewInstance(value, deg, unit);
+            double value = (a.GetValueBy(unitOrder) / b.GetValueBy(unitOrder));
+            return (T)a.NewInstance(value, deg, unitOrder);
         }
-        internal T Divide(T a, double b)
+        internal IBasicUnit Divide(IBasicUnit a, double b)
         {
-            U unit = a.Unit;
+            int unitOrder = a.UnitOrder;
             double value = a.Value / b;
-            return (T)a.NewInstance(value, a.Degree, unit);
+            return (T)a.NewInstance(value, a.Degree, unitOrder);
         }
-        internal T Divide(double a, T b)
+        internal IBasicUnit Divide(double a, IBasicUnit b)
         {
-            U unit = b.Unit;
+            int unitOrder = b.UnitOrder;
             double value = a / b.Value;
             int degree = -1 * b.Degree;
-            return (T)b.NewInstance(value, degree, unit);
+            return (T)b.NewInstance(value, degree, unitOrder);
         }
         /// <summary>
         /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
@@ -91,14 +91,14 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
-        internal bool IsLessThen(T a, T b)
+        internal bool IsLessThen(IBasicUnit a, IBasicUnit b)
         {
             bool isEqual = a.Degree == b.Degree;
             bool lessThen;
             if (isEqual)
             {
-                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
-                lessThen = a.GetValueBy(unit) < b.GetValueBy(unit);
+                int unitOrder = (a.UnitOrder < b.UnitOrder) ? a.UnitOrder : b.UnitOrder;
+                lessThen = a.GetValueBy(unitOrder) < b.GetValueBy(unitOrder);
             }
             else
             {
@@ -113,14 +113,14 @@ namespace SIUnits.Artihmetic
         /// <param name="b"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
-        internal bool IsGreaterThen(T a, T b)
+        internal bool IsGreaterThen(IBasicUnit a, IBasicUnit b)
         {
             bool isEqual = a.Degree == b.Degree;
             bool greaterThen;
             if (isEqual)
             {
-                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
-                greaterThen = a.GetValueBy(unit) > b.GetValueBy(unit);
+                int unitOrder = (a.UnitOrder < b.UnitOrder) ? a.UnitOrder : b.UnitOrder;
+                greaterThen = a.GetValueBy(unitOrder) > b.GetValueBy(unitOrder);
             }
             else
             {
@@ -128,19 +128,19 @@ namespace SIUnits.Artihmetic
             }
             return greaterThen;
         }
-        internal bool IsEqual(T a, T b)
+        internal bool IsEqual(IBasicUnit a, IBasicUnit b)
         {
             bool isEqual = a.Degree == b.Degree;
             if (isEqual)
             {
-                U unit = ((int)(object)(a.Unit) < (int)(object)(b.Unit)) ? a.Unit : b.Unit;
+                int unitOrder = (a.UnitOrder < b.UnitOrder) ? a.UnitOrder : b.UnitOrder;
                 if (UnitConfig.UnitPrecision == 0)
                 {
-                    isEqual = a.GetValueBy(unit) == b.GetValueBy(unit);
+                    isEqual = a.GetValueBy(unitOrder) == b.GetValueBy(unitOrder);
                 }
                 else
                 {
-                    isEqual = Math.Abs(a.GetValueBy(unit) - b.GetValueBy(unit)) < Math.Pow(10, -1 * UnitConfig.UnitPrecision);
+                    isEqual = Math.Abs(a.GetValueBy(unitOrder) - b.GetValueBy(unitOrder)) < Math.Pow(10, -1 * UnitConfig.UnitPrecision);
                 }
             }
             return isEqual;
