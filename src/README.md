@@ -99,7 +99,7 @@ var speed = 1.m() / 1.second()
 var m1 = 2.m();
 // 2 m
 
-m1.dcm()
+m1.cm()
 // 200 cm
 
 var s1 = 3.hour();
