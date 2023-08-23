@@ -12,17 +12,17 @@ var summary = BenchmarkRunner.Run<OperationsByTypeBench>();
 Console.WriteLine(summary);
 Console.Read();
 
-//| Method                          | Mean      | Error     | StdDev    | Ratio | RatioSD |
-//| ------------------------------- | ---------:| ---------:| ---------:| -----:| -------:|
-//| multiplyDoubleWithBasicUnit     | 1.941 ms  | 0.0047 ms | 0.0042 ms | 1.00  | 0.00  |
-//| multiplyBasicWithBasicUnit      | 2.552 ms  | 0.0371 ms | 0.0347 ms | 1.32  | 0.02  |
-//| multiplyBasicWithDerivedUnit    | 11.202 ms | 0.1071 ms | 0.0949 ms | 5.77  | 0.06  |
-//| multiplyDerivedWithDerivedUnit  | 9.447 ms  | 0.1872 ms | 0.2624 ms | 4.81  | 0.15  |
+//| Method | Mean | Error | StdDev | Ratio | RatioSD |
+//| ------------------------------- | ----------:| ----------:| ----------:| ------:| --------:|
+//| multiplyDoubleWithBasicUnit | 1.921 ms | 0.0170 ms | 0.0159 ms | 1.00 | 0.00 |
+//| multiplyBasicWithBasicUnit | 3.519 ms | 0.0503 ms | 0.0470 ms | 1.83 | 0.04 |
+//| multiplyBasicWithDerivedUnit | 44.970 ms | 0.5998 ms | 0.5317 ms | 23.39 | 0.35 |
+//| multiplyDerivedWithDerivedUnit | 29.249 ms | 0.3217 ms | 0.2512 ms | 15.22 | 0.22 |
 
 //// * Hints *
 //Outliers
-//  OperationsByTypeBench.multiplyDoubleWithBasicUnit: Default-> 1 outlier was  removed (1.96 ms)
-//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed (11.76 ms)
+//  OperationsByTypeBench.multiplyBasicWithDerivedUnit: Default-> 1 outlier was  removed, 2 outliers were detected (43.73 ms, 46.01 ms)
+//  OperationsByTypeBench.multiplyDerivedWithDerivedUnit: Default-> 3 outliers were removed (30.18 ms..30.41 ms)
 
 //// * Legends *
 //  Mean: Arithmetic mean of all measurements
@@ -30,7 +30,6 @@ Console.Read();
 //  StdDev  : Standard deviation of all measurements
 //  Ratio   : Mean of the ratio distribution ([Current]/[Baseline])
 //  RatioSD: Standard deviation of the ratio distribution ([Current]/[Baseline])
-//  1 ms: 1 Millisecond(0.001 sec)
 
 public class OperationsByTypeBench
 {
@@ -44,7 +43,7 @@ public class OperationsByTypeBench
 
         l1 = 5.km();
         d1 = l1.ToCompositeUnit();
-        d2 = new DerivedUnit(5.km());
+        d2 = DerivedUnit.New(5.km());
     }
 
     [Benchmark(Baseline = true)]
