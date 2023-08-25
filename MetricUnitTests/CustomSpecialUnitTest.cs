@@ -25,15 +25,24 @@ namespace MetricUnitTests
     class CustomUnit : CustomSpecialUnit<CustomUnit>
     {
         public new string Symbol { get; } = "custom";
+        /// <summary>
+        /// This constructor is only for wrapping base class constructor.
+        /// Values of each unit and the scaler value are multiplied and the result becomes the value of the initialized Customunit.
+        /// </summary>
         CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
         {
 
         }
-
+        /// <summary>
+        /// This method is defined inside the base abstract class that is used for unit conversions.
+        /// </summary>
         protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
         }
+        /// <summary>
+        /// This method is used as a delegate for registry of the CustomUnit.
+        /// </summary>
         public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
