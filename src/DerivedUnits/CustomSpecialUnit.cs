@@ -32,24 +32,7 @@ namespace SIUnits
         /// reference degree of type DerivedDegree, representing the unit pattern of the custom unit.
         /// </summary>
         protected static DerivedDegree refDegree;
-        /// <summary>
-        /// Converter from DerivedUni
-        /// t to the custom unit.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="derivedUnit"></param>
-        /// <param name="specialUnit"></param>
-        /// <returns></returns>
-        public bool TryConvert(DerivedUnit derivedUnit, out T specialUnit)
-        {
-            if (derivedUnit.Degree == Joule.refDegree)
-            {
-                specialUnit = New(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
-                return true;
-            }
-            specialUnit = null;
-            return false;
-        }
+
         /// <summary>
         /// Use this method as a public constructor.
         /// </summary>
