@@ -46,28 +46,60 @@ Now custom units can be defined by the users of this library. Example of a Custo
 
 // Special unit has to be registered
 // call this method only once in the application
-// derived degree indicates the exponents of length, time and mass unit components of the custom derived unit.
-public void CreateCustomSpecialUnit()
-        {
-            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2,0), CustomUnit.Instance);
-            var customUnit = DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
-            Assert.IsTrue(customUnit is CustomUnit);
-            var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
-            Assert.IsTrue(custom2 is CustomUnit);
-        }
+// derived degree indicates the exponents of length, time, mass and ampere unit components of the custom derived unit.
+public static void TestCustomSpecialUnit()
+    {
+         // RegisteredWaitHandle the type
+        CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2, 0), CustomUnit.Instance);
+
+        var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
+        var customUnit = (CustomUnit)DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
+
+        string s1 = customUnit.ToString();
+        string s2 = custom2.ToString();
+
+        Console.WriteLine(s1); // 18,000000 m².kg²/sec²
+        Console.WriteLine(s2); // 1,234568 mm².g²/sec²
+
+        // change unit precision configuration
+        UnitConfig.UnitPrecision = 3;
+        string s3 = custom2.ToString();
+        Console.WriteLine(s3); // 1,235 mm².g²/sec²
+
+        // convert time unit to hour.
+        CustomUnit convertedUNit = (CustomUnit)customUnit.ConvertTo(SiTimeUnits.hour);
+
+        string s4 = convertedUNit?.ToString() ?? "null";
+        Console.WriteLine(s4); // 233280000,000 m².kg²/hour²
+
+        // convert length to metre
+        convertedUNit = (CustomUnit)convertedUNit.ConvertTo(SiMetricUnits.kilometre);
+        string s5 = convertedUNit?.ToString() ?? "null";
+        Console.WriteLine(s5); // 233,280 km².kg²/hour²
+    }
 
 class CustomUnit : CustomSpecialUnit<CustomUnit>
     {
+
         public new string Symbol { get; } = "custom";
+        /// <summary>
+        /// This constructor is only for wrapping base class constructor.
+        /// Values of each unit and the scaler value are multiplied and the result becomes the value of the initialized Customunit.
+        /// </summary>
         CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
         {
 
         }
-
+        /// <summary>
+        /// This method is defined inside the base abstract class that is used for unit conversions.
+        /// </summary>
         protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
         }
+        /// <summary>
+        /// This method is used as a delegate for registry of the CustomUnit.
+        /// </summary>
         public static CustomUnit Instance(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
