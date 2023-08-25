@@ -22,7 +22,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="degree"></param>
         /// <param name="constructor"></param>
-        /// <returns></returns>
+        /// <returns>True if successful, false otherwise.</returns>
         public static bool RegisterSpecialUnit(DerivedDegree degree, Func<MetricLength, MetricTime, MetricMass, Ampere, CustomSpecialUnit<T>> constructor)
         {
             refDegree = degree;

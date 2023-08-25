@@ -23,6 +23,8 @@ namespace SIUnits
             _constructorMap = new Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit>>();
             _constructorMap.Add(Newton.refDegree, Newton.New);
             _constructorMap.Add(Joule.refDegree, Joule.New);
+            _constructorMap.Add(Volt.refDegree, Volt.New);
+            _constructorMap.Add(Ohm.refDegree, Ohm.New);
         }
 
         Dictionary<DerivedDegree, Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit>> _constructorMap;
