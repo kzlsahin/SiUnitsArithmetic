@@ -2,7 +2,7 @@
 
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
 
-Derived units compund of any combination of basic units (length, time, mass, electric current) are supported, including Newton and Joule are also included.
+Derived units compund of any combination of basic units (length, time, mass, electric current) are supported, Newton and Joule are also included.
 
 The demand for such libraries has grown alongside the development 
 of engineering programs that require specific numbers with 
