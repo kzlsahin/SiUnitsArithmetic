@@ -251,7 +251,7 @@ namespace SIUnits
             {
                 value = Value.ToString(formatter);
             }
-            sb.Append(Value.ToString());
+            sb.Append(value);
             sb.Append(" ");
             bool preceded = false;
             if (l_unit.Degree > 0)
@@ -329,7 +329,12 @@ namespace SIUnits
         /// <returns></returns>
         public override string ToString()
         {
-            return this.ToString(string.Empty);
+            if (UnitConfig.UnitPrecision == 0)
+            {
+                return ToString(string.Empty);
+            }
+            string formatter = $"F{UnitConfig.UnitPrecision}";
+            return ToString(formatter);
         }
     }
 }
