@@ -40,5 +40,21 @@ namespace SIUnits
             newton = null;
             return false;
         }
+        /// <summary>
+        /// converts a derived unit into Newton if the derivedunit is in mass*length/time^2.
+        /// </summary>
+        /// <param name="derivedUnit"></param>
+        /// <returns>Return new Newton object or null</returns>
+        public Newton Convert(DerivedUnit derivedUnit)
+        {
+            Newton newton;
+            if (derivedUnit.Degree == Newton.refDegree)
+            {
+                newton = new Newton(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                return newton;
+            }
+            newton = null;
+            return newton;
+        }
     }
 }

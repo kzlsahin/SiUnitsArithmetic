@@ -40,5 +40,21 @@ namespace SIUnits
             Joule = null;
             return false;
         }
+        /// <summary>
+        /// converts a derived unit into Joule if the derivedunit is in mass*length^2/time^2.
+        /// </summary>
+        /// <param name="derivedUnit"></param>
+        /// <returns>Returns a new Joule object or null</returns>
+        public Joule Convert(DerivedUnit derivedUnit)
+        {
+            Joule joule;
+            if (derivedUnit.Degree == Joule.refDegree)
+            {
+                joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                return joule;
+            }
+            joule = null;
+            return joule;
+        }
     }
 }
