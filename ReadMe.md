@@ -2,7 +2,8 @@
 
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
 
-Derived units compund of any combination of basic units (length, time, mass, electric currency) are supported, including Newton and Joule are also included.
+Derived units compund of any combination of basic units (length, time, mass, electric currency) are supported, 
+Newton, Joule, Volt and Ohm units are also included as special derived units.
 
 The demand for such libraries has grown alongside the development 
 of engineering programs that require specific numbers with 
@@ -50,7 +51,6 @@ Now custom units can be defined by the users of this library. Example of a Custo
 // derived degree indicates the exponents of length, time and mass unit components of the custom derived unit.
 public void CreateCustomSpecialUnit()
         {
-            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2,0), CustomUnit.Instance);
             var customUnit = DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
             Assert.IsTrue(customUnit is CustomUnit);
             var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
@@ -59,12 +59,20 @@ public void CreateCustomSpecialUnit()
 
 class CustomUnit : CustomSpecialUnit<CustomUnit>
     {
+    /// <summary>
+        ///  A static constructor will be called at most once
+        /// </summary>
+        static CustomUnit()
+        {
+            // RegisteredWaitHandle the type
+            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2, 0), CustomUnit.Instance);
+        }
         public new string Symbol { get; } = "custom";
+
         CustomUnit(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, double scaler) : base(l_unit, t_unit, m_unit, scaler)
         {
 
         }
-
         protected override CustomUnit New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit)
         {
             return new CustomUnit(l_unit, t_unit, m_unit, 1);
