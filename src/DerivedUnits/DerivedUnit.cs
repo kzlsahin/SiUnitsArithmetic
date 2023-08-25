@@ -195,6 +195,46 @@ namespace SIUnits
             return newUnit;
         }
         /// <summary>
+        /// Returns new DerivedUnit in specified unit pattern.
+        /// </summary>
+        /// <param name="l_metric"></param>
+        /// <returns></returns>
+        public DerivedUnit ConvertTo(SiMetricUnits l_metric)
+        {
+            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit, m_unit, a_unit);
+            return newUnit;
+        }
+        /// <summary>
+        /// Returns new DerivedUnit in specified unit pattern.
+        /// </summary>
+        /// <param name="t_metric"></param>
+        /// <returns></returns>
+        public DerivedUnit ConvertTo(SiTimeUnits t_metric)
+        {
+            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit.MetricTime(t_metric), m_unit, a_unit);
+            return newUnit;
+        }
+        /// <summary>
+        /// Returns new DerivedUnit in specified unit pattern.
+        /// </summary>
+        /// <param name="m_metric"></param>
+        /// <returns></returns>
+        public DerivedUnit ConvertTo(SiMassUnits m_metric)
+        {
+            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit, m_unit.MetricMass(m_metric), a_unit);
+            return newUnit;
+        }
+        /// <summary>
+        /// Returns new DerivedUnit in specified unit pattern.
+        /// </summary>
+        /// <param name="a_metric"></param>
+        /// <returns></returns>
+        public DerivedUnit ConvertTo(SiAmpereUnits a_metric)
+        {
+            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit, m_unit, a_unit.Ampere(a_metric));
+            return newUnit;
+        }
+        /// <summary>
         /// writes the value of the unit with unit symbol.
         /// </summary>
         /// <param name="formatter">If formatter is not string.Empty, then the value is formatted accordingly.</param>
