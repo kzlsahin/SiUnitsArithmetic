@@ -50,6 +50,9 @@ Now custom units can be defined by the users of this library. Example of a Custo
 // derived degree indicates the exponents of length, time, mass and ampere unit components of the custom derived unit.
 public static void TestCustomSpecialUnit()
     {
+        // Registerethe CustomUnit only once
+        CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2, 0), CustomUnit.Instance);
+
         var custom2 = (400.mm(2) / 9.minute(2)) * 100.g(2);
         var customUnit = (CustomUnit)DerivedUnit.New(2.m(2), 3.second(-2), 3.kg(2));
 
@@ -78,14 +81,6 @@ public static void TestCustomSpecialUnit()
 
 class CustomUnit : CustomSpecialUnit<CustomUnit>
     {
-        /// <summary>
-        ///  A static constructor will be called at most once
-        /// </summary>
-        static CustomUnit()
-        {
-            // RegisteredWaitHandle the type
-            CustomUnit.RegisterSpecialUnit(new DerivedDegree(2, -2, 2, 0), CustomUnit.Instance);
-        }
         public new string Symbol { get; } = "custom";
         /// <summary>
         /// This constructor is only for wrapping base class constructor.
