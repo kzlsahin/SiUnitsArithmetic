@@ -41,6 +41,42 @@ namespace SIUnits
         /// <param name="m_unit"></param>
         /// <param name="a_unit"></param>
         /// <returns></returns>
+
+        /// <summary>
+        /// Converts a DerivedUnit to this type if the degree pattern of the DerivedUnit is compatible.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="derivedUnit"></param>
+        /// <param name="specialUnit"></param>
+        /// <returns></returns>
+        public bool TryConvert(DerivedUnit derivedUnit, out T specialUnit)
+        {
+            if (derivedUnit.Degree == refDegree)
+            {
+                specialUnit = New(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
+                return true;
+            }
+            specialUnit = null;
+            return false;
+        }
+        /// <summary>
+        /// Converts a DerivedUnit to this type if the degree pattern of the DerivedUnit is compatible.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="derivedUnit"></param>
+        /// <param name="specialUnit"></param>
+        /// <returns></returns>
+        public T Convert(DerivedUnit derivedUnit)
+        {
+            T specialUnit;
+            if (derivedUnit.Degree == refDegree)
+            {
+                specialUnit = New(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
+                return specialUnit;
+            }
+            specialUnit = null;
+            return specialUnit;
+        }
         protected abstract T New(MetricLength l_unit, MetricTime t_unit, MetricMass m_unit, Ampere a_unit);
     }
 }
