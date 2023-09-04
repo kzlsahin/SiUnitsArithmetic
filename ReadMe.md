@@ -11,7 +11,7 @@ Dimension of basic quantities are like Length (L), Time (T), Mass (M), Electric 
 Dimension of derived quantites such as Acceleration is (T⁻²L) and Force (T⁻²LM).
 
 Quantities with same dimension are called Commensurable Quantities.
-Only Commensurable Quantities can be summed or sobtracted. On the otherhand, multiplication and division operations generates a quantity with a higher dimension.
+Only Commensurable Quantities can be summed or sobtracted. On the otherhand, multiplication and division operations generates a quantity with a higher or lower dimension.
 
 The demand for such libraries has grown alongside the development 
 of engineering programs that require specific numbers with 
