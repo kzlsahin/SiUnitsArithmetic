@@ -1,9 +1,16 @@
-﻿# **SI Units library with arithmetic capabilities**
+﻿# **SI Units library for dimensional arithmetic
 
-SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
+SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with derived units of any combination of basic units, resulting in higher or lower dimensional units (m², 1/m or kg.m/s²).
 
-Derived units compund of any combination of basic units (length, time, mass, electric current) are supported,
+Derived units compund of basic units (length, time, mass, temperature, electric current) are supported,
 Newton, Joule, Volt and Ohm units are also included as special derived units.
+
+This library uses Dimensional arithmetic. In the dimensional analysis there are fundamental base quantities and the derived quantities.
+Dimension of basic quantities are like Length (L), Time (T), Mass (M), Electric Currency (A). Some dimensions of quantities like area are power of these dimensions (L²).
+Dimension of derived quantites such as Acceleration is (T⁻²L) and Force (T⁻²LM).
+
+Quantities with same dimension are called Commensurable Quantities.
+Onl
 
 The demand for such libraries has grown alongside the development 
 of engineering programs that require specific numbers with 
