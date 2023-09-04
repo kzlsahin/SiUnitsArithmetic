@@ -7,57 +7,57 @@ namespace SIUnits
     public static class TemperatureExtensions
     {
         /// <summary>
-        /// Creates a length unit in kelvins from integer value.
+        /// Creates a temperature unit in kelvins from integer value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature A(this int a, int degree = 1)
+        public static Temperature K(this int a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.kelvin);
         }
         /// <summary>
-        /// creates a length unit in milimeters from integer value.
+        /// creates a temperature unit in milimeters from integer value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature mA(this int a, int degree = 1)
+        public static Temperature mK(this int a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.milikelvin);
         }
         /// <summary>
-        /// creates length unit in centikelvin from integer values.
+        /// creates temperature unit in centikelvin from integer values.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature cA(this int a, int degree = 1)
+        public static Temperature cK(this int a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.centikelvin);
         }
         /// <summary>
-        /// creates length unit in decikelvin from integer value
+        /// creates temperature unit in decikelvin from integer value
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature dA(this int a, int degree = 1)
+        public static Temperature dK(this int a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.decikelvin);
         }
         /// <summary>
-        /// creates length unit in kilokelvins from integer value.
+        /// creates temperature unit in kilokelvins from integer value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature kA(this int a, int degree = 1)
+        public static Temperature kK(this int a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.kilokelvin);
         }
         /// <summary>
-        /// creates length unit in specified metric unit and specified degree from integer value.
+        /// creates temperature unit in specified metric unit and specified degree from integer value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="unit"></param>
@@ -68,57 +68,57 @@ namespace SIUnits
             return new Temperature(a, degree, unit);
         }
         /// <summary>
-        /// Creates a length unit in kelvins from double value.
+        /// Creates a temperature unit in kelvins from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature A(this double a, int degree = 1)
+        public static Temperature K(this double a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.kelvin);
         }
         /// <summary>
-        /// Creates a length unit in milikelvins from double value.
+        /// Creates a temperature unit in milikelvins from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature mA(this double a, int degree = 1)
+        public static Temperature mK(this double a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.milikelvin);
         }
         /// <summary>
-        /// Creates a length unit in centikelvins from double value.
+        /// Creates a temperature unit in centikelvins from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature cA(this double a, int degree = 1)
+        public static Temperature cK(this double a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.centikelvin);
         }
         /// <summary>
-        /// Creates a length unit in decikelvins from double value.
+        /// Creates a temperature unit in decikelvins from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature dA(this double a, int degree = 1)
+        public static Temperature dK(this double a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.decikelvin);
         }
         /// <summary>
-        /// Creates a length unit in kilokelvins from double value.
+        /// Creates a temperature unit in kilokelvins from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="degree">determines the degree (exponent) of the unit. default value is 1.</param>
         /// <returns></returns>
-        public static Temperature kA(this double a, int degree = 1)
+        public static Temperature kK(this double a, int degree = 1)
         {
             return new Temperature(a, degree, SiTemperatureUnits.kilokelvin);
         }
         /// <summary>
-        /// creates length unit in specified metric unit and specified degree from double value.
+        /// creates temperature unit in specified metric unit and specified degree from double value.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="unit"></param>
@@ -133,7 +133,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Temperature is not kelvin, returns a new Temperature in kelvin.</returns>
-        public static Temperature A(this Temperature a)
+        public static Temperature K(this Temperature a)
         {
             if (a.Unit == SiTemperatureUnits.kelvin)
                 return a;
@@ -145,7 +145,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Temperature is not milikelvin, returns a new Temperature in milikelvin.</returns>
-        public static Temperature mA(this Temperature a)
+        public static Temperature mK(this Temperature a)
         {
             if (a.Unit == SiTemperatureUnits.milikelvin)
                 return a;
@@ -157,7 +157,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Temperature is not centikelvin, returns a new Temperature in centikelvin.</returns>
-        public static Temperature cA(this Temperature a)
+        public static Temperature cK(this Temperature a)
         {
             if (a.Unit == SiTemperatureUnits.centikelvin)
                 return a;
@@ -169,7 +169,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Temperature is not decikelvin, returns a new Temperature in decikelvin.</returns>
-        public static Temperature dA(this Temperature a)
+        public static Temperature dK(this Temperature a)
         {
             if (a.Unit == SiTemperatureUnits.decikelvin)
                 return a;
@@ -181,7 +181,7 @@ namespace SIUnits
         /// </summary>
         /// <param name="a"></param>
         /// <returns>if the unit of Temperature is not kilokelvin, returns a new Temperature in kilokelvin.</returns>
-        public static Temperature kA(this Temperature a)
+        public static Temperature kK(this Temperature a)
         {
             if (a.Unit == SiTemperatureUnits.kilokelvin)
                 return a;
