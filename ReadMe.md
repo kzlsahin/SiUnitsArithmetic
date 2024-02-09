@@ -1,4 +1,6 @@
 # SI Units library for dimensional arithmetic
+[![Package Version](https://img.shields.io/nuget/v/SIUnitsArithmetic?label=Latest%20Version)](https://www.nuget.org/packages/SIUnitsArithmetic/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/SIUnitsArithmetic)](https://www.nuget.org/packages/SIUnitsArithmetic/)
 
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication
 even with derived units of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s).
