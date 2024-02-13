@@ -1,4 +1,4 @@
-﻿# **SI Units library for dimensional arithmetic
+﻿# **SI Units library for dimensional arithmetic**
 
 SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with derived units of any combination of basic units, resulting in higher or lower dimensional units (m², 1/m or kg.m/s²).
 
