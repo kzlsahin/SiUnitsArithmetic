@@ -254,70 +254,24 @@ namespace SIUnits
             sb.Append(value);
             sb.Append(" ");
             bool preceded = false;
-            if (l_unit.Degree > 0)
+
+            foreach(var unit in MemberUnits.Values)
             {
-                sb.Append($"{l_unit.UnitStr(true)}");
-                preceded = true;
-            }
-            if (t_unit.Degree > 0)
-            {
-                if (preceded) sb.Append(".");
-                sb.Append($"{t_unit.UnitStr(true)}");
-                preceded = true;
-            }
-            if (m_unit.Degree > 0)
-            {
-                if (preceded) sb.Append(".");
-                sb.Append($"{m_unit.UnitStr(true)}");
-                preceded = true;
-            }
-            if (a_unit.Degree > 0)
-            {
-                if (preceded) sb.Append(".");
-                sb.Append($"{a_unit.UnitStr(true)}");
-                preceded = true;
+                if (unit.Degree > 0)
+                {
+                    if (preceded) sb.Append(".");
+                    sb.Append($"{unit.UnitStr(true)}");
+                    preceded = true;
+                }
             }
             bool subproceded = false;
-            if (l_unit.Degree < 0)
+            foreach (var unit in MemberUnits.Values)
             {
                 if (!subproceded)
                 {
                     if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
                 }
-                sb.Append($"{(l_unit.UnitStr(true))}");
-                subproceded = true;
-                preceded = true;
-            }
-            if (t_unit.Degree < 0)
-            {
-                if (!subproceded)
-                {
-                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
-                }
-                if (subproceded) sb.Append(".");
-                sb.Append($"{(t_unit.UnitStr(true))}");
-                subproceded = true;
-                preceded = true;
-            }
-            if (m_unit.Degree < 0)
-            {
-                if (!subproceded)
-                {
-                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
-                }
-                if (subproceded) sb.Append(".");
-                sb.Append($"{(m_unit.UnitStr(true))}");
-                subproceded = true;
-                preceded = true;
-            }
-            if (a_unit.Degree < 0)
-            {
-                if (!subproceded)
-                {
-                    if (preceded) { sb.Append("/"); } else { sb.Append("1/"); }
-                }
-                if (subproceded) sb.Append(".");
-                sb.Append($"{(a_unit.UnitStr(true))}");
+                sb.Append($"{(unit.UnitStr(true))}");
                 subproceded = true;
                 preceded = true;
             }

@@ -14,5 +14,6 @@ namespace SIUnits
         double GetValueBy(int unitOrder);
         IBasicUnit NewInstance(double value, int degree, int unitOrder);
         DerivedUnit ToCompositeUnit();
+        string UnitStr(bool asPositiveExponent = false);
     }
 }
