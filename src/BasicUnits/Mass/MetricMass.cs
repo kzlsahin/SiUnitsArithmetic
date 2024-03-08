@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SIUnits
 {
     public class MetricMass : Metric<SiMassUnits>
     {
+        [Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D")]
         public MetricMass(double value, int degree,SiMassUnits unit)
         {
             Value = value;
@@ -46,11 +48,12 @@ namespace SIUnits
         /// </summary>
         public override string Symbol { get { return this.GetSymbol(); } }
 
-        static Guid _id = new Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D");
+        static readonly Guid _id = new Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D");
         /// <summary>
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+        public static Guid ID { get => _id; }
 
         readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
 

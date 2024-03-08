@@ -49,6 +49,7 @@ namespace SIUnits
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+        public static Guid ID { get => _id; }
 
         readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _arithmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
 

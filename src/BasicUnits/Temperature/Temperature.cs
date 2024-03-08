@@ -1,10 +1,12 @@
 ﻿using SIUnits.Artihmetic;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SIUnits
 {
+    [Guid("2E233835-08E5-4C37-B01C-BBB06F081292")]
     public class Temperature : Metric<SiTemperatureUnits>
     {
         public Temperature(double value, int degree, SiTemperatureUnits unit)
@@ -45,11 +47,12 @@ namespace SIUnits
         /// </summary>
         public override string Symbol { get { return this.GetSymbol(); } }
 
-        static Guid _id = new Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D");
+        static readonly Guid _id = new Guid("2E233835-08E5-4C37-B01C-BBB06F081292");
         /// <summary>
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+        public static Guid ID { get => _id; }
 
         readonly static ArithmeticOperations<Temperature, SiTemperatureUnits> _arithmetics = ArithmeticOperations<Temperature, SiTemperatureUnits>.Instance;
 

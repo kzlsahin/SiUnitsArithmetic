@@ -10,6 +10,7 @@ namespace SIUnits
     /// <summary>
     /// represents a length unit.
     /// </summary>
+    [Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D")]
     public class Ampere : Metric<SiAmpereUnits>
     {
         /// <summary>
@@ -61,11 +62,12 @@ namespace SIUnits
         /// </summary>
         public override int UnitOrder { get => (int)Unit; }
 
-        static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
+        static readonly Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
         /// <summary>
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+        public static Guid ID { get => _id; }
 
         readonly static ArithmeticOperations<Ampere, SiAmpereUnits> _arithmetics = ArithmeticOperations<Ampere, SiAmpereUnits>.Instance;
         #region operators

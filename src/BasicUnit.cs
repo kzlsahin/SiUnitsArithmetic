@@ -6,6 +6,7 @@ namespace SIUnits
 {
     public interface IBasicUnit
     {
+        Guid Id { get; }
         double Value { get; }
         int Degree { get; }
         String Symbol { get; }

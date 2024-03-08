@@ -52,7 +52,7 @@ namespace SIUnits.Artihmetic
             SiTimeUnits t_metric = b.t_unit.Unit;
             SiMassUnits m_metric = b.m_unit.Unit;
             SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValue(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
             double value_b = b.Value;
             double value = value_a + value_b;
             DerivedUnit newUnit = DerivedUnit.New(
@@ -73,7 +73,7 @@ namespace SIUnits.Artihmetic
             SiTimeUnits t_metric = b.t_unit.Unit;
             SiMassUnits m_metric = b.m_unit.Unit;
             SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValue(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
             double value_b = b.Value;
             double value = value_a - value_b;
             DerivedUnit newUnit = DerivedUnit.New(
@@ -127,7 +127,7 @@ namespace SIUnits.Artihmetic
                 SiTimeUnits t_metric = b.t_unit.Unit;
                 SiMassUnits m_metric = b.m_unit.Unit;
                 SiAmpereUnits a_metric = b.a_unit.Unit;
-                double value_a = a.GetValue(l_metric, t_metric, m_metric, a_metric);
+                double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
                 lessThen = value_a < b.Value;
             }
             else
@@ -153,7 +153,7 @@ namespace SIUnits.Artihmetic
                 SiTimeUnits t_metric = b.t_unit.Unit;
                 SiMassUnits m_metric = b.m_unit.Unit;
                 SiAmpereUnits a_metric = b.a_unit.Unit;
-                double value_a = a.GetValue(l_metric, t_metric, m_metric, a_metric);
+                double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
                 greaterThen = value_a > b.Value;
             }
             else
@@ -168,7 +168,7 @@ namespace SIUnits.Artihmetic
             SiTimeUnits t_metric = b.t_unit.Unit;
             SiMassUnits m_metric = b.m_unit.Unit;
             SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValue(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
             if (UnitConfig.UnitPrecision == 0)
             {
                 return value_a == b.Value;

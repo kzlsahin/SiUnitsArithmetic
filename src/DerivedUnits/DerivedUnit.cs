@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Serialization;
 using System.Text;
+using SIUnits.DerivedUnits;
 
 namespace SIUnits
 {
@@ -13,68 +14,72 @@ namespace SIUnits
     /// </summary>
     public class DerivedUnit
     {
-        
-        internal readonly MetricLength l_unit;
-        internal readonly MetricTime t_unit;
-        internal readonly MetricMass m_unit;
-        internal readonly Ampere a_unit;
+        /// <summary>
+        /// units this composite unit is composed of
+        /// </summary>
+        public Dictionary<Guid, IBasicUnit> MemberUnits { get; private set; }
+
         internal static SpecialUnitMap specialUnitMap = SpecialUnitMap.Instance;
-        public static DerivedUnit New(MetricLength l)
+        /// <summary>
+        /// Creates new ınstane
+        /// </summary>
+        /// <param name="units"></param>
+        /// <returns></returns>
+        public static DerivedUnit New(params IBasicUnit[] units)
         {
-            return New(l, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricLength l, MetricTime t)
-        {
-            return New(l, t, MetricMass.ScalerOne, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricLength l, MetricMass m)
-        {
-            return New(l, MetricTime.ScalerOne, m, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricTime t) 
-        {
-            return New(MetricLength.ScalerOne, t, MetricMass.ScalerOne, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricTime t, MetricMass m)
-        {
-            return New(MetricLength.ScalerOne, t, m, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricMass m)
-        {
-            return New(MetricLength.ScalerOne, MetricTime.ScalerOne, m, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(Ampere a)
-        {
-            return New(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, a);
-        }
-        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
-        {
-            return New(lengthUnit, timeUnit, massUnit, Ampere.ScalerOne);
-        }
-        public static DerivedUnit New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
-        {
-            DerivedDegree degree = new DerivedDegree(lengthUnit.Degree, timeUnit.Degree, massUnit.Degree, ampereUnit.Degree);
-            Func<MetricLength, MetricTime, MetricMass, Ampere, DerivedUnit> specialUnitConstructor;
-            if(specialUnitMap.GetSpecialUnitContructor(degree,out specialUnitConstructor))
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            for (int i = 0; i < units.Length; ++i)
             {
-                return specialUnitConstructor(lengthUnit, timeUnit, massUnit, ampereUnit);
+                memberUnits.Add(units[i].Id, units[i]);
             }
-            return new DerivedUnit(lengthUnit, timeUnit, massUnit, ampereUnit);
+            DerivedDegree degree = new DerivedDegree(memberUnits);
+            Func<Dictionary<Guid, IBasicUnit>, DerivedUnit> specialUnitConstructor;
+            if (specialUnitMap.GetSpecialUnitContructor(degree, out specialUnitConstructor))
+            {
+                return specialUnitConstructor(memberUnits);
+            }
+            return new DerivedUnit(memberUnits);
+        }
+        /// <summary>
+        /// Creates new ınstane
+        /// </summary>
+        /// <param name="memberUnits"></param>
+        /// <returns></returns>
+        public static DerivedUnit New(Dictionary<Guid, IBasicUnit> memberUnits)
+        {
+            return new DerivedUnit(memberUnits);
         }
         private protected DerivedUnit() : this(MetricLength.ScalerOne, MetricTime.ScalerOne, MetricMass.ScalerOne, Ampere.ScalerOne)
         {
 
         }
-        private protected DerivedUnit(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
+        private protected DerivedUnit(params IBasicUnit[] units)
         {
-            l_unit = lengthUnit;
-            t_unit = timeUnit;
-            m_unit = massUnit;
-            a_unit = ampereUnit;
-            Degree = new DerivedDegree(l_unit.Degree, t_unit.Degree, m_unit.Degree, a_unit.Degree);
+            MemberUnits = new Dictionary<Guid, IBasicUnit>();
+            for (int i = 0; i < units.Length; ++i)
+            {
+                MemberUnits.Add(units[i].Id, units[i]);
+            }
+            Degree = new DerivedDegree(MemberUnits);
+        }
+        private protected DerivedUnit(Dictionary<Guid, IBasicUnit> memberUnits)
+        {
+            MemberUnits = memberUnits;
+            Degree = new DerivedDegree(memberUnits);
         }
 
-        public double Value { get { return l_unit.Value * t_unit.Value * m_unit.Value; } }
+        public double Value
+        {
+            get
+            {
+                double res = 1;
+                foreach (var unit in MemberUnits.Values)
+                {
+                    res *= unit.Value;
+                }
+                return res;
+            }
+        }
         /// <summary>
         /// gets value in the specified metric units.
         /// </summary>
@@ -82,13 +87,23 @@ namespace SIUnits
         /// <param name="t_metric"></param>
         /// <param name="m_metric"></param>
         /// <returns></returns>
-        public double GetValue(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric, SiAmpereUnits a_metric)
+        public double GetValueByRef(DerivedUnit other)
         {
-            double lValue = l_unit.GetValueBy(l_metric);
-            double tValue = t_unit.GetValueBy(t_metric);
-            double mValue = m_unit.GetValueBy(m_metric);
-            double aValue = a_unit.GetValueBy(a_metric);
-            return lValue * tValue * mValue * aValue;
+            double res = 1;
+            foreach (var unitPair in other.MemberUnits)
+            {
+                var id = unitPair.Key;
+                if (MemberUnits.TryGetValue(id, out var unit))
+                {
+                    double value = unit.GetValueBy(unitPair.Value.UnitOrder);
+                    res *= unit.Value;
+                }
+                else
+                {
+                    throw new ArgumentException("Referenced DerivedUnit is not identical to the DerivedUnit");
+                }
+            }
+            return res;
         }
         public string Symbol { get; }
         public DerivedDegree Degree { get; private set; }
@@ -159,7 +174,7 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (new Tuple<MetricLength, MetricTime, MetricMass, Ampere>(l_unit, t_unit, m_unit, a_unit)).GetHashCode();
+            return this.GetHashCode();
         }
 
         #region conversions
@@ -185,56 +200,40 @@ namespace SIUnits
         /// <summary>
         /// Returns new DerivedUnit in specified unit pattern.
         /// </summary>
-        /// <param name="l_metric"></param>
-        /// <param name="t_metric"></param>
-        /// <param name="m_metric"></param>
-        /// <param name="a_metric"></param>
         /// <returns></returns>
-        public DerivedUnit ConvertTo(SiMetricUnits l_metric, SiTimeUnits t_metric, SiMassUnits m_metric, SiAmpereUnits a_metric)
+        public DerivedUnit ConvertTo(params UnitScalePair[] unitScales)
         {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit.MetricTime(t_metric), m_unit.MetricMass(m_metric), a_unit.Ampere(a_metric));
-            return newUnit;
+            var scales = new Dictionary<Guid, UnitScalePair>();
+            for (int i = 0; i < unitScales.Length; ++i)
+            {
+                var id = unitScales[i].UnitId;
+                scales.Add(id, unitScales[i]);
+            }
+
+            return ConvertTo(scales);
         }
         /// <summary>
         /// Returns new DerivedUnit in specified unit pattern.
         /// </summary>
-        /// <param name="l_metric"></param>
         /// <returns></returns>
-        public DerivedUnit ConvertTo(SiMetricUnits l_metric)
+        public DerivedUnit ConvertTo(Dictionary<Guid, UnitScalePair> unitScales)
         {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit.MetricLength(l_metric), t_unit, m_unit, a_unit);
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            foreach (var member in MemberUnits)
+            {
+                var id = member.Key;
+                var unit = member.Value;
+                if (unitScales.TryGetValue(id, out UnitScalePair scale))
+                {
+                    int scaleUnit = scale.ScaleUnit;
+                    memberUnits.Add(id, unit.NewInstance(unit.GetValueBy(scaleUnit), unit.Degree, scaleUnit));
+                }
+                memberUnits.Add(id, unit.NewInstance(unit.Value, unit.Degree, unit.UnitOrder));
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
             return newUnit;
         }
-        /// <summary>
-        /// Returns new DerivedUnit in specified unit pattern.
-        /// </summary>
-        /// <param name="t_metric"></param>
-        /// <returns></returns>
-        public DerivedUnit ConvertTo(SiTimeUnits t_metric)
-        {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit.MetricTime(t_metric), m_unit, a_unit);
-            return newUnit;
-        }
-        /// <summary>
-        /// Returns new DerivedUnit in specified unit pattern.
-        /// </summary>
-        /// <param name="m_metric"></param>
-        /// <returns></returns>
-        public DerivedUnit ConvertTo(SiMassUnits m_metric)
-        {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit, m_unit.MetricMass(m_metric), a_unit);
-            return newUnit;
-        }
-        /// <summary>
-        /// Returns new DerivedUnit in specified unit pattern.
-        /// </summary>
-        /// <param name="a_metric"></param>
-        /// <returns></returns>
-        public DerivedUnit ConvertTo(SiAmpereUnits a_metric)
-        {
-            DerivedUnit newUnit = DerivedUnit.New(l_unit, t_unit, m_unit, a_unit.Ampere(a_metric));
-            return newUnit;
-        }
+  
         /// <summary>
         /// writes the value of the unit with unit symbol.
         /// </summary>

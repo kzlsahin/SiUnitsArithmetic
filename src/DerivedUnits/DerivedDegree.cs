@@ -6,46 +6,38 @@ using System.Text;
 
 namespace SIUnits
 {
+    /// <summary>
+    /// Defines the composite degree identity of a unit
+    /// </summary>
     public struct DerivedDegree
     {
         /// <summary>
-        /// initializes a new DerivedDegree mostly needed to check degree of a DerivedUnit.
+        /// Degrees for each unit id
         /// </summary>
-        /// <param name="lengthDegree"></param>
-        /// <param name="timeDegree"></param>
-        /// <param name="massDegree"></param>
-        public DerivedDegree(int lengthDegree, int timeDegree, int massDegree, int ampereDegree )
+        public Dictionary<Guid, int> Degrees { get; private set; }
+        /// <summary>
+        /// Returns new DerivedUnit instance
+        /// </summary>
+        /// <param name="MemberUnits"></param>
+        public DerivedDegree(Dictionary<Guid, IBasicUnit> MemberUnits)
         {
-            l_degree = lengthDegree;
-            t_degree = timeDegree;
-            m_degree = massDegree;
-            a_degree = ampereDegree;
+            Degrees = new Dictionary<Guid, int>();
+            foreach(var MemberUnit in MemberUnits.Values)
+            {
+                Degrees.Add(MemberUnit.Id, MemberUnit.Degree);
+            }
         }
         /// <summary>
-        /// degree of the length unit component of the derivedUnit
+        /// Returns new DerivedUnit instance
         /// </summary>
-        public readonly int l_degree;
-        /// <summary>
-        /// degree of the time unit component of the derivedUnit
-        /// </summary>
-        public readonly int t_degree;
-        /// <summary>
-        /// degree of the mass unit component of the derivedUnit
-        /// </summary>
-        public readonly int m_degree;
-        /// <summary>
-        /// degree of the ampere unit component of the derivedUnit
-        /// </summary>
-        public readonly int a_degree;
-        public static DerivedDegree operator +(DerivedDegree a, DerivedDegree b)
+        /// <param name="degrees"></param>
+        public DerivedDegree(params KeyValuePair<Guid, int>[] degrees)
         {
-            DerivedDegree newDegree = new DerivedDegree(a.l_degree + b.l_degree, a.t_degree + b.t_degree, a.m_degree + b.m_degree, a.a_degree + b.a_degree);
-            return newDegree;
-        }
-        public static DerivedDegree operator -(DerivedDegree a, DerivedDegree b)
-        {
-            DerivedDegree newDegree = new DerivedDegree(a.l_degree - b.l_degree, a.t_degree - b.t_degree, a.m_degree - b.m_degree, a.a_degree - b.a_degree);
-            return newDegree;
+            Degrees = new Dictionary<Guid, int>();
+            foreach (var MemberUnit in degrees)
+            {
+                Degrees.Add(MemberUnit.Key, MemberUnit.Value);
+            }
         }
         /// <summary>
         /// two derived units are equal if the degrees of all of the unit components in the derived unit are equal.
@@ -54,19 +46,23 @@ namespace SIUnits
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            
-            if (obj is DerivedDegree)
+            if (!(obj is null)) return false;
+            DerivedDegree other = (DerivedDegree)obj;
+            foreach (var MemberDegree in Degrees)
             {
-                var rival = (DerivedDegree)obj;
-                return l_degree == rival.l_degree &&
-                    t_degree == rival.t_degree &&
-                    m_degree == rival.m_degree &&
-                    a_degree == rival.a_degree;
+                if (other.Degrees.TryGetValue(MemberDegree.Key, out int degree))
+                {
+                    if( MemberDegree.Value != degree)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return true;
         }
         /// <summary>
         /// returns hashcode of the DerivedUnit. If all the degrees of each unit components are equal, the hashcode is also equal.
@@ -74,7 +70,7 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (new Tuple<int,int,int,int>(l_degree, t_degree, m_degree,a_degree)).GetHashCode();
+            return this.GetHashCode();
         }
 
         public override string ToString()

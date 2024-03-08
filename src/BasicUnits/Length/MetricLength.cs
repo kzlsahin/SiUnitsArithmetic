@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 
@@ -12,6 +13,7 @@ namespace SIUnits
     /// <summary>
     /// represents a length unit.
     /// </summary>
+    [Guid("6C700696-394B-4F45-AEF8-34405EDF1232")]
     public class MetricLength : Metric<SiMetricUnits>
     {
         /// <summary>
@@ -60,11 +62,12 @@ namespace SIUnits
         public override int UnitOrder {get => (int)Unit; }
         public override SiMetricUnits Unit {get; }
 
-        static Guid _id = new Guid("79D1B50F-726E-4718-B46D-B02BE3857BB0");
+        static readonly Guid _id = new Guid("6C700696-394B-4F45-AEF8-34405EDF1232");
         /// <summary>
         /// to get the static Id of this unit type.
         /// </summary>
         public override Guid Id { get => _id; }
+        public static Guid ID { get => _id; }
 
         readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _arithmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
         #region operators

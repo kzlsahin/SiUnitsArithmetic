@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SIUnits;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using DegreePair = System.Collections.Generic.KeyValuePair<System.Guid, int>;
 
 namespace SIUnits
 {
@@ -9,7 +11,7 @@ namespace SIUnits
     /// </summary>
     public sealed class Newton : DerivedUnit
     {
-        internal readonly static DerivedDegree refDegree = new DerivedDegree(1, -2, 1, 0);
+        internal readonly static DerivedDegree refDegree = new DerivedDegree(new DegreePair(MetricLength.ID, 1), new DegreePair(MetricTime.ID, -2), new DegreePair(MetricMass.ID, 1));
         
         Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
         {
