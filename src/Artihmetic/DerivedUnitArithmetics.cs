@@ -24,6 +24,12 @@ namespace SIUnits.Artihmetic
         }
         internal DerivedUnit Multiply(DerivedUnit a, DerivedUnit b)
         {
+            var memberUnits = new Dictionary<int, DerivedUnit>();
+            foreach(var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                memberUnits.Add(a.MemberUnits[id] * b.MemberUnits[id]);
+            }   
             DerivedUnit newUnit = DerivedUnit.New(
                 a.l_unit * b.l_unit,
                 a.t_unit * b.t_unit,
