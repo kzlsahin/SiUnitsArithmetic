@@ -7,9 +7,9 @@ using System.Text;
 
 namespace SIUnits
 {
+    [Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D")]
     public class MetricMass : Metric<SiMassUnits>
-    {
-        [Guid("76109C9F-CE95-4032-A3B3-6A8272EED00D")]
+    {        
         public MetricMass(double value, int degree,SiMassUnits unit)
         {
             Value = value;

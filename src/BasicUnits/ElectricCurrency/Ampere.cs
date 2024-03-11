@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using SIUnits.Artihmetic;
 using SIUnits.BasicUnits.ElectricCurrency;
