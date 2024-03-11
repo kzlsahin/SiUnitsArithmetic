@@ -9,20 +9,42 @@ namespace SIUnits
     /// </summary>
     public sealed class Joule : DerivedUnit
     {
-        internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -2, 1, 0);
-        
-        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
+        internal readonly static DerivedDegree refDegree = new DerivedDegree(
+            new KeyValuePair<Guid, int>(MetricLength.ID, 2),
+            new KeyValuePair<Guid, int>(MetricTime.ID, -2),
+            new KeyValuePair<Guid, int>(MetricMass.ID, 1)
+            );
+        Joule(params IBasicUnit[] units) : base(units)
         {
         }
         /// <summary>
         /// initializes a Joule type DerivedUnit in kg.m2/s2.
         /// </summary>
-        /// <param name="lengthUnit"></param>
-        /// <param name="timeUnit"></param>
-        /// <param name="massUnit"></param>
-        public static new Joule New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        /// <param name="memberUnits"></param>
+        /// <returns></returns>
+        internal static new Joule New(Dictionary<Guid, IBasicUnit> memberUnits)
         {
-            return new Joule(lengthUnit, timeUnit, massUnit);
+            Joule joule;
+            if (
+                memberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                memberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                memberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+            {
+                joule = new Joule((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                return joule;
+            }
+            return null;
+        }
+        /// <summary>
+        /// initializes a Joule type DerivedUnit in kg.m2/s2.
+        /// </summary>
+        public static Joule New(double value)
+        {
+            var l_unit = (value).m(2);
+            var t_unit = 1.second(-2);
+            var m_unit = 1.kg(1);
+            return new Joule(l_unit, t_unit, m_unit);
         }
         /// <summary>
         /// converts a derived unit into Joule if the derivedunit is in mass*length^2/time^2.
@@ -30,14 +52,21 @@ namespace SIUnits
         /// <param name="derivedUnit"></param>
         /// <param name="Joule"></param>
         /// <returns></returns>
-        public bool TryConvert(DerivedUnit derivedUnit, out Joule Joule)
+        public bool TryConvert(DerivedUnit derivedUnit, out Joule joule)
         {
             if (derivedUnit.Degree == Joule.refDegree)
             {
-                Joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
-                return true;
+                if (
+                derivedUnit.MemberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+                {
+                    joule = new Joule((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                    return true;
+                }
             }
-            Joule = null;
+            joule = null;
             return false;
         }
         /// <summary>
@@ -47,13 +76,18 @@ namespace SIUnits
         /// <returns>Returns a new Joule object or null</returns>
         public Joule Convert(DerivedUnit derivedUnit)
         {
-            Joule joule;
+            Joule joule = null;
             if (derivedUnit.Degree == Joule.refDegree)
             {
-                joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
-                return joule;
+                if (
+                derivedUnit.MemberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+                {
+                    joule = new Joule((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                }
             }
-            joule = null;
             return joule;
         }
     }

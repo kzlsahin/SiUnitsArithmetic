@@ -80,7 +80,7 @@ namespace SIUnits
         public Newton Convert(DerivedUnit derivedUnit)
         {
             Newton newton = null;
-            if (derivedUnit.Degree == Ohm.refDegree)
+            if (derivedUnit.Degree == Newton.refDegree)
             {
                 if (
                 derivedUnit.MemberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
