@@ -23,6 +23,7 @@ namespace SIUnits
         /// <summary>
         /// initializes a Ohm type DerivedUnit in kg.m/s2.A2.
         /// </summary>
+        /// <remarks>Check degrees before calling this method!</remarks>
         internal static new Ohm New(Dictionary<Guid, IBasicUnit> memberUnits)
         {
             Ohm ohm;

@@ -20,11 +20,13 @@ namespace SIUnits
         }
         SpecialUnitMap()
         {
-            _constructorMap = new Dictionary<DerivedDegree, Func<Dictionary<Guid, IBasicUnit>, DerivedUnit>>();
-            _constructorMap.Add(Newton.refDegree, Newton.New);
-            _constructorMap.Add(Joule.refDegree, Joule.New);
-            _constructorMap.Add(Volt.refDegree, Volt.New);
-            _constructorMap.Add(Ohm.refDegree, Ohm.New);
+            _constructorMap = new Dictionary<DerivedDegree, Func<Dictionary<Guid, IBasicUnit>, DerivedUnit>>
+            {
+                { Newton.refDegree, Newton.New },
+                { Newton.refDegree, Newton.New },
+                { Volt.refDegree, Volt.New },
+                { Ohm.refDegree, Ohm.New }
+            };
         }
 
         Dictionary<DerivedDegree, Func<Dictionary<Guid, IBasicUnit>, DerivedUnit>> _constructorMap;

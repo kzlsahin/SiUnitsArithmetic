@@ -21,6 +21,7 @@ namespace SIUnits
         /// <summary>
         /// initializes a Volt type DerivedUnit in kg.m/s2.
         /// </summary>
+        /// <remarks>Check degrees before calling this method!</remarks>
         internal static new Volt New(Dictionary<Guid, IBasicUnit> memberUnits)
         {
             Volt ohm;
