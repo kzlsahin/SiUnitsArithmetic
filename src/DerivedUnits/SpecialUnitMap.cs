@@ -30,32 +30,7 @@ namespace SIUnits
         }
 
         Dictionary<DerivedDegree, Func<Dictionary<Guid, IBasicUnit>, DerivedUnit>> _constructorMap;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="refdegree"></param>
-        /// <param name="constructor"></param>
-        /// <returns></returns>
-        public bool RegisterSpecialUnit<T>(DerivedDegree refdegree, Func<Dictionary<Guid, IBasicUnit>, CustomSpecialUnit<T>> constructor) where T : CustomSpecialUnit<T>
-        {
-            bool res = AddConstructor(refdegree, constructor);
-            if (UnitConfig.Protectionlevel < 1)
-            {
-                return res;
-            }
-            else
-            {
-                if(res == false)
-                {
-                    throw new InvalidOperationException("The special unit you have been trying to register has the same combination of unit degrees with an existing special unit.");
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
+
         /// <summary>
         /// 
         /// </summary>
