@@ -73,7 +73,7 @@ namespace SIUnits
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return this.GetHashCode();
+            return base.GetHashCode();
         }
 
         public override string ToString()
