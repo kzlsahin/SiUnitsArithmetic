@@ -59,7 +59,10 @@ namespace SIUnits
                 }
                 else
                 {
-                    return false;
+                    if(MemberDegree.Value != 0)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
