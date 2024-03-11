@@ -11,20 +11,43 @@ namespace SIUnits
     /// </summary>
     public sealed class Newton : DerivedUnit
     {
-        internal readonly static DerivedDegree refDegree = new DerivedDegree(new DegreePair(MetricLength.ID, 1), new DegreePair(MetricTime.ID, -2), new DegreePair(MetricMass.ID, 1));
-        
-        Newton(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
+        internal readonly static DerivedDegree refDegree = new DerivedDegree(
+            new KeyValuePair<Guid, int>(MetricLength.ID, 1),
+            new KeyValuePair<Guid, int>(MetricTime.ID, -2),
+            new KeyValuePair<Guid, int>(MetricMass.ID, 1)
+            );
+        Newton(params IBasicUnit[] units) : base(units)
         {
         }
         /// <summary>
         /// initializes a Newton type DerivedUnit in kg.m/s2.
         /// </summary>
-        /// <param name="lengthUnit"></param>
-        /// <param name="timeUnit"></param>
-        /// <param name="massUnit"></param>
-        public static new Newton New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        /// <param name="memberUnits"></param>
+        /// <remarks>Check degrees before calling this method!</remarks>
+        /// <returns></returns>
+        internal static new Newton New(Dictionary<Guid, IBasicUnit> memberUnits)
         {
-            return new Newton(lengthUnit, timeUnit, massUnit);
+            Newton newton;
+            if (
+                memberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                memberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                memberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+            {
+                newton = new Newton((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                return newton;
+            }
+            return null;
+        }
+        /// <summary>
+        /// initializes a Newton type DerivedUnit in kg.m/s2.
+        /// </summary>
+        public static Newton New(double value)
+        {
+            var l_unit = (value).m(1);
+            var t_unit = 1.second(-2);
+            var m_unit = 1.kg(1);
+            return new Newton(l_unit, t_unit, m_unit);
         }
         /// <summary>
         /// converts a derived unit into Newton if the derivedunit is in mass*length/time^2.
@@ -36,8 +59,15 @@ namespace SIUnits
         {
             if (derivedUnit.Degree == Newton.refDegree)
             {
-                newton = new Newton(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
-                return true;
+                if (
+                derivedUnit.MemberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+                {
+                    newton = new Newton((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                    return true;
+                }
             }
             newton = null;
             return false;
@@ -49,13 +79,18 @@ namespace SIUnits
         /// <returns>Return new Newton object or null</returns>
         public Newton Convert(DerivedUnit derivedUnit)
         {
-            Newton newton;
-            if (derivedUnit.Degree == Newton.refDegree)
+            Newton newton = null;
+            if (derivedUnit.Degree == Ohm.refDegree)
             {
-                newton = new Newton(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
-                return newton;
+                if (
+                derivedUnit.MemberUnits.TryGetValue(MetricLength.ID, out IBasicUnit l_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricTime.ID, out IBasicUnit t_unit) &&
+                derivedUnit.MemberUnits.TryGetValue(MetricMass.ID, out IBasicUnit m_unit)
+                )
+                {
+                    newton = new Newton((MetricLength)l_unit, (MetricTime)t_unit, (MetricMass)m_unit);
+                }
             }
-            newton = null;
             return newton;
         }
     }
