@@ -4,14 +4,12 @@ using System.Text;
 
 namespace SIUnits.Artihmetic
 {
-    internal class ArithmeticOperations<T, U>
-        where T : Metric<U>
-        where U : Enum
+    internal class ArithmeticOperations
     {
-        static ArithmeticOperations<T, U> _instance;
-        internal static ArithmeticOperations<T, U> Instance
+        static ArithmeticOperations _instance;
+        internal static ArithmeticOperations Instance
         {
-            get { return _instance ?? (_instance = new ArithmeticOperations<T, U>()); }
+            get { return _instance ?? (_instance = new ArithmeticOperations()); }
         }
         protected ArithmeticOperations()
         {
@@ -30,9 +28,13 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of Sum operator shall be same type");
+            }
             int unitOrder = a.UnitOrder;
             double value = (a.GetValueBy(unitOrder) + b.GetValueBy(unitOrder));
-            return (T)a.NewInstance(value, a.Degree, unitOrder);
+            return a.NewInstance(value, a.Degree, unitOrder);
         }
         /// <summary>
         /// Subtraction of two T units.Caution! error-prone method. Subtraction of two units with different degrees throws exception
@@ -47,42 +49,54 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be subtracted");
             }
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of Sum operator shall be same type");
+            }
             int unitOrder = a.UnitOrder;
             double value = (a.GetValueBy(unitOrder) - b.GetValueBy(unitOrder));
-            return (T)a.NewInstance(value, a.Degree, unitOrder);
+            return a.NewInstance(value, a.Degree, unitOrder);
         }
         internal IBasicUnit Multiply(IBasicUnit a, IBasicUnit b)
         {
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of basic multiply operator shall be same type");
+            }
             int unitOrder = a.UnitOrder;
             int deg = a.Degree + b.Degree;
             double value = (a.GetValueBy(unitOrder) * b.GetValueBy(unitOrder));
-            return (T)a.NewInstance(value, deg, unitOrder);
+            return a.NewInstance(value, deg, unitOrder);
         }
         internal IBasicUnit Multiply(double a, IBasicUnit b)
         {
             int unitOrder = b.UnitOrder;
             double value = b.Value * a;
-            return (T)b.NewInstance(value, b.Degree, unitOrder);
+            return b.NewInstance(value, b.Degree, unitOrder);
         }
-        internal T Divide(IBasicUnit a, IBasicUnit b)
+        internal IBasicUnit Divide(IBasicUnit a, IBasicUnit b)
         {
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of basic devide operator shall be same type");
+            }
             int unitOrder = a.UnitOrder;
             int deg = a.Degree - b.Degree;
             double value = (a.GetValueBy(unitOrder) / b.GetValueBy(unitOrder));
-            return (T)a.NewInstance(value, deg, unitOrder);
+            return a.NewInstance(value, deg, unitOrder);
         }
         internal IBasicUnit Divide(IBasicUnit a, double b)
         {
             int unitOrder = a.UnitOrder;
             double value = a.Value / b;
-            return (T)a.NewInstance(value, a.Degree, unitOrder);
+            return a.NewInstance(value, a.Degree, unitOrder);
         }
         internal IBasicUnit Divide(double a, IBasicUnit b)
         {
             int unitOrder = b.UnitOrder;
             double value = a / b.Value;
             int degree = -1 * b.Degree;
-            return (T)b.NewInstance(value, degree, unitOrder);
+            return b.NewInstance(value, degree, unitOrder);
         }
         /// <summary>
         /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
@@ -93,6 +107,10 @@ namespace SIUnits.Artihmetic
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
         internal bool IsLessThen(IBasicUnit a, IBasicUnit b)
         {
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of basic less than operator shall be same type");
+            }
             bool isEqual = a.Degree == b.Degree;
             bool lessThen;
             if (isEqual)
@@ -115,6 +133,10 @@ namespace SIUnits.Artihmetic
         /// <exception cref="ArgumentException">throws exception if degrees are not equal.</exception>
         internal bool IsGreaterThen(IBasicUnit a, IBasicUnit b)
         {
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of basic greater than operator shall be same type");
+            }
             bool isEqual = a.Degree == b.Degree;
             bool greaterThen;
             if (isEqual)
@@ -130,6 +152,10 @@ namespace SIUnits.Artihmetic
         }
         internal bool IsEqual(IBasicUnit a, IBasicUnit b)
         {
+            if (a.GetType() != b.GetType())
+            {
+                throw new ArgumentException("operants of basic equal to operator shall be same type");
+            }
             bool isEqual = a.Degree == b.Degree;
             if (isEqual)
             {

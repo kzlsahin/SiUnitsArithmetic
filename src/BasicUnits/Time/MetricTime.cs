@@ -51,14 +51,14 @@ namespace SIUnits
         public override Guid Id { get => _id; }
         public static Guid ID { get => _id; }
 
-        readonly static ArithmeticOperations<MetricTime, SiTimeUnits> _arithmetics = ArithmeticOperations<MetricTime, SiTimeUnits>.Instance;
+        readonly static ArithmeticOperations _arithmetics = ArithmeticOperations.Instance;
 
         #region operators
         public static MetricTime operator *(MetricTime a, MetricTime b) => (MetricTime)_arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricTime a, IBasicUnit b) => a.ToCompositeUnit() * b.ToCompositeUnit();
         public static MetricTime operator *(MetricTime a, double b) => (MetricTime)_arithmetics.Multiply(b, a);
         public static MetricTime operator *(double a, MetricTime b) => (MetricTime)_arithmetics.Multiply(a, b);
-        public static MetricTime operator /(MetricTime a, MetricTime b) => _arithmetics.Divide(a, b);
+        public static MetricTime operator /(MetricTime a, MetricTime b) => (MetricTime)_arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricTime a, IBasicUnit b) => a.ToCompositeUnit() / b.ToCompositeUnit();
         public static MetricTime operator /(MetricTime a, double b) => (MetricTime)_arithmetics.Divide(a, b);
         public static MetricTime operator /(double a, MetricTime b) => (MetricTime)_arithmetics.Divide(a, b);

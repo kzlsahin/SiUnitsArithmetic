@@ -54,14 +54,14 @@ namespace SIUnits
         public override Guid Id { get => _id; }
         public static Guid ID { get => _id; }
 
-        readonly static ArithmeticOperations<Temperature, SiTemperatureUnits> _arithmetics = ArithmeticOperations<Temperature, SiTemperatureUnits>.Instance;
+        readonly static ArithmeticOperations _arithmetics = ArithmeticOperations.Instance;
 
         #region operators
         public static Temperature operator *(Temperature a, Temperature b) => (Temperature)_arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(Temperature a, IBasicUnit b) => a.ToCompositeUnit() * b.ToCompositeUnit();
         public static Temperature operator *(Temperature a, double b) => (Temperature)_arithmetics.Multiply(b, a);
         public static Temperature operator *(double a, Temperature b) => (Temperature)_arithmetics.Multiply(a, b);
-        public static Temperature operator /(Temperature a, Temperature b) => _arithmetics.Divide(a, b);
+        public static Temperature operator /(Temperature a, Temperature b) => (Temperature)_arithmetics.Divide(a, b);
         public static DerivedUnit operator /(Temperature a, IBasicUnit b) => a.ToCompositeUnit() / b.ToCompositeUnit();
         public static Temperature operator /(Temperature a, double b) => (Temperature)_arithmetics.Divide(a, b);
         public static Temperature operator /(double a, Temperature b) => (Temperature)_arithmetics.Divide(a, b);

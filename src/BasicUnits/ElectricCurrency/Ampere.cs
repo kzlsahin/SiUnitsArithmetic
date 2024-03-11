@@ -69,7 +69,7 @@ namespace SIUnits
         public override Guid Id { get => _id; }
         public static Guid ID { get => _id; }
 
-        readonly static ArithmeticOperations<Ampere, SiAmpereUnits> _arithmetics = ArithmeticOperations<Ampere, SiAmpereUnits>.Instance;
+        readonly static ArithmeticOperations _arithmetics = ArithmeticOperations.Instance;
         #region operators
         /// <summary>
         /// Multiplies a Ampere with another Ampere by converting the unit of the one of the operants to the unit ot otherone and multiplies the values.

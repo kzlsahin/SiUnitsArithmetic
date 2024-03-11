@@ -69,7 +69,7 @@ namespace SIUnits
         public override Guid Id { get => _id; }
         public static Guid ID { get => _id; }
 
-        readonly static ArithmeticOperations<MetricLength, SiMetricUnits> _arithmetics = ArithmeticOperations<MetricLength, SiMetricUnits>.Instance;
+        readonly static ArithmeticOperations _arithmetics = ArithmeticOperations.Instance;
         #region operators
         /// <summary>
         /// Multiplies a MetricLength with another MetricLength by converting the unit of the one of the operants to the unit ot otherone and multiplies the values.
@@ -103,7 +103,7 @@ namespace SIUnits
         /// <param name="b"></param>
         /// <returns>returns new MetricLength as a result of the scaler multiplication of the MetricLength.</returns>
         public static MetricLength operator *(double a, MetricLength b) => (MetricLength)_arithmetics.Multiply(a, b);
-        public static MetricLength operator /(MetricLength a, MetricLength b) => _arithmetics.Divide(a, b);
+        public static MetricLength operator /(MetricLength a, MetricLength b) => (MetricLength)_arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricLength a, MetricMass b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, MetricTime b) => a.ToCompositeUnit() / b;
         public static DerivedUnit operator /(MetricLength a, Ampere b) => a.ToCompositeUnit() / b;

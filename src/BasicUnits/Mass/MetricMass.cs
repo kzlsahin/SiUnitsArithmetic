@@ -55,14 +55,14 @@ namespace SIUnits
         public override Guid Id { get => _id; }
         public static Guid ID { get => _id; }
 
-        readonly static ArithmeticOperations<MetricMass, SiMassUnits> _arithmetics = ArithmeticOperations<MetricMass, SiMassUnits>.Instance;
+        readonly static ArithmeticOperations _arithmetics = ArithmeticOperations.Instance;
 
         #region operators
         public static MetricMass operator *(MetricMass a, MetricMass b) => (MetricMass)_arithmetics.Multiply(a, b);
         public static DerivedUnit operator *(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() * b.ToCompositeUnit();
         public static MetricMass operator *(MetricMass a, double b) => (MetricMass)_arithmetics.Multiply(b, a);
         public static MetricMass operator *(double a, MetricMass b) => (MetricMass)_arithmetics.Multiply(a, b);
-        public static MetricMass operator /(MetricMass a, MetricMass b) => _arithmetics.Divide(a, b);
+        public static MetricMass operator /(MetricMass a, MetricMass b) => (MetricMass)_arithmetics.Divide(a, b);
         public static DerivedUnit operator /(MetricMass a, IBasicUnit b) => a.ToCompositeUnit() / b.ToCompositeUnit();
         public static MetricMass operator /(MetricMass a, double b) => (MetricMass)_arithmetics.Divide(a, b);
         public static MetricMass operator /(double a, MetricMass b) => (MetricMass)_arithmetics.Divide(a, b);
