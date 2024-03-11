@@ -5,7 +5,7 @@ using System.Text;
 namespace SIUnits
 {
     /// <summary>
-    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2⋅s−3⋅A−1.
+    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2/s3⋅A.
     /// </summary>
     public sealed class Volt : DerivedUnit
     {
@@ -15,7 +15,7 @@ namespace SIUnits
         {
         }
         /// <summary>
-        /// initializes a Volt type DerivedUnit in kg.m/s2.
+        /// initializes a Volt type DerivedUnit in kg.m/s2.A.
         /// </summary>
         /// <param name="lengthUnit"></param>
         /// <param name="timeUnit"></param>
@@ -25,7 +25,7 @@ namespace SIUnits
             return new Volt(lengthUnit, timeUnit, massUnit, ampere);
         }
         /// <summary>
-        /// converts a derived unit into Volt if the derivedunit is in kg⋅m2⋅s−3⋅A−1.
+        /// converts a derived unit into Volt if the derivedunit is in kg⋅m2/s−3⋅A.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <param name="volt"></param>
@@ -41,7 +41,7 @@ namespace SIUnits
             return false;
         }
         /// <summary>
-        /// converts a derived unit into Volt if the derivedunit is in kg⋅m2⋅s−3⋅A−1.
+        /// converts a derived unit into Volt if the derivedunit is in kg⋅m2/s3⋅A1.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <returns></returns>

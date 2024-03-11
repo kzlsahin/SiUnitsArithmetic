@@ -5,7 +5,7 @@ using System.Text;
 namespace SIUnits
 {
     /// <summary>
-    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2⋅s−3⋅A−2.
+    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2/s3⋅A2.
     /// </summary>
     public sealed class Ohm : DerivedUnit
     {
@@ -25,7 +25,7 @@ namespace SIUnits
             return new Ohm(lengthUnit, timeUnit, massUnit, ampereUnit);
         }
         /// <summary>
-        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2⋅s−3⋅A−2.
+        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2/s3⋅A2.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <param name="ohm"></param>
@@ -41,7 +41,7 @@ namespace SIUnits
             return false;
         }
         /// <summary>
-        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2⋅s−3⋅A−1.
+        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2/s3⋅A2.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <returns></returns>
