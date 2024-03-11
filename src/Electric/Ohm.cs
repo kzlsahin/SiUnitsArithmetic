@@ -5,13 +5,13 @@ using System.Text;
 namespace SIUnits
 {
     /// <summary>
-    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2⋅s−3⋅A−2.
+    /// A unit of Electric potential difference, Joule per coulomb derived from DerievedUnit in kg⋅m2/s3⋅A2.
     /// </summary>
     public sealed class Ohm : DerivedUnit
     {
         internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -3, 1, -2);
 
-        Ohm(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
+        Ohm(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), ampereUnit)
         {
         }
         /// <summary>
@@ -20,12 +20,12 @@ namespace SIUnits
         /// <param name="lengthUnit"></param>
         /// <param name="timeUnit"></param>
         /// <param name="massUnit"></param>
-        public static new Ohm New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        public static new Ohm New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
         {
-            return new Ohm(lengthUnit, timeUnit, massUnit);
+            return new Ohm(lengthUnit, timeUnit, massUnit, ampereUnit);
         }
         /// <summary>
-        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2⋅s−3⋅A−2.
+        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2/s3⋅A2.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <param name="ohm"></param>
@@ -34,14 +34,14 @@ namespace SIUnits
         {
             if (derivedUnit.Degree == Ohm.refDegree)
             {
-                ohm = new Ohm(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                ohm = new Ohm(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return true;
             }
             ohm = null;
             return false;
         }
         /// <summary>
-        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2⋅s−3⋅A−1.
+        /// converts a derived unit into Ohm if the derivedunit is in kg⋅m2/s3⋅A2.
         /// </summary>
         /// <param name="derivedUnit"></param>
         /// <returns></returns>
@@ -50,7 +50,7 @@ namespace SIUnits
             Ohm ohm;
             if (derivedUnit.Degree == Ohm.refDegree)
             {
-                ohm = new Ohm(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                ohm = new Ohm(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return ohm;
             }
             ohm = null;

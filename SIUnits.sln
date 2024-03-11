@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BencmarkConsole", "Bencmark
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricUnitTests", "MetricUnitTests\MetricUnitTests.csproj", "{D9875562-87AD-46EF-A45E-9F09F95892BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIUnitsPlayground", "SIUnitsPlayground\SIUnitsPlayground.csproj", "{AAA65A10-4F5C-4611-B50F-2A38665328D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9875562-87AD-46EF-A45E-9F09F95892BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA65A10-4F5C-4611-B50F-2A38665328D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA65A10-4F5C-4611-B50F-2A38665328D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA65A10-4F5C-4611-B50F-2A38665328D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA65A10-4F5C-4611-B50F-2A38665328D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -100,7 +100,7 @@ namespace MetricUnitTests.ArithmeticTests
         {
             UnitConfig.UnitPrecision = 6;
 
-            Newton f1 = (Newton)((1.kg() * 1.m()) / 1.second(2));
+            Newton? f1 = ((1.kg() * 1.m()) / 1.second(2)) as Newton;
             Assert.IsTrue(f1 is Newton);
 
             var speed = 2.km() / 1.hour();
