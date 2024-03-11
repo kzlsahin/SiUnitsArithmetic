@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SIUnits.Artihmetic
@@ -22,30 +23,37 @@ namespace SIUnits.Artihmetic
                 return _instance;
             }
         }
+        internal ArithmeticOperations basicOps = ArithmeticOperations.Instance;
         internal DerivedUnit Multiply(DerivedUnit a, DerivedUnit b)
         {
-            var memberUnits = new Dictionary<int, DerivedUnit>();
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
             foreach(var unit in a.MemberUnits)
             {
                 var id = unit.Key;
-                memberUnits.Add(a.MemberUnits[id] * b.MemberUnits[id]);
+                memberUnits.Add(id, basicOps.Multiply(a.MemberUnits[id], b.MemberUnits[id]));
             }   
-            DerivedUnit newUnit = DerivedUnit.New(
-                a.l_unit * b.l_unit,
-                a.t_unit * b.t_unit,
-                a.m_unit * b.m_unit,
-                a.a_unit * b.a_unit
-                );
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
             return newUnit;
         }
 
         internal DerivedUnit Multiply(DerivedUnit a, double b)
         {
-            MetricLength newL = a.l_unit * b;
-            MetricTime newT = a.t_unit;
-            MetricMass newM = a.m_unit;
-            Ampere newA = a.a_unit;
-            return DerivedUnit.New(newL, newT, newM, newA);
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            bool multiplied = false;
+            foreach (var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                if (!multiplied)
+                {
+                    memberUnits.Add(id, basicOps.Multiply(b, unit.Value));
+                }
+                else
+                {
+                    memberUnits.Add(id, a.MemberUnits[id]);
+                }
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
+            return newUnit;
         }
 
         internal DerivedUnit Sum(DerivedUnit a, DerivedUnit b)
@@ -54,19 +62,25 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
-            SiMetricUnits l_metric = b.l_unit.Unit;
-            SiTimeUnits t_metric = b.t_unit.Unit;
-            SiMassUnits m_metric = b.m_unit.Unit;
-            SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(b);
             double value_b = b.Value;
             double value = value_a + value_b;
-            DerivedUnit newUnit = DerivedUnit.New(
-                new MetricLength(value, a.Degree.l_degree, l_metric),
-                new MetricTime(1, a.Degree.t_degree, t_metric),
-                new MetricMass(1, a.Degree.m_degree, m_metric),
-                new Ampere(1, a.Degree.m_degree, a_metric)
-                );
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            bool isSet = false;
+            foreach (var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                var u = unit.Value;
+                if (!isSet)
+                {                    
+                    memberUnits.Add(id, u.NewInstance(value, u.Degree, u.UnitOrder));
+                }
+                else
+                {
+                    memberUnits.Add(id, u.NewInstance(1, u.Degree, u.UnitOrder));
+                }
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
             return newUnit;
         }
         internal DerivedUnit Subtract(DerivedUnit a, DerivedUnit b)
@@ -75,46 +89,75 @@ namespace SIUnits.Artihmetic
             {
                 throw new ArgumentException("various degrees of SiUnits cannot be summed");
             }
-            SiMetricUnits l_metric = b.l_unit.Unit;
-            SiTimeUnits t_metric = b.t_unit.Unit;
-            SiMassUnits m_metric = b.m_unit.Unit;
-            SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(b);
             double value_b = b.Value;
             double value = value_a - value_b;
-            DerivedUnit newUnit = DerivedUnit.New(
-                new MetricLength(value, a.Degree.l_degree, l_metric),
-                new MetricTime(1, a.Degree.t_degree, t_metric),
-                new MetricMass(1, a.Degree.m_degree, m_metric),
-                new Ampere(1, a.Degree.m_degree, a_metric)
-                );
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            bool isSet = false;
+            foreach (var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                var u = unit.Value;
+                if (!isSet)
+                {
+                    memberUnits.Add(id, u.NewInstance(value, u.Degree, u.UnitOrder));
+                }
+                else
+                {
+                    memberUnits.Add(id, u.NewInstance(1, u.Degree, u.UnitOrder));
+                }
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
             return newUnit;
         }
         internal DerivedUnit Divide(DerivedUnit a, DerivedUnit b)
         {
-            DerivedUnit newUnit = DerivedUnit.New(
-               a.l_unit / b.l_unit,
-               a.t_unit / b.t_unit,
-               a.m_unit / b.m_unit,
-               a.a_unit / b.a_unit
-               );
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            foreach (var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                memberUnits.Add(id, basicOps.Divide(a.MemberUnits[id], b.MemberUnits[id]));
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
             return newUnit;
         }
         internal DerivedUnit Divide(DerivedUnit a, double b)
         {
-            MetricLength newL = a.l_unit / b;
-            MetricTime newT = a.t_unit;
-            MetricMass newM = a.m_unit;
-            Ampere newA = a.a_unit;
-            return DerivedUnit.New(newL, newT, newM, newA);
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            bool multiplied = false;
+            foreach (var unit in a.MemberUnits)
+            {
+                var id = unit.Key;
+                if (!multiplied)
+                {
+                    memberUnits.Add(id, basicOps.Divide(unit.Value, b));
+                }
+                else
+                {
+                    memberUnits.Add(id, unit.Value);
+                }
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
+            return newUnit;
         }
         internal DerivedUnit Divide(double a, DerivedUnit b)
         {
-            MetricLength newL = a / b.l_unit;
-            MetricTime newT = 1 / b.t_unit;
-            MetricMass newM = 1 / b.m_unit;
-            Ampere newA = 1 / b.a_unit;
-            return DerivedUnit.New(newL, newT, newM, newA);
+            var memberUnits = new Dictionary<Guid, IBasicUnit>();
+            bool multiplied = false;
+            foreach (var unit in b.MemberUnits)
+            {
+                var id = unit.Key;
+                if (!multiplied)
+                {
+                    memberUnits.Add(id, basicOps.Divide(a, unit.Value));
+                }
+                else
+                {
+                    memberUnits.Add(id, basicOps.Divide(1, unit.Value));
+                }
+            }
+            DerivedUnit newUnit = DerivedUnit.New(memberUnits);
+            return newUnit;
         }
         /// <summary>
         /// Checks if the value of a is less then value of b. Degrees of both units shall be equal.
@@ -129,11 +172,7 @@ namespace SIUnits.Artihmetic
             bool lessThen;
             if (isEqual)
             {
-                SiMetricUnits l_metric = b.l_unit.Unit;
-                SiTimeUnits t_metric = b.t_unit.Unit;
-                SiMassUnits m_metric = b.m_unit.Unit;
-                SiAmpereUnits a_metric = b.a_unit.Unit;
-                double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
+                double value_a = a.GetValueByRef(b);
                 lessThen = value_a < b.Value;
             }
             else
@@ -155,11 +194,7 @@ namespace SIUnits.Artihmetic
             bool greaterThen;
             if (isEqual)
             {
-                SiMetricUnits l_metric = b.l_unit.Unit;
-                SiTimeUnits t_metric = b.t_unit.Unit;
-                SiMassUnits m_metric = b.m_unit.Unit;
-                SiAmpereUnits a_metric = b.a_unit.Unit;
-                double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
+                double value_a = a.GetValueByRef(b);
                 greaterThen = value_a > b.Value;
             }
             else
@@ -170,11 +205,7 @@ namespace SIUnits.Artihmetic
         }
         internal bool IsEqual(DerivedUnit a, DerivedUnit b)
         {
-            SiMetricUnits l_metric = b.l_unit.Unit;
-            SiTimeUnits t_metric = b.t_unit.Unit;
-            SiMassUnits m_metric = b.m_unit.Unit;
-            SiAmpereUnits a_metric = b.a_unit.Unit;
-            double value_a = a.GetValueByRef(l_metric, t_metric, m_metric, a_metric);
+            double value_a = a.GetValueByRef(b);
             if (UnitConfig.UnitPrecision == 0)
             {
                 return value_a == b.Value;
