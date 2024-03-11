@@ -11,7 +11,7 @@ namespace SIUnits
     {
         internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -2, 1, 0);
         
-        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
+        Joule(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), ampereUnit)
         {
         }
         /// <summary>
@@ -20,9 +20,9 @@ namespace SIUnits
         /// <param name="lengthUnit"></param>
         /// <param name="timeUnit"></param>
         /// <param name="massUnit"></param>
-        public static new Joule New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        public static new Joule New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampereUnit)
         {
-            return new Joule(lengthUnit, timeUnit, massUnit);
+            return new Joule(lengthUnit, timeUnit, massUnit, ampereUnit);
         }
         /// <summary>
         /// converts a derived unit into Joule if the derivedunit is in mass*length^2/time^2.
@@ -34,7 +34,7 @@ namespace SIUnits
         {
             if (derivedUnit.Degree == Joule.refDegree)
             {
-                Joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                Joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return true;
             }
             Joule = null;
@@ -50,7 +50,7 @@ namespace SIUnits
             Joule joule;
             if (derivedUnit.Degree == Joule.refDegree)
             {
-                joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                joule = new Joule(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return joule;
             }
             joule = null;

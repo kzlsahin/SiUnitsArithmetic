@@ -11,7 +11,7 @@ namespace SIUnits
     {
         internal readonly static DerivedDegree refDegree = new DerivedDegree(2, -3, 1, -1);
 
-        Volt(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), Ampere.ScalerOne)
+        Volt(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampere) : base(lengthUnit.m(), timeUnit.second(), massUnit.kg(), ampere)
         {
         }
         /// <summary>
@@ -20,9 +20,9 @@ namespace SIUnits
         /// <param name="lengthUnit"></param>
         /// <param name="timeUnit"></param>
         /// <param name="massUnit"></param>
-        public static new Volt New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit)
+        public static new Volt New(MetricLength lengthUnit, MetricTime timeUnit, MetricMass massUnit, Ampere ampere)
         {
-            return new Volt(lengthUnit, timeUnit, massUnit);
+            return new Volt(lengthUnit, timeUnit, massUnit, ampere);
         }
         /// <summary>
         /// converts a derived unit into Volt if the derivedunit is in kg⋅m2⋅s−3⋅A−1.
@@ -34,7 +34,7 @@ namespace SIUnits
         {
             if (derivedUnit.Degree == Volt.refDegree)
             {
-                volt = new Volt(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                volt = new Volt(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return true;
             }
             volt = null;
@@ -50,7 +50,7 @@ namespace SIUnits
             Volt volt;
             if (derivedUnit.Degree == Volt.refDegree)
             {
-                volt = new Volt(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit);
+                volt = new Volt(derivedUnit.l_unit, derivedUnit.t_unit, derivedUnit.m_unit, derivedUnit.a_unit);
                 return volt;
             }
             volt = null;
