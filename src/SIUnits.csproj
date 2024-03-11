@@ -10,7 +10,7 @@
     <Description>SIUnitsArithmetic defines metric system units and provides related arithmetic operations including unit to unit multiplication even with compound units  of any combination of basic units, resulting in higher or lower order units (m², 1/m or m/s). 
 Derived units compund of any combination of basic units (length, time, mass, electric currency) are supported, Newton, Joule, Volt and Ohm units are also included as special derived units.</Description>
     <Copyright>MIT License</Copyright>
-    <Version>1.3.3</Version>
+    <Version>1.3.4</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/kzlsahin/SiUnitsArithmetic</RepositoryUrl>
@@ -33,9 +33,13 @@ Derived units compund of any combination of basic units (length, time, mass, ele
 * Convert() method is added to special DerivedUnits
 * TryConvert() and Convert() methods are added to CustomSpecialUnit.
 * Ohm and Volt special derived units are added.
-* CustomSpecialUnit registery is moved into a static constructor of its class definition in the example.</PackageReleaseNotes>
+* CustomSpecialUnit registery is moved into a static constructor of its class definition in the example.
+
+1.3.4
+* SpecialUnit conversion bugs are resolved.</PackageReleaseNotes>
   <Configurations>Debug;Release</Configurations>
   <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Benchmark|AnyCPU'">
