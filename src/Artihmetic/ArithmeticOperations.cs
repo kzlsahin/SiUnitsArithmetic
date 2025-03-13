@@ -18,7 +18,7 @@ namespace SIUnits.Artihmetic
 
         }
         /// <summary>
-        /// Addition of two T units.Caution! error-prone method. Summation of two units with different degrees throws exception
+        /// Addition of two T units. Caution! error-prone method. Summation of two units with different degrees throws exception
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -35,7 +35,7 @@ namespace SIUnits.Artihmetic
             return (T)a.NewInstance(value, a.Degree, unitOrder);
         }
         /// <summary>
-        /// Subtraction of two T units.Caution! error-prone method. Subtraction of two units with different degrees throws exception
+        /// Subtraction of two T units. Caution! error-prone method. Subtraction of two units with different degrees throws exception
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
